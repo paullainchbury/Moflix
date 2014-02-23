@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140223174052) do
+ActiveRecord::Schema.define(:version => 20140223225809) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -30,6 +30,9 @@ ActiveRecord::Schema.define(:version => 20140223174052) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "events_users", ["event_id"], :name => "index_events_users_on_event_id"
+  add_index "events_users", ["user_id"], :name => "index_events_users_on_user_id"
+
   create_table "status_updates", :force => true do |t|
     t.integer  "user_id"
     t.integer  "event_id"
@@ -44,7 +47,6 @@ ActiveRecord::Schema.define(:version => 20140223174052) do
   add_index "status_updates", ["user_id"], :name => "index_status_updates_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -56,9 +58,14 @@ ActiveRecord::Schema.define(:version => 20140223174052) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "image"
+    t.string   "facebook_token"
+    t.string   "email",                  :default => "", :null => false
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

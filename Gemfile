@@ -7,6 +7,9 @@ gem 'rails', '3.2.16'
 
 gem 'pg'
 gem 'devise'
+gem 'omniauth-facebook'
+gem 'koala'
+gem 'pry-byebug'
 
 
 # Gems used only for assets and not required

@@ -20,6 +20,20 @@
   <%= @event.privacy_status %>
 </p>
 
+<p>
+  <b>Users:</b>
+  Show users attending
+</p>
+
+<% @event.status_updates.each do |status_update| %>
+  <% if status_update.message %>
+    <%= status_update.message %><br/>
+    <%= status_update.poster %> - <%= time_ago_in_words(status_update.update_time) %> ago<br/>
+    <%= status_update.update_time %><br/>
+    --------<br/>
+  <% end %>
+<% end %>
+
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>

@@ -19,10 +19,28 @@ class User < ActiveRecord::Base
       user.name = auth.info.name
       user.image = auth.info.image # assuming the user model has an image
     end
-end
+  end
 
-def facebook_details
-  @facebook_details ||= Koala::Facebook::API.new(facebook_token)
-end
+  def facebook_details
+    @facebook_details ||= Koala::Facebook::API.new(facebook_token)
+  end
+
+  def statuses()
+    self.facebook_details.get_connections("me","statuses")
+
+    # if starttime != "" && endtime != ""
+    #   raw_statuses.each do |raw_status|
+        
+
+    #   end
+    # end
+
+    # if starttime != "" && endtime != ""
+    #   #return statuses within date range
+    #   return "nothing"
+    # else
+    #   return @statuses
+    # end
+  end
 
 end

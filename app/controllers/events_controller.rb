@@ -14,7 +14,6 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @event = Event.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @event }
@@ -41,6 +40,9 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(params[:event])
+    # Set the event organiser
+    @event.events_users.build(event: @event, user: current_user, user_type: "organiser")
+    # TODO Then loop through the other users to assign them to the event also (although not as organisers)
 
     respond_to do |format|
       if @event.save

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140223225809) do
+ActiveRecord::Schema.define(:version => 20140224183947) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -39,8 +39,13 @@ ActiveRecord::Schema.define(:version => 20140223225809) do
     t.datetime "update_time"
     t.string   "location"
     t.text     "content"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "fb_status_id"
+    t.string   "poster"
+    t.integer  "comments_count"
+    t.integer  "likes_count"
+    t.text     "message"
   end
 
   add_index "status_updates", ["event_id"], :name => "index_status_updates_on_event_id"

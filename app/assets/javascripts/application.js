@@ -12,4 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require lib/jquery.transit.min.js
+//= require lib/jquery.slideshowify.js
 //= require_tree .

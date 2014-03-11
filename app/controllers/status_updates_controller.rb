@@ -3,7 +3,6 @@ class StatusUpdatesController < ApplicationController
   # GET /status_updates.json
   def index
     @status_updates = StatusUpdate.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @status_updates }

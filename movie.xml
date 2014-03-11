@@ -1,0 +1,316 @@
+<movie service="craftsman-1.0">
+  <body>
+    
+    <!-- 
+      Stupeflix XML Editor - Default project
+    -->
+
+<stack>
+<audio filename="https://s3-eu-west-1.amazonaws.com/moflix/music/wedding.mp3" volume="0.5" fadeout="3.0" duration=".."/>
+<sequence>
+
+
+<stack duration="4.5">
+<effect type="kenburns" depthEnable="true" direction="negative" adapter="kenburnsAdapter" duration="15.0" timeOffset="0.0" >
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"> 
+</image>
+</effect>
+<text type="zone" left="0.1" bottom="0.32" height="0.18" fontcolor="#FFFFFF">
+            Our holiday to Chicago
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="left" duration="0.666666666667"/>
+            <animator type="slide-out" direction="left" duration="0.666666666667"/>
+            <animator type="slide" direction="left" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+          <text type="zone" left="0.1" bottom="0.28" height="0.10" fontcolor="#FFFFFF">
+            July 2013
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="right" duration="0.666666666667"/>
+            <animator type="slide-out" direction="right" duration="0.666666666667"/>
+            <animator type="slide" direction="right" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+
+</stack>
+
+<transition type="crossfade" duration="0.5" />
+
+<stack duration="5.0">
+<effect type="kenburns" depthEnable="true" direction="positive" adapter="kenburnsAdapter" duration="15.0" timeOffset="0.0" >
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"> 
+</image>
+</effect>
+<text type="zone" left="0.1" bottom="0.32" height="0.18" fontcolor="#FFFFFF">
+            "Here's another tweet or facebook status"
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="up" duration="0.666666666667"/>
+            <animator type="slide-out" direction="up" duration="0.666666666667"/>
+            <animator type="slide" direction="left" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+          <text type="zone" left="0.1" bottom="0.28" height="0.10" fontcolor="#FFFFFF">
+            Matthew Preston
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="left" duration="0.666666666667"/>
+            <animator type="slide-out" direction="left" duration="0.666666666667"/>
+            <animator type="slide" direction="right" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+
+</stack>
+
+
+<transition type="crossfade" duration="1" />
+
+
+<stack duration="15.50">
+
+<effect type="kenburns" depthEnable="true" direction="positive" adapter="kenburnsAdapter" duration="15.0" timeOffset="0.0" >
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg">
+    <filter type="blur" diameter="5.0" duration="1.0" timeOffset="0.0" >
+    </filter>
+</image>
+</effect>
+
+<overlay>
+<effect type="sliding" duration="15.0" timeOffset="0.0" >
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+
+</effect>
+</overlay>
+
+<sequence>
+<stack duration = "3.5">
+<text type="zone" left="0.1" bottom="0.32" height="0.18" fontcolor="#FFFFFF">
+            "Here's another tweet or facebook status"
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="up" duration="0.666666666667"/>
+            <animator type="slide-out" direction="up" duration="0.666666666667"/>
+            <animator type="slide" direction="left" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+          <text type="zone" left="0.1" bottom="0.28" height="0.10" fontcolor="#FFFFFF">
+            Matthew Preston
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="left" duration="0.666666666667"/>
+            <animator type="slide-out" direction="left" duration="0.666666666667"/>
+            <animator type="slide" direction="right" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+</stack>
+<stack duration = "3.5">
+<text type="zone" left="0.1" bottom="0.14" height="0.18" fontcolor="#FFFFFF">
+            "Here's another tweet or facebook status"
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="up" duration="0.666666666667"/>
+            <animator type="slide-out" direction="up" duration="0.666666666667"/>
+            <animator type="slide" direction="left" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+          <text type="zone" left="0.1" bottom="0.10" height="0.10" fontcolor="#FFFFFF">
+            Matthew Preston
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="left" duration="0.666666666667"/>
+            <animator type="slide-out" direction="left" duration="0.666666666667"/>
+            <animator type="slide" direction="right" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+</stack>
+<stack duration = "5">
+          <text type="zone" left="0.1" bottom="0.15" height="0.18" fontcolor="#FFFFFF">
+            "Here's another tweet or facebook status"
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="down" duration="2.0"/>
+            <animator type="slide-out" direction="left" duration="2.0"/>
+            <!-- <animator type="slide" direction="left" duration="4.0"/> -->
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="3.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="3.0"/>
+          </text>
+          
+          <text type="zone" left="0.1" bottom="0.10" height="0.10" fontcolor="#FFFFFF">
+            Perhaps the tweet author?
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="right" duration="2.0"/>
+            <animator type="slide-out" direction="right" duration="2.0"/>
+            <animator type="slide" direction="right" duration="4.0"/>
+          </text>
+</stack>
+</sequence>
+     
+          
+  </stack>
+
+<transition type="crossfade" duration="1" />
+
+<stack duration="9.5">
+
+<effect type="kenburns" depthEnable="true" direction="positive" adapter="kenburnsAdapter" duration="17.0" timeOffset="0.0" >
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg">
+    <filter type="blur" diameter="5.0" duration="1.0" timeOffset="0.0" >
+    </filter>
+</image>
+</effect>
+
+<overlay>
+<effect type="square" duration="9.5" timeOffset="0.0" >
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+</effect>
+</overlay>
+<sequence>
+<stack duration = "4">
+<text type="zone" left="0.1" bottom="0.32" height="0.18" fontcolor="#DDDDDD">
+            "Here's another tweet or facebook status"
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="up" duration="0.666666666667"/>
+            <animator type="slide-out" direction="up" duration="0.666666666667"/>
+            <animator type="slide" direction="left" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+          <text type="zone" left="0.1" bottom="0.28" height="0.10" fontcolor="#DDDDDD">
+            Matthew Preston
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="left" duration="0.666666666667"/>
+            <animator type="slide-out" direction="left" duration="0.666666666667"/>
+            <animator type="slide" direction="right" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+</stack>
+<stack duration = "4">
+<text type="zone" left="0.1" bottom="0.14" height="0.18" fontcolor="#DDDDDD">
+            "Here's another tweet or facebook status"
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="up" duration="0.666666666667"/>
+            <animator type="slide-out" direction="up" duration="0.666666666667"/>
+            <animator type="slide" direction="left" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+          <text type="zone" left="0.1" bottom="0.10" height="0.10" fontcolor="#DDDDDD">
+            Matthew Preston
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide-in" direction="left" duration="0.666666666667"/>
+            <animator type="slide-out" direction="left" duration="0.666666666667"/>
+            <animator type="slide" direction="right" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+</stack>
+</sequence>
+</stack>
+
+<transition type="crossfade" duration="1" />
+
+<stack duration="8.75">
+
+<effect type="kenburns" depthEnable="true" direction="positive" adapter="kenburnsAdapter" duration="17.0" timeOffset="0.0" >
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg">
+    <filter type="blur" diameter="5.0" duration="1.0" timeOffset="0.0" >
+    </filter>
+</image>
+</effect>
+
+<overlay>
+<effect type="square" duration="8.75" timeOffset="0.0" >
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+</effect>
+</overlay>
+</stack>
+
+
+<stack duration="8.5">
+
+<effect type="kenburns" depthEnable="true" direction="positive" adapter="kenburnsAdapter" duration="17.0" timeOffset="0.0" >
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg">
+    <filter type="blur" diameter="5.0" duration="1.0" timeOffset="0.0" >
+    </filter>
+</image>
+</effect>
+<overlay>
+<effect type="rotator" duration="8.5" timeOffset="0.0" >
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+<image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+<image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+</effect>
+</overlay>
+
+</stack>
+
+<transition type="crossfade" duration="1" />
+
+<stack duration="12">
+<effect type="kenburns" depthEnable="true" direction="positive" adapter="kenburnsAdapter" duration="15.0" timeOffset="0.0" >
+  <image filename="https://s3-eu-west-1.amazonaws.com/moflix/music/1353640_10201504780608754_1250143921_o.jpg"/>
+</effect>
+<sequence>
+<stack duration = "6">
+<text type="zone" left="0.1" bottom="0.32" height="0.18" fontcolor="#DDDDDD">
+            "Here's another tweet or facebook status"
+            <animator type="grow" duration="3.0"/>
+            <animator type="slide-in" direction="up" duration="0.666666666667"/>
+            <animator type="slide-out" direction="up" duration="0.666666666667"/>
+            <animator type="slide" direction="left" duration="3.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+          <text type="zone" left="0.1" bottom="0.28" height="0.10" fontcolor="#DDDDDD">
+            Matthew Preston
+            <animator type="grow" duration="3.0"/>
+            <animator type="slide-in" direction="left" duration="0.666666666667"/>
+            <animator type="slide-out" direction="left" duration="0.666666666667"/>
+            <animator type="slide" direction="right" duration="3.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+</stack>
+<transition type="crossfade" duration="0.5" />
+<stack duration = "8">
+<text type="zone" left="0.1" bottom="0.32" height="0.18" fontcolor="#DDDDDD">
+            "Here's another tweet or facebook status"
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide" direction="left" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+          <text type="zone" left="0.1" bottom="0.28" height="0.10" fontcolor="#DDDDDD">
+            Matthew Preston
+            <animator type="grow" duration="4.0"/>
+            <animator type="slide" direction="right" duration="4.0"/>
+            <filter type="alpha" alphaStart="0.0" alphaEnd="1.0" duration="1.0"/>
+            <filter type="alpha" margin-end="0.0" alphaStart="1.0" alphaEnd="0.0" duration="1.0"/>
+          </text>
+</stack>
+</sequence>
+</stack>
+
+</sequence>
+</stack>
+    
+  </body>
+</movie>

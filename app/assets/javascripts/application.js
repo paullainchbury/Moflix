@@ -15,3 +15,16 @@
 //= require lib/jquery.transit.min.js
 //= require lib/jquery.slideshowify.js
 //= require_tree .
+
+// $(document).ready(function(e) {
+//         var width = $(document).width();
+
+//         function goRight() {
+//             $(".msg").animate({
+//             left: width
+//           }, 15000);
+//         }
+        
+//         setTimeout(goRight, 50);
+//     });
+

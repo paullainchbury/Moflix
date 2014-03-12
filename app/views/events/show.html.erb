@@ -1,3 +1,14 @@
+<div id="moflix_logo">moflix</div>
+
+<div id="images">
+  <img src="<%= image_path('IMG_0231.JPG') %>" />
+  <img src="<%= image_path('IMG_0758.JPG') %>" />
+  <img src="<%= image_path('IMG_0785.JPG') %>" />
+  <img src="<%= image_path('IMG_0810.JPG') %>" />
+  <img src="<%= image_path('IMG_0813.JPG') %>" />
+  <img src="<%= image_path('IMG_0821.JPG') %>" />
+</div>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -27,13 +38,39 @@
 
 <% @event.status_updates.each do |status_update| %>
   <% if status_update.message %>
+    <!-- good animation for entrance: slideExpandUp -->
+    <!-- Good animation for exit: animated slow slideOutRight -->
+    <div class="msg 1 hidden">
     <%= status_update.message %><br/>
     <%= status_update.poster %> - <%= time_ago_in_words(status_update.update_time) %> ago<br/>
     <%= status_update.update_time %><br/>
-    --------<br/>
+    </div>
   <% end %>
 <% end %>
 
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
+
+<script>
+  $('img').slideshowify();
+</script>
+
+<script>
+function textUp() {
+    $('.msg').removeClass('hidden').addClass('expandUp');
+    setTimeout(textOut, 6000);
+};
+
+function textOut() {
+  $('.msg').removeClass('expandUp').addClass('animated slow slideOutRight');
+};
+
+$(function() {
+        setTimeout(textUp, 7000);
+});
+</script>
+
+<!-- <iframe width="560" height="315" src="//www.youtube.com/embed/pZ12_E5R3qc" frameborder="0" allowfullscreen></iframe> -->
+
+<iframe width="201" height="113" src="//www.youtube.com/embed/pZ12_E5R3qc?rel=0&autoplay=1&controls=0&showinfo=0" frameborder="0" allowfullscreen></iframe>

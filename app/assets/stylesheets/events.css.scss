@@ -1,3 +1,28 @@
 // Place all the styles related to the Events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.msg {
+  background-color: white;
+  width: 273px;
+  min-height: 50px;
+  line-height: 1.6em;
+  padding: 9px 9px 9px 16px;
+  background: #ffffff;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  font-size: 13px;
+  border-radius: 5px;
+  position: relative;
+}
+
+#moflix_logo {
+  font-family: Slackey, cursive;
+  font-size: 28px;
+  color: rgba(255,255,255, 0.5);
+}
+
+.hidden {
+  visibility: hidden;
+}
+

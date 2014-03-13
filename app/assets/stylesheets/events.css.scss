@@ -64,13 +64,12 @@ background: linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
 -webkit-box-shadow: 14px 14px 18px 4px rgba(0, 0, 0, .75), inset 0px 0px 8px 8px rgba(0,0,0,0.75);
 -moz-box-shadow: 14px 14px 18px 4px rgba(0, 0, 0, .75), inset 0px 0px 91px -18px rgba(0,0,0,0.75);
 box-shadow: 14px 14px 18px 4px rgba(0, 0, 0, .75), inset 0px 0px 91px -18px rgba(0,0,0,0.75);
-max-width: 70%;
-margin: auto;
+position: relative;
 }
 
-// .bannerscollection_zoominout {
-//   margin-left: 100px;
-// }
+.container {
+  background: white;
+}
 
 
 

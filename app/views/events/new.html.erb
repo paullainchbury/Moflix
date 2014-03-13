@@ -1,5 +1,11 @@
-<h1>New event</h1>
+<div class="container">
+  <h1>New event</h1>
 
-<%= render 'form' %>
+  Here's where we want links to the various connections available (Facebook, Instagram etc.)
 
-<%= link_to 'Back', events_path %>
+  Initially, if the user is logged in with facebook, it should show their albums - the user can click to select an entire album or click in to browse the album. If the user is NOT logged in with Facebook, then the screen should allow them to choose which social network to connect with or upload their own images.
+
+  <%= render 'form' %>
+
+  <%= link_to 'Back', events_path %>
+</div>

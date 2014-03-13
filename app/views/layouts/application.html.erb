@@ -3,9 +3,45 @@
 <head>
   <title>Momentz</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+  <!-- font for moflix logo -->
   <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+  <!-- fonts for slidehow -->
+  <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  
+    <script>
+  
+    jQuery(function() {
+
+      jQuery('#bannerscollection_zoominout_opportune').bannerscollection_zoominout({
+      skin: 'opportune',
+
+      setAsBg:true,
+      width: 1920,
+      height: 1200,
+      width100Proc:true,
+      height100Proc:true,
+      pauseOnMouseOver:false,
+      responsive: true,
+      loop: false,
+      enableTouchScreen: true,
+      showAllControllers: false,
+      scrollSlideDuration: 1.2
+      }); 
+
+
+
+  
+      
+      
+    });
+  </script>
+
 </head>
 <body>
 

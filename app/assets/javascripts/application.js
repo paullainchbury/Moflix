@@ -10,10 +10,10 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
 //= require lib/jquery.transit.min.js
 //= require lib/jquery.slideshowify.js
+//= require lib/jquery.ui.touch-punch.min.js
+//= require lib/bannerscollection_zoominout.js
 //= require_tree .
 
 // $(document).ready(function(e) {

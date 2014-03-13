@@ -1,28 +1,77 @@
 // Place all the styles related to the Events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+ background: #F4F4F4 url("instagram_bg.jpeg");
+ margin: 0px;
+ -webkit-box-shadow: inset 0px 0px 100px 11px rgba(0,0,0,0.75);
+ -moz-box-shadow: inset 0px 0px 100px 11px rgba(0,0,0,0.75);
+ box-shadow: inset 0px 0px 100px 11px rgba(0,0,0,0.75);
+ width: 100%;
+ min-height: 100%;
+ padding-top: 20px;
+}
+
+html{
+  height: 100%;
+  margin-top: 0px;
+}
 
 .msg {
-  background-color: white;
-  width: 273px;
-  min-height: 50px;
-  line-height: 1.6em;
-  padding: 9px 9px 9px 16px;
-  background: #ffffff;
-  border-right: 1px solid grey;
-  border-bottom: 1px solid grey;
-  font-size: 13px;
-  border-radius: 5px;
-  position: relative;
+  font-family: 'Source Sans Pro', sans-serif;
+  // font-size: 18px;
+  // line-height: 1.6em;
+  // color:#FFFFFF;
+}
+
+.with_shadow {
+  text-shadow:#333333 1px 1px 0px;
 }
 
 #moflix_logo {
   font-family: Slackey, cursive;
   font-size: 28px;
-  color: rgba(255,255,255, 0.5);
+  color: rgba(255,255,255, 0.7);
+  margin-bottom: 10px;
+  position: absolute;
+  top: 10;
+  left: 10;
+  z-index: 10;
+  padding-left: 20px;
 }
 
 .hidden {
   visibility: hidden;
 }
+
+.try_this {
+
+-webkit-transform:rotate(-2deg);
+-moz-transform: rotate(-2deg);
+-o-transform: rotate(-2deg);
+-ms-transform: rotate(-2deg);
+transform: rotate(-2deg);
+-webkit-backface-visibility:hidden;
+padding: 16px 18px 20px 18px; /*size of the frame*/
+/*give the frame's background colour a gradient*/
+background: #eee6d8; /*fallback colour for browsers that don't support gradients*/
+background: -webkit-linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
+background: -moz-linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
+background: -o-linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
+background: -ms-linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
+background: linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
+/*give the Polaroids a small drop shadow*/
+-webkit-box-shadow: 14px 14px 18px 4px rgba(0, 0, 0, .75), inset 0px 0px 8px 8px rgba(0,0,0,0.75);
+-moz-box-shadow: 14px 14px 18px 4px rgba(0, 0, 0, .75), inset 0px 0px 91px -18px rgba(0,0,0,0.75);
+box-shadow: 14px 14px 18px 4px rgba(0, 0, 0, .75), inset 0px 0px 91px -18px rgba(0,0,0,0.75);
+max-width: 70%;
+margin: auto;
+}
+
+// .bannerscollection_zoominout {
+//   margin-left: 100px;
+// }
+
+
+
 

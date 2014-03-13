@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Momentz</title>
+  <title>Moflix</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
@@ -31,7 +32,8 @@
       enableTouchScreen: true,
       showAllControllers: false,
       scrollSlideDuration: 1.5,
-      responsiveRelativeToBrowser: false
+      responsiveRelativeToBrowser: false,
+      circleColor: "#FC329B"
       }); 
     });
   </script>
@@ -39,9 +41,55 @@
 </head>
 <body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+  <div class="navbar transparent navbar-inverse navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="<%= root_path %>"><span class="moflix">moflix</span></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="<%= events_path %>">Events</a></li>
+            <li><a href="#about">What the hell?</a></li>
+            <!-- <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li> -->
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <form action="<%= new_event_path %>">
+                  <button class="btn mf_btn navbar-btn"><span class="glyphicon glyphicon-film"></span> Create a moflix</button>
+              </form>
+            </li>
+          <% if current_user %>
+            <li><a href="../navbar/">Signed in as <%= current_user.name %></a></li>
+            <li><a href="<%= logout_path %>">Logout</a></li>
+          <% else %>
+            <li><a href="<%= login_path %>">Login</a></li>
+          <% end %>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
 <%= yield %>
+
+<span class="notice"><%= notice %></span>
+<span class="alert"><%= alert %></span>
 
 </body>
 </html>

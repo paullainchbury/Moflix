@@ -1,5 +1,36 @@
 <div id="moflix_logo">moflix</div>
 
+<script>
+    $(function() {
+        // Remove menu bar for the duration of the moflix
+        var starting_position = $('.final_div').position().top;
+        var timer = setInterval(
+             function(){ 
+                  if (starting_position != $('.final_div').position().top) {            
+                      $('.navbar').animate({top:'0px'}, {queue: false, duration: 2000});
+                      clearInterval(timer);  
+                    }
+             },
+             3000
+        );
+
+        var n = 0
+        var startTimer = setInterval(
+             function(){ 
+                    console.log(n);
+                  if (n == 1) {            
+                      $('.navbar').animate({top:'-50px'}, {queue: false, duration: 1500});
+                      clearInterval(startTimer);  
+                    }
+                    n =+ 1;
+             },
+             1000
+        );
+
+        // $('.navbar').stop().delay(2000).animate({top:'-50px'}, {queue: false, duration: 2000});
+    });
+</script>
+
 <div id="bannerscollection_zoominout_opportune">
               <div class="myloader"></div>
                 <!-- CONTENT -->
@@ -99,7 +130,7 @@
 
                     <!-- teaser for Moflix -->
 
-                    <div class="bannerscollection_zoominout_text_line textElement52_opportuneFullWidth" 
+                    <div class="bannerscollection_zoominout_text_line textElement52_opportuneFullWidth final_div" 
                     data-delay="10"
                     data-fade-start="0"
                     data-duration="3"

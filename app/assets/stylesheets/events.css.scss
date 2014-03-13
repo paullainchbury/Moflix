@@ -9,7 +9,6 @@ body {
  box-shadow: inset 0px 0px 100px 11px rgba(0,0,0,0.75);
  width: 100%;
  min-height: 100%;
- padding-top: 20px;
 }
 
 html{
@@ -67,8 +66,9 @@ box-shadow: 14px 14px 18px 4px rgba(0, 0, 0, .75), inset 0px 0px 91px -18px rgba
 position: relative;
 }
 
-.container {
+.mf_container {
   background: white;
+  border-radius: 5px;
 }
 
 

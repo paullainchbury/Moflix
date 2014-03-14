@@ -97,3 +97,7 @@ fieldset[disabled] .mf_btn.active {
 .navbar-static-top {
   border-width: 0;
 }
+
+.btn-default {
+  text-shadow: 0 0px 0 #fff;
+}

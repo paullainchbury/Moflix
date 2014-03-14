@@ -1,25 +1,29 @@
-<div id="moflix_logo">moflix</div>
+<div id="moflix_logo" class="logo_to_fade">moflix</div>
+
+
 
 <script>
     $(function() {
-        // Remove menu bar for the duration of the moflix
-        var starting_position = $('.final_div').position().top;
-        var timer = setInterval(
-             function(){ 
-                  if (starting_position != $('.final_div').position().top) {            
-                      $('.navbar').animate({top:'0px'}, {queue: false, duration: 2000});
-                      clearInterval(timer);  
-                    }
-             },
-             3000
-        );
+        // As we're sliding out the menu bar, let's make a more subtle Moflix logo appear in it's place
 
+        $('.logo_to_fade').css('display', 'none');
+
+        fadeBgLogoOut = function() {
+            $( ".logo_to_fade" ).fadeOut( 2000 );
+        };
+
+        fadeBgLogoIn = function() {
+            $( ".logo_to_fade" ).fadeIn( 3000 );
+        };
+
+        // Slide out the menu bar when playing a slideshow
         var n = 0
         var startTimer = setInterval(
              function(){ 
                     console.log(n);
                   if (n == 1) {            
                       $('.navbar').animate({top:'-50px'}, {queue: false, duration: 1500});
+                      fadeBgLogoIn();
                       clearInterval(startTimer);  
                     }
                     n =+ 1;
@@ -27,8 +31,20 @@
              1000
         );
 
-        // $('.navbar').stop().delay(2000).animate({top:'-50px'}, {queue: false, duration: 2000});
-    });
+        // Listen for a change in the position of the final slide and slide the menu bar back in.
+        var starting_position = $('.final_div').position().top;
+        var timer = setInterval(
+            function(){ 
+                if (starting_position != $('.final_div').position().top) {
+                    $('.navbar').animate({top:'0px'}, {queue: false, duration: 1500});
+                    fadeBgLogoOut();
+                    clearInterval(timer); 
+                    } 
+                },
+                3000
+        );
+
+    }); // Close page load function
 </script>
 
 <div id="bannerscollection_zoominout_opportune">
@@ -139,8 +155,14 @@
                     data-final-left="150" 
                     data-final-top="360" 
                     >
-                    <button class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-play"></span> Play it again</button>
-                    Play Again &#9658;<br/>or <button>Create your own</button>
+                    <div class="video_end_section">
+                        <a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-share-alt"></span> Share</a>
+
+                        <a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-play"></span> Play it again</a>
+
+                        <a href="<%= new_event_path %>" class="btn mf_btn btn-lg"><span class="glyphicon glyphicon-film"></span> Create your own</a>
+                    </div>
+                    
                     </div>
                     <!-- end teaser for Moflix -->
 
@@ -312,3 +334,5 @@ End of text experiment -->
   <img src="<%= image_path('IMG_0821.JPG') %>" />
 </div>
 -->
+
+

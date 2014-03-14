@@ -8,4 +8,29 @@
   <%= render 'form' %>
 
   <%= link_to 'Back', events_path %>
+
+  <% if current_user %>
+
+    <!-- <br />You are currently logged in as <%= current_user.name %>
+    <br />Your facebook token is: <%= current_user.facebook_token %>
+    -->
+    <div id="FB_albums">
+      <h3>Here are albums from your facebook profile:</h3>
+      <div class="row">
+      <% current_user.fb_albums.each do |album| %>
+        <div class="col-lg-3 col-sm-4 col-xs-6">
+          <p><%= album['name'] %> (<%= album['count'] %> photos)</p>
+          <a href="#" class="thumbnail">
+                 <img src="<%= current_user.fb_get_photo(album['cover_photo'])['source'] %>" class="img-responsive">
+            </a>
+        </div>
+        <% end %>
+      </div>
+    </div>
+
+
+  <% else %>
+    You are not currently logged in!
+  <% end %>
+
 </div>

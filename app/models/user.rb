@@ -43,4 +43,18 @@ class User < ActiveRecord::Base
     # end
   end
 
+  def fb_albums
+    self.facebook_details.get_connections("me","albums")
+  end
+
+  def fb_all_photos
+    self.facebook_details.get_connections("me","photos")
+  end
+
+  def fb_get_photo(photo_id)
+    self.facebook_details.get_object("#{photo_id}")
+  end
+
+
+
 end

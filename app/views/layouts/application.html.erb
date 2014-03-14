@@ -40,6 +40,28 @@
 
 </head>
 <body>
+  <!-- Facebook API -->
+
+    <!-- <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function () {
+    FB.init({ appId: '212771185582572', cookie: true, xfbml: true, oauth: true });
+
+    // *** here is my code ***
+    if (typeof facebookInit == 'function') {
+        facebookInit();
+    }
+};
+
+(function(d){
+    var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js";
+    d.getElementsByTagName('head')[0].appendChild(js);
+}(document));
+    </script>
+ -->
+    <!-- End of Facebook API -->
 
   <div class="navbar transparent navbar-inverse navbar-static-top" role="navigation">
       <div class="container">
@@ -85,6 +107,7 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
+
 
 <%= yield %>
 

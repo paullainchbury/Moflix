@@ -1,6 +1,8 @@
 <div class="container mf_container">
   <h1>New event</h1>
 
+  <h3>Where d'ya wanna get your content?</h3>
+
   Here's where we want links to the various connections available (Facebook, Instagram etc.)
 
   Initially, if the user is logged in with facebook, it should show their albums - the user can click to select an entire album or click in to browse the album. If the user is NOT logged in with Facebook, then the screen should allow them to choose which social network to connect with or upload their own images.
@@ -10,21 +12,42 @@
   <%= link_to 'Back', events_path %>
 
   <% if current_user %>
+  <ul>
+    <li>Photos from FB</li>
+    <li>Photos from elsewhere</li>
+    <li>Upload my own photos</li>
+  </ul>
 
     <!-- <br />You are currently logged in as <%= current_user.name %>
     <br />Your facebook token is: <%= current_user.facebook_token %>
     -->
-    <div id="FB_albums">
+    <div id="FB_albums_container">
       <h3>Here are albums from your facebook profile:</h3>
-      <div class="row">
-      <% current_user.fb_albums.each do |album| %>
-        <div class="col-lg-3 col-sm-4 col-xs-6">
-          <p><%= album['name'] %> (<%= album['count'] %> photos)</p>
-          <a href="#" class="thumbnail">
-                 <img src="<%= current_user.fb_get_photo(album['cover_photo'])['source'] %>" class="img-responsive">
-            </a>
+      <div class="row fb_albums_row">
+        <div class="loading_stuff">
+          <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+          </div>
+          <div id="albums_loading">Loading facebook albums...</div>
         </div>
-        <% end %>
+        
+        <p>Find photos from your friends</p>
+        <p>Photos I've been tagged in</p>
+
+        <!-- I need to put the following into a script so the page loads before the data form FB is returned -->
+
+      
+
+        <!-- End of stuff to move into Ajax call -->
+
+
+      </div>
+    </div>
+
+    <div id="added_photos">
+      <h3>Photos that will appear in the video:</h3>
+      <div class="row">
       </div>
     </div>
 
@@ -34,3 +57,50 @@
   <% end %>
 
 </div>
+
+<script>
+
+  $(function() {
+
+    // The div contained within the Thumbnails is empty. Here we force the height of it to show the background image
+    function thumbnailHeight() {
+      div = $('.mf_thumbnail');
+      divWidth = div.width();
+      div.css('height', divWidth);
+    };
+
+    // Get the user's FB albums and build the view of them
+    $.ajax({
+        type: "GET",
+        url: "/user_albums",
+        dataType: "json",
+        success: function(data){
+            $( ".loading_stuff" ).fadeOut(0);
+            for (var i=0;i<data.length;i++)
+              { 
+                var imgRaw = data[i]['cover'];
+                console.log(imgRaw);
+
+                // build album add and browse buttons
+
+                $('.fb_albums_row').append(
+                  "<div class='col-lg-3 col-sm-4 col-xs-6'>" +
+                  "<p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p>" +
+                  "<a href='#' class='thumbnail img-responsive'>" +
+                  "<div class='mf_thumbnail' style='background-image: url(" + imgRaw + ")'></div></a></div>"
+                  );          
+              }; // End of for loop
+              thumbnailHeight();        
+      } // Close success callback
+    }); // Close Ajax call
+
+    $( window ).resize(function() {
+      thumbnailHeight();
+    });
+
+  }); // Close page load function
+
+
+</script>
+
+

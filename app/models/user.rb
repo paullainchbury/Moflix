@@ -44,7 +44,14 @@ class User < ActiveRecord::Base
   end
 
   def fb_albums
-    self.facebook_details.get_connections("me","albums")
+    albums_fb = self.facebook_details.get_connections("me","albums")
+    @albums = []
+    albums_fb.each do |album|
+      cover_photo = fb_get_photo(album['cover_photo'])['source']
+      album = { :name => album['name'], :count => album['count'], :cover => cover_photo }
+      @albums.push(album)
+    end
+    return @albums
   end
 
   def fb_all_photos

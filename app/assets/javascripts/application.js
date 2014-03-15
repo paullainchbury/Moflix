@@ -16,15 +16,3 @@
 //= require lib/bannerscollection_zoominout.js
 //= require_tree .
 
-// $(document).ready(function(e) {
-//         var width = $(document).width();
-
-//         function goRight() {
-//             $(".msg").animate({
-//             left: width
-//           }, 15000);
-//         }
-        
-//         setTimeout(goRight, 50);
-//     });
-

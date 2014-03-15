@@ -101,3 +101,7 @@ fieldset[disabled] .mf_btn.active {
 .btn-default {
   text-shadow: 0 0px 0 #fff;
 }
+
+.mf_thumbnail {
+  background-size: cover;
+}

@@ -14,6 +14,7 @@ Momentz::Application.routes.draw do
 
   match "user_albums" => "users#fb_albums"
   match "get_picture" => "users#fb_picture"
+  match "photos_by_album" => "users#fb_album"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

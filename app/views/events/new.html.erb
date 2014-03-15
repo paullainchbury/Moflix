@@ -3,20 +3,9 @@
 
   <h3>Where d'ya wanna get your content?</h3>
 
-  <%= current_user %>
-  <br />
-  <%= current_user.name%>
-  <br />
-  <%= current_user.facebook_details %>
-  <br />
-
   Here's where we want links to the various connections available (Facebook, Instagram etc.)
 
   Initially, if the user is logged in with facebook, it should show their albums - the user can click to select an entire album or click in to browse the album. If the user is NOT logged in with Facebook, then the screen should allow them to choose which social network to connect with or upload their own images.
-
-  <%= render 'form' %>
-
-  <%= link_to 'Back', events_path %>
 
   <% if current_user %>
   <ul>
@@ -42,20 +31,15 @@
         <p>Find photos from your friends</p>
         <p>Photos I've been tagged in</p>
 
-        <!-- I need to put the following into a script so the page loads before the data form FB is returned -->
-
-      
-
-        <!-- End of stuff to move into Ajax call -->
-
-
       </div>
     </div>
 
-    <div id="added_photos">
+    <div class="row added_photos_row">
       <h3>Photos that will appear in the video:</h3>
-      <div class="row">
-      </div>
+    </div>
+
+    <button class="btn mf_btn" id="done_button"><span class="glyphicon glyphicon-film"></span> Done</button>
+
     </div>
 
 
@@ -85,10 +69,6 @@
             $( ".loading_stuff" ).fadeOut(0);
             for (var i=0;i<data.length;i++)
               { 
-                console.log(data[i]['cover']);
-                // data[i]['cover'] = "fuck";
-                // console.log(data[i]['cover']);
-
                 var pictureURL = $.ajax({
                   type: "GET",
                   async: false,
@@ -96,21 +76,19 @@
                   dataType: "json"
                 });
                 data[i]['cover'] = pictureURL.responseText;
-                console.log(data[i]['cover']);
                 // build album add and browse buttons
                 $('.fb_albums_row').append(
                   "<div class='col-lg-3 col-sm-4 col-xs-6'>" +
                   "<p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p>" +
                   "<div class='thumbnail img-responsive'>" +
                   "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"'><button class='btn btn-default btn-primary'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></div></div>"
-
                   // <a href='#' class='btn btn-default btn-info btn-lg'><span class='glyphicon glyphicon-search'></span> Choose pictures</a>
                   );          
               }; // End of for loop
               thumbnailHeight();
               // Set up the click handler for the buttons (have to do this here to ensure it is done AFTER the creation of the divs!)
               $( ".add_all" ).click(function() {
-                alert( "Handler for .click() called." + $(this).parent().attr("id") );
+                getAlbumPhotos($(this).parent().attr("id"));
               });       
       } // Close success callback
     }); // Close Ajax call
@@ -119,10 +97,79 @@
     $( window ).resize(function() {
       thumbnailHeight();
     });
-
-
   }); // Close page load function
 
+  function getAlbumPhotos(albumId) {
+    // console.log("Here's where we get the photos for album id " + albumId);
+    // make an Ajax call
+    $.ajax({
+      type: "GET",
+      url: "/photos_by_album?albumid=" + albumId,
+      dataType: "json",
+      success: function(data){
+        console.log(data);
+        // Add each photo in the Ajax response to the added_photos_row
+        for (var i=0;i<data.length;i++)
+          {
+            id = data[i]['id'];
+            name = data[i]['name'];
+            height = data[i]['height'];
+            width = data[i]['width'];
+            source = data[i]['source'];
+            created = data[i]['created_time'];
+            from = data[i]['from']['name'];
+            $('.added_photos_row').append(
+              "<p>Photo - ID:" + id
+              + " From:" + from
+              + " Name:" + name
+              + " Width:" + width
+              + " Height:" + height
+              + "</p>"
+            ); 
+          }; // End for loop
+        
+
+
+
+      } //End success callback
+    }); // End Ajax request
+  } // End getAlbumPhotos function
+
+
+// Creating the event
+  $( "#done_button" ).click(function() {
+    var event = new Object();
+    event.username = "<%= current_user.name %>";
+    event.userid = "<%= current_user.id %>";
+    if (true) //$('#event_title').val() == ""
+    {
+      event.title = "A moflix by "+ event.username;
+    } else {
+      event.title = "Something else" //$('#event_title').val();
+    }
+    console.log(event.title);
+    j = JSON.stringify(event);
+    alert(j);
+
+
+
+    $.ajax({
+      type: "POST",
+      url: "/events",
+      beforeSend: function(xhr) {
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+      },
+      dataType: "json",
+      data: j,
+      success: function(data){
+        console.log(data);
+      }
+    }); // end of AJAX request
+
+    // convert the event object to JSON, ready to send to Rails with an AJAX call
+
+
+  }); //End click function
 
 </script>
 

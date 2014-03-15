@@ -10,4 +10,9 @@ class UsersController < ApplicationController
       render json: @picture
   end
 
+  def fb_album
+      @album  = current_user.fb_photos_by_album(params['albumid'])
+      render json: @album
+  end
+
 end

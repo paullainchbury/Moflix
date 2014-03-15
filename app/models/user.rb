@@ -58,15 +58,13 @@ class User < ActiveRecord::Base
     self.facebook_details.get_connections("me","photos")
   end
 
-  def fb_photos_by_album(album_id)
-
-  end
-
   def fb_get_photo(photo_id)
     result = self.facebook_details.get_object("#{photo_id}")
     @picture = result['images'][0]['source'].to_s
   end
 
-
+  def fb_photos_by_album(album_id)
+    self.facebook_details.get_connections("#{album_id}", "photos")
+  end
 
 end

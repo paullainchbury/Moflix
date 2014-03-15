@@ -39,17 +39,18 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(params[:event])
+    @event = Event.new()
+    @event.title = params['title']
     # Set the event organiser
     @event.events_users.build(event: @event, user: current_user, user_type: "organiser")
     # TODO Then loop through the other users to assign them to the event also (although not as organisers)
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        # format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
       else
-        format.html { render action: "new" }
+        # format.html { render action: "new" }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end

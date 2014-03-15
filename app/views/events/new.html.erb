@@ -80,7 +80,6 @@
     $.ajax({
         type: "GET",
         url: "/user_albums",
-        // async: false,
         dataType: "json",
         success: function(data){
             $( ".loading_stuff" ).fadeOut(0);
@@ -96,31 +95,31 @@
                   url: "/get_picture?pictureid=" + data[i]['cover'],
                   dataType: "json"
                 });
-
                 data[i]['cover'] = pictureURL.responseText;
                 console.log(data[i]['cover']);
-
-
-                
-
                 // build album add and browse buttons
-
                 $('.fb_albums_row').append(
                   "<div class='col-lg-3 col-sm-4 col-xs-6'>" +
                   "<p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p>" +
-                  "<a href='#' class='thumbnail img-responsive'>" +
-                  "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons'><button class='btn btn-default btn-primary'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></a></div>"
+                  "<div class='thumbnail img-responsive'>" +
+                  "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"'><button class='btn btn-default btn-primary'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></div></div>"
 
                   // <a href='#' class='btn btn-default btn-info btn-lg'><span class='glyphicon glyphicon-search'></span> Choose pictures</a>
                   );          
               }; // End of for loop
-              thumbnailHeight();        
+              thumbnailHeight();
+              // Set up the click handler for the buttons (have to do this here to ensure it is done AFTER the creation of the divs!)
+              $( ".add_all" ).click(function() {
+                alert( "Handler for .click() called." + $(this).parent().attr("id") );
+              });       
       } // Close success callback
     }); // Close Ajax call
 
+    // Ensure the empty divs contain the image backgrounds are responsive
     $( window ).resize(function() {
       thumbnailHeight();
     });
+
 
   }); // Close page load function
 

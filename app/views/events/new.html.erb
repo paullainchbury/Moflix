@@ -3,6 +3,13 @@
 
   <h3>Where d'ya wanna get your content?</h3>
 
+  <%= current_user %>
+  <br />
+  <%= current_user.name%>
+  <br />
+  <%= current_user.facebook_details %>
+  <br />
+
   Here's where we want links to the various connections available (Facebook, Instagram etc.)
 
   Initially, if the user is logged in with facebook, it should show their albums - the user can click to select an entire album or click in to browse the album. If the user is NOT logged in with Facebook, then the screen should allow them to choose which social network to connect with or upload their own images.
@@ -73,13 +80,28 @@
     $.ajax({
         type: "GET",
         url: "/user_albums",
+        // async: false,
         dataType: "json",
         success: function(data){
             $( ".loading_stuff" ).fadeOut(0);
             for (var i=0;i<data.length;i++)
               { 
-                var imgRaw = data[i]['cover'];
-                console.log(imgRaw);
+                console.log(data[i]['cover']);
+                // data[i]['cover'] = "fuck";
+                // console.log(data[i]['cover']);
+
+                var pictureURL = $.ajax({
+                  type: "GET",
+                  async: false,
+                  url: "/get_picture?pictureid=" + data[i]['cover'],
+                  dataType: "json"
+                });
+
+                data[i]['cover'] = pictureURL.responseText;
+                console.log(data[i]['cover']);
+
+
+                
 
                 // build album add and browse buttons
 
@@ -87,7 +109,7 @@
                   "<div class='col-lg-3 col-sm-4 col-xs-6'>" +
                   "<p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p>" +
                   "<a href='#' class='thumbnail img-responsive'>" +
-                  "<div class='mf_thumbnail' style='background-image: url(" + imgRaw + ")'></div></a></div>"
+                  "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><span class='mf_thumb_buttons'><b>download</b></span></div></a></div>"
                   );          
               }; // End of for loop
               thumbnailHeight();        

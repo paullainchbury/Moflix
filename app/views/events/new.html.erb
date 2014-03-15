@@ -109,7 +109,9 @@
                   "<div class='col-lg-3 col-sm-4 col-xs-6'>" +
                   "<p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p>" +
                   "<a href='#' class='thumbnail img-responsive'>" +
-                  "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><span class='mf_thumb_buttons'><b>download</b></span></div></a></div>"
+                  "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons'><button class='btn btn-default btn-primary'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></a></div>"
+
+                  // <a href='#' class='btn btn-default btn-info btn-lg'><span class='glyphicon glyphicon-search'></span> Choose pictures</a>
                   );          
               }; // End of for loop
               thumbnailHeight();        

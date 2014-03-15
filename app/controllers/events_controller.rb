@@ -40,7 +40,7 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new()
-    @event.title = params['title']
+    @event.title = params['event']['title']
     # Set the event organiser
     @event.events_users.build(event: @event, user: current_user, user_type: "organiser")
     # TODO Then loop through the other users to assign them to the event also (although not as organisers)

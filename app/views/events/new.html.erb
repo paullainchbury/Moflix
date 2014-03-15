@@ -148,10 +148,6 @@
       event.title = "Something else" //$('#event_title').val();
     }
     console.log(event.title);
-    j = JSON.stringify(event);
-    alert(j);
-
-
 
     $.ajax({
       type: "POST",
@@ -160,7 +156,9 @@
       xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
       },
       dataType: "json",
-      data: j,
+      data: {
+             "event":event
+             },
       success: function(data){
         console.log(data);
       }

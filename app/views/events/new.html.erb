@@ -53,6 +53,9 @@
 
   $(function() {
 
+    moflix = new Object();
+    moflix.photos = [];
+
     // The div contained within the Thumbnails is empty. Here we force the height of it to show the background image
     function thumbnailHeight() {
       div = $('.mf_thumbnail');
@@ -118,21 +121,26 @@
 
         for (var i=0;i<data.length;i++)
           {
-            id = data[i]['id'];
-            name = data[i]['name'];
-            height = data[i]['height'];
-            width = data[i]['width'];
-            source = data[i]['source'];
-            created = data[i]['created_time'];
-            from = data[i]['from']['name'];
+            var photo = new Object;
+            photo.id = data[i]['id'];
+            photo.name = data[i]['name'];
+            photo.height = data[i]['height'];
+            photo.width = data[i]['width'];
+            photo.source = data[i]['source'];
+            photo.created = data[i]['created_time'];
+            photo.from = data[i]['from']['name'];
             $('.added_photos_row').append(
-              "<p class='photo_added'>Photo - ID:" + id
-              + " From:" + from
-              + " Name:" + name
-              + " Width:" + width
-              + " Height:" + height
+              "<p class='photo_added'>Photo - ID:" + photo.id
+              + " From:" + photo.from
+              + " Name:" + photo.name
+              + " Width:" + photo.width
+              + " Height:" + photo.height
               + "</p>"
             ); 
+            console.log("Photo object: " + photo);
+            moflix.photos.push(photo);
+            // event.photos.push(photo);
+            console.log("Photos object: " + moflix.photos);
           }; // End for loop
         $('.added_photos_row').append(
               "You have "
@@ -149,16 +157,15 @@
 
 // Creating the event
   $( "#done_button" ).click(function() {
-    var event = new Object();
-    event.username = "<%= current_user.name %>";
-    event.userid = "<%= current_user.id %>";
+    moflix.username = "<%= current_user.name %>";
+    moflix.userid = "<%= current_user.id %>";
     if (true) //$('#event_title').val() == ""
     {
-      event.title = "A moflix by "+ event.username;
+      moflix.title = "A moflix by "+ moflix.username;
     } else {
-      event.title = "Something else" //$('#event_title').val();
+      moflix.title = "Something else" //$('#event_title').val();
     }
-    console.log(event.title);
+    console.log(moflix.title);
 
     $.ajax({
       type: "POST",
@@ -168,7 +175,7 @@
       },
       dataType: "json",
       data: {
-             "event":event
+             "event":moflix
              },
       success: function(data){
         console.log(data);

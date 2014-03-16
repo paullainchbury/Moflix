@@ -78,7 +78,7 @@
                 data[i]['cover'] = pictureURL.responseText;
                 // build album add and browse buttons
                 $('.fb_albums_row').append(
-                  "<div class='col-lg-3 col-sm-4 col-xs-6'>" +
+                  "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
                   "<p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p>" +
                   "<div class='thumbnail img-responsive'>" +
                   "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"'><button class='btn btn-default btn-primary'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></div></div>"
@@ -109,6 +109,13 @@
       success: function(data){
         console.log(data);
         // Add each photo in the Ajax response to the added_photos_row
+
+        // Photos need to be added to the event object to make the POST to AJAX, and also to the thumbnails view
+
+        // Putting the photos in the thumbnail view
+          // How many thumbnail blocks have we got available?
+
+
         for (var i=0;i<data.length;i++)
           {
             id = data[i]['id'];
@@ -119,7 +126,7 @@
             created = data[i]['created_time'];
             from = data[i]['from']['name'];
             $('.added_photos_row').append(
-              "<p>Photo - ID:" + id
+              "<p class='photo_added'>Photo - ID:" + id
               + " From:" + from
               + " Name:" + name
               + " Width:" + width
@@ -127,7 +134,11 @@
               + "</p>"
             ); 
           }; // End for loop
-        
+        $('.added_photos_row').append(
+              "You have "
+              + $('.thumb_holders').find(".thumb_holder").size()
+              + " placeholders available"
+            );
 
 
 
@@ -165,10 +176,46 @@
     }); // end of AJAX request
 
     // convert the event object to JSON, ready to send to Rails with an AJAX call
-
-
   }); //End click function
 
 </script>
 
+<!-- Sticky footer for thumbnails -->
+<footer class="navbar navbar-fixed-bottom transparent navbar-inverse">
+  <div class="row" id="bottomNav">
+    <div class="container thumb_holders">
+      <div class="col-lg-3 col-sm-3 col-xs-4 hidden-xs">Reserved for some text</div>
+      <div class="col-lg-1 col-sm-1 col-xs-2 text-center"><a href="#"><i class="glyphicon glyphicon-circle-arrow-left"></i><br>Link</a></div>
+      <div class="col-lg-1 col-sm-1 col-xs-2 text-center thumb_holder thumb1"></div>
+      <div class="col-lg-1 col-sm-1 col-xs-2 text-center thumb_holder thumb2"></div>
+      <div class="col-lg-1 col-sm-1 col-xs-2 text-center thumb_holder thumb3"></div>
+      <div class="col-lg-1 col-sm-1 col-xs-2 text-center thumb_holder thumb4"></div>
+      <div class="col-lg-1 col-sm-1 col-xs-1 text-center thumb_holder thumb5 hidden-xs"></div>
+      <div class="col-lg-1 col-sm-1 col-xs-1 text-center thumb_holder thumb6 hidden-xs"></div>
+      <div class="col-lg-1 col-sm-1 col-xs-1 text-center thumb_holder thumb7 hidden-xs"></div>
+      <div class="col-lg-1 col-sm-1 col-xs-2 text-center"><a href="#"><i class="glyphicon glyphicon-circle-arrow-right"></i><br>Link</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// We're going to remove the thumbnail placeholders that are currrently invisible, so JS knows how many we have available to use.
+  // to_delete = $('.thumb_holder').filter(function() {
+  //  return $(this).css('display') == 'none';
+  // });
+
+  // obj = $('.thumb_holder').filter(function() {
+  //  return $(this).css('display') == 'none';
+  // });
+$(function(){
+
+
+  $('.thumb_holders').find(".thumb_holder").filter(function() {
+   return $(this).css('display') == 'none';
+  }).remove();
+
+
+})
+
+</script>
 

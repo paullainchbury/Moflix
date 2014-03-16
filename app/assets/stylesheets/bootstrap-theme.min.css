@@ -120,3 +120,31 @@ fieldset[disabled] .mf_btn.active {
 }
 
 .mf_thumbnail:hover .mf_thumb_buttons {  display: block; background: rgba(67,81,96,0.7); }
+
+
+/*Style for thumbnail strip of photos added to Moflix*/
+.navbar-fixed-bottom {
+  min-height: 70px;
+  padding: 5px 0 7px 0;
+}
+
+.mf_container {
+  margin-bottom: 50px;
+}
+
+.thumb_holder {
+  border: 1px white dashed;
+  height: 70px;
+}
+
+@media(max-width:767px){
+  .navbar-fixed-bottom {
+    min-height: 0px;
+  }
+  .thumb_holder {
+    height: 50px;
+  }
+}
+@media(min-width:768px){}
+@media(min-width:992px){}
+@media(min-width:1200px){}

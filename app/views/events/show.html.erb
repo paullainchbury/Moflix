@@ -55,30 +55,35 @@
                 <ul class="bannerscollection_zoominout_list">
                 
                 <!-- OK, here's where we build the images for the moflix -->
-
+                <% @count = 1 %>
                 <% @event.images.each do |image| %>
                   <% if image %>
-                    <% if image != @event.images.last %>
-                    <li data-initialZoom="1" data-finalZoom="0.80" data-horizontalPosition="center" data-verticalPosition="center" data-text-id="#bannerscollection_zoominout_photoText4"><img src="<%= image.source %>" class="try_this" width="<%= image.width %>px" height="<%= image.height %>px"/></li>
-                    <% else %>
+                    <% if image == @event.images.last %>
                     <li data-horizontalPosition="center" data-verticalPosition="center" data-initialZoom="1" data-finalZoom="0.8" data-duration="12" data-text-id="#bannerscollection_zoominout_final"><img src="<%= image.source %>" class="try_this" width="<%= image.width %>px" height="<%= image.height %>px"/></li>
+                    <% elsif image == @event.images.first %>
+                    <li data-horizontalPosition="center" data-verticalPosition="center" data-initialZoom="1" data-finalZoom="0.8" data-duration="12" data-text-id="#bannerscollection_zoominout_intro"><img src="<%= image.source %>" class="try_this" width="<%= image.width %>px" height="<%= image.height %>px"/></li>
+                    <% @count += 1 %>
+                    <% else %>
+                    <li data-initialZoom="1" data-finalZoom="0.80" data-horizontalPosition="center" data-verticalPosition="center" data-text-id="#bannerscollection_zoominout_photoText<%= @count %>"><img src="<%= image.source %>" class="try_this" width="<%= image.width %>px" height="<%= image.height %>px"/></li>
+                    <% @count += 1 %>
                     <% end %>
                   <% end %>
                 <% end %>
+
+                </ul> 
+
+
                    
                 <!-- How about we add a video slide and fade the music down for the duration? -->
                 <!-- <li data-horizontalPosition="right" data-verticalPosition="top" data-initialZoom="0.77" data-finalZoom="1" data-bottom-thumb="images/opportuneFullWidth/thumbs/03_opportune.jpg" data-video="true" data-autoPlay="7"><img src="images/opportuneFullWidth/03_opportune.jpg" alt="" width="2500" height="782"  /><iframe width="100%" height="100%" src="http://www.youtube.com/embed/2muxrT5_a6E" frameborder="0" allowfullscreen></iframe></li> -->
-
-                </ul>    
-                
-                
-                
+  
                <!-- TEXTS --> 
 
+               
+
                <!--Title Slide Texts-->
-              <div id="bannerscollection_zoominout_photoText2" class="bannerscollection_zoominout_texts">
+              <div id="bannerscollection_zoominout_intro" class="bannerscollection_zoominout_texts">
                     <div class="bannerscollection_zoominout_text_line textElement52_opportuneFullWidth" 
-                    
                     data-delay="0"
                     data-fade-start="0"
                     data-duration="3"
@@ -91,7 +96,6 @@
                     data-intermediate-delay="3"
                     data-intermediate-duration="5"
                     >
-
                     <%= @event.title %><br/>September 2013
                     </div>
                     
@@ -114,7 +118,6 @@
               <!-- Final slide text -->
               <div id="bannerscollection_zoominout_final" class="bannerscollection_zoominout_texts">
                     <div class="bannerscollection_zoominout_text_line textElement52_opportuneFullWidth" 
-                    
                     data-delay="0"
                     data-fade-start="0"
                     data-duration="3"
@@ -127,7 +130,6 @@
                     data-intermediate-delay="3"
                     data-intermediate-duration="5"
                     >
-
                     Thanks for watching!<br/>
                     </div>
                     
@@ -143,7 +145,7 @@
                     data-intermediate-top="320"
                     data-intermediate-delay="2"
                     data-intermediate-duration="5">
-                    A moflix by Matthew Preston
+                    <%= @event.title %>
                     </div>
 
                     <!-- teaser for Moflix -->
@@ -174,22 +176,10 @@
 
 
 
-               
+              <!-- photoText2 -->
            
-              <div id="bannerscollection_zoominout_photoText4" class="bannerscollection_zoominout_texts">
-                    <!-- <div class="bannerscollection_zoominout_text_line textElement41_opportuneFullWidth with_shadow" 
-                    data-initial-left="480" 
-                    data-initial-top="114" 
-                    data-initial-skew="80deg,40deg"
-                    data-final-skew="0deg,0deg"
-                    data-final-left="1086" 
-                    data-final-top="114" 
-                    data-duration="0.5" 
-                    data-fade-start="0" 
-                    data-delay="0">
-                    I wonder what we can put in here?
-                    </div> -->
-                    
+              <div id="bannerscollection_zoominout_photoText2" class="bannerscollection_zoominout_texts">
+
                     <div class="bannerscollection_zoominout_text_line textElement42_opportuneFullWidth with_shadow" 
                     data-initial-left="1900" 
                     data-initial-top="155" 
@@ -215,19 +205,11 @@
                     data-delay="0.5">
                     Paul Lainchbury on Instagram
                     </div>               
-               </div><!--End Fourth Slide Texts-->  
-               
-                <div id="bannerscollection_zoominout_photoText5" class="bannerscollection_zoominout_texts experiment">
-                    <!-- <div class="bannerscollection_zoominout_text_line textElement51_opportuneFullWidth" 
-                    data-initial-left="10" 
-                    data-initial-top="50" 
-                    data-final-left="1220" 
-                    data-final-top="20" 
-                    data-duration="10" 
-                    data-fade-start="0" 
-                    data-delay="0">
-                    Paul Lainchbury on Twitter
-                    </div> -->
+               </div><!--End photoText2-->  
+
+
+               <!-- photoText3 -->
+                <div id="bannerscollection_zoominout_photoText3" class="bannerscollection_zoominout_texts experiment">
                     
                     <div class="bannerscollection_zoominout_text_line textElement51_opportuneFullWidth" 
                     data-initial-left="10" 
@@ -253,7 +235,7 @@
                     What a great time we had<br />in Greece. I can't want<br />to go back again!
                     </div>
                                     
-               </div><!--End Fourth Fifth Texts-->   
+               </div><!--End photoText3-->   
                
            </div>
 

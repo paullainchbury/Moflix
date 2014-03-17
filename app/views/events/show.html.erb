@@ -79,7 +79,44 @@
   
                <!-- TEXTS --> 
 
-               
+               <% @count = 2 %>
+               <% @event.images.each do |image| %>
+                <% if image %>
+                  <% if (image != @event.images.first) && (image != @event.images.last) %>
+                    
+                    <!-- photoText2 -->
+                    <div id="bannerscollection_zoominout_photoText<%= @count %>" class="bannerscollection_zoominout_texts">
+
+                      <div class="bannerscollection_zoominout_text_line textElement42_opportuneFullWidth with_shadow" 
+                      data-initial-left="1900" 
+                      data-initial-top="155" 
+                      data-initial-skew="80deg,40deg"
+                      data-final-skew="0deg,0deg"
+                      data-final-left="1086" 
+                      data-final-top="155" 
+                      data-duration="1" 
+                      data-fade-start="0" 
+                      data-delay="0.3">
+                      <%= image.name %>
+                      </div>
+                      <div class="bannerscollection_zoominout_text_line textElement43_opportuneFullWidth with_shadow" 
+                      data-initial-left="1086" 
+                      data-initial-top="550" 
+                      data-initial-skew="80deg,40deg"
+                      data-final-skew="0deg,0deg"
+                      data-final-left="1086" 
+                      data-final-top="300" 
+                      data-duration="2" 
+                      data-fade-start="0" 
+                      data-delay="0.5">
+                      <%= image.from %> on Facebook
+                      </div>               
+                    </div><!--End photoText2-->  
+
+                  <% @count +=1 %>
+                  <% end %>
+                <% end %>
+               <% end %>
 
                <!--Title Slide Texts-->
               <div id="bannerscollection_zoominout_intro" class="bannerscollection_zoominout_texts">
@@ -178,7 +215,7 @@
 
               <!-- photoText2 -->
            
-              <div id="bannerscollection_zoominout_photoText2" class="bannerscollection_zoominout_texts">
+              <div id="bannerscollection_zoominout_photoText0" class="bannerscollection_zoominout_texts">
 
                     <div class="bannerscollection_zoominout_text_line textElement42_opportuneFullWidth with_shadow" 
                     data-initial-left="1900" 
@@ -209,7 +246,7 @@
 
 
                <!-- photoText3 -->
-                <div id="bannerscollection_zoominout_photoText3" class="bannerscollection_zoominout_texts experiment">
+                <div id="bannerscollection_zoominout_photoText0" class="bannerscollection_zoominout_texts experiment">
                     
                     <div class="bannerscollection_zoominout_text_line textElement51_opportuneFullWidth" 
                     data-initial-left="10" 

@@ -41,6 +41,20 @@ class EventsController < ApplicationController
   def create
     @event = Event.new()
     @event.title = params['event']['title']
+
+    # Put the photos for the event into the dB
+    params['event']['photos'].each do |photo|
+      photoobject = @event.images.build
+      photoobject.fb_id = photo[1]["id"]
+      photoobject.fb_created_time = photo[1]["created"]
+      photoobject.height = photo[1]["height"]
+      photoobject.width = photo[1]["width"]
+      photoobject.source = photo[1]["source"]
+      photoobject.from = photo[1]["from"]
+      photoobject.name = photo[1]["name"]
+    end
+
+
     # Set the event organiser
     @event.events_users.build(event: @event, user: current_user, user_type: "organiser")
     # TODO Then loop through the other users to assign them to the event also (although not as organisers)

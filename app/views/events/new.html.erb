@@ -14,10 +14,6 @@
     <li>Photos from elsewhere</li>
     <li>Upload my own photos</li>
   </ul>
-
-    <!-- <br />You are currently logged in as <%= current_user.name %>
-    <br />Your facebook token is: <%= current_user.facebook_token %>
-    -->
     <div id="FB_albums_container">
       <h3>Here are albums from your facebook profile:</h3>
       <div class="row fb_albums_row">
@@ -41,22 +37,13 @@
 
     <button class="btn mf_btn" id="done_button"><span class="glyphicon glyphicon-film"></span> Done</button>
     <button class="btn mf_btn" id="add_more">Add more</button>
-
-    
-
     </div>
-
-
   <% else %>
     You are not currently logged in!
   <% end %>
-
-
-
 </div>
 
 <script>
-
   $(function() {
 
     $('#thumbscontainer').bind('mousewheel', function(e) { // on scroll
@@ -77,6 +64,11 @@
       divWidth = div.width();
       div.css('height', divWidth);
     };
+
+    // Ensure the empty divs contain the image backgrounds are responsive
+    $( window ).resize(function() {
+      thumbnailHeight();
+    });
 
     // Get the user's FB albums and build the view of them
     $.ajax({
@@ -111,29 +103,16 @@
       } // Close success callback
     }); // Close Ajax call
 
-    // Ensure the empty divs contain the image backgrounds are responsive
-    $( window ).resize(function() {
-      thumbnailHeight();
-    });
   }); // Close page load function
 
   function getAlbumPhotos(albumId) {
-    // console.log("Here's where we get the photos for album id " + albumId);
-    // make an Ajax call
     $.ajax({
       type: "GET",
       url: "/photos_by_album?albumid=" + albumId,
       dataType: "json",
       success: function(data){
         console.log(data);
-        // Add each photo in the Ajax response to the added_photos_row
-
-        // Photos need to be added to the event object to make the POST to AJAX, and also to the thumbnails view
-
-        // Putting the photos in the thumbnail view
-          // How many thumbnail blocks have we got available?
-
-
+        // Add each photo in the Ajax response to the moflix.photos array
         for (var i=0;i<data.length;i++)
           {
             var photo = new Object;
@@ -144,28 +123,17 @@
             photo.source = data[i]['source'];
             photo.created = data[i]['created_time'];
             photo.from = data[i]['from']['name'];
-            $('.added_photos_row').append(
-              "<p class='photo_added'>Photo - ID:" + photo.id
-              + " From:" + photo.from
-              + " Name:" + photo.name
-              + " Width:" + photo.width
-              + " Height:" + photo.height
-              + "</p>"
-            ); 
-            moflix.photos.push(photo);
-            console.log(moflix.photos); //moflix.photos[0]["source"]
-          }; // End for loop
-        $('.added_photos_row').append(
-              "You have "
-              + $('.thumb_holders').find(".thumb_holder").size()
-              + " placeholders available. You wish to add "
-              + moflix.photos.length
-              + " to the list"
+            $('.imagelist').append(
+              "<li class='thumbimage'><img id='tnimage1' src='"
+              + photo.source
+              +"'></li>"
             );
-        imageListWidth();
+            imageListWidth();
+            scrollToEnd();
 
-
-
+            moflix.photos.push(photo);
+            console.log(moflix.photos); 
+          }; // End for loop
       } //End success callback
     }); // End Ajax request
   } // End getAlbumPhotos function
@@ -195,6 +163,7 @@
              },
       success: function(data){
         console.log(data);
+        alert("Moflix created")
       }
     }); // end of AJAX request
 
@@ -209,50 +178,41 @@
   <div class="container">
     <div id="thumbscontainer">
     <ul class="imagelist">
-      
     </div>
   </div>
-<!--   <div class="row" id="bottomNav">
-    <div class="container thumb_holders">
-      <div class="col-lg-3 col-sm-3 col-xs-4 hidden-xs">Reserved for some text</div>
-      <div class="col-lg-1 col-sm-1 col-xs-2 text-center"><a href="#"><i class="glyphicon glyphicon-circle-arrow-left"></i><br>Link</a></div>
-      <div class="col-lg-1 col-sm-1 col-xs-2 text-center thumb_holder thumb1"></div>
-      <div class="col-lg-1 col-sm-1 col-xs-2 text-center thumb_holder thumb2"></div>
-      <div class="col-lg-1 col-sm-1 col-xs-2 text-center thumb_holder thumb3"></div>
-      <div class="col-lg-1 col-sm-1 col-xs-2 text-center thumb_holder thumb4"></div>
-      <div class="col-lg-1 col-sm-1 col-xs-0 text-center thumb_holder thumb5 hidden-xs"></div>
-      <div class="col-lg-1 col-sm-1 col-xs-0 text-center thumb_holder thumb6 hidden-xs"></div>
-      <div class="col-lg-1 col-sm-1 col-xs-0 text-center thumb_holder thumb7 hidden-xs"></div>
-      <div class="col-lg-1 col-sm-1 col-xs-2 text-center"><a href="#"><i class="glyphicon glyphicon-circle-arrow-right"></i><br>Link</a></div>
-    </div>
-  </div> -->
 </footer>
 
 <script>
-// We're going to remove the thumbnail placeholders that are currrently invisible, so JS knows how many we have available to use.
- 
-// $(function(){
 
-
-//   $('.thumb_holders').find(".thumb_holder").filter(function() {
-//    return $(this).css('display') == 'none';
-//   }).remove();
-
-
-// });
-
+// This function is for dev only (until FB works on iphone)
 $( "#add_more" ).click(function() {
-  $('.imagelist').append(
-              "<li class='thumbimage'><img id='tnimage1' src='https://scontent-b-lhr.xx.fbcdn.net/hphotos-prn1/t1.0-9/1017707_10153948172475503_312887545_n.jpg'></li>"
-            );
-        imageListWidth();
-        $('#thumbscontainer').scrollLeft($('.imagelist').outerWidth());
+  var photo = new Object;
+      photo.id = "none";
+      photo.name = "This is the test one";
+      photo.height = 720;
+      photo.width = 960;
+      photo.source = "https://scontent-b-lhr.xx.fbcdn.net/hphotos-prn1/t1.0-9/1017707_10153948172475503_312887545_n.jpg";
+      photo.created = "2013-11-01T11:57:48+0000";
+      photo.from = "Moflix Test";
+      $('.imagelist').append(
+        "<li class='thumbimage'><img id='tnimage1' src='"
+        + photo.source
+        +"'></li>"
+      );
+      imageListWidth();
+      scrollToEnd();
+      moflix.photos.push(photo);
+      console.log(moflix)
 });
 
 // A function to calculate the width of .imagelist
 function imageListWidth() {
   var lengthRequired =  (($(".thumbimage").length)*(100+4))+104;  
   $(".imagelist").css("width", lengthRequired)
+};
+
+function scrollToEnd() {
+  $('#thumbscontainer').scrollLeft($('.imagelist').outerWidth());
 };
 
 </script>

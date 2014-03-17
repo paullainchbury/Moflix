@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  fb_id: MyString
+  fb_created_time: MyString
+  height: 1
+  width: 1
+  source: MyString
+  from: MyString
+  event: 
+
+two:
+  fb_id: MyString
+  fb_created_time: MyString
+  height: 1
+  width: 1
+  source: MyString
+  from: MyString
+  event: 

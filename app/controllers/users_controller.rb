@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def fb_album
-      @album  = current_user.fb_photos_by_album(params['albumid'])
+      @album  = current_user.fb_photos_by_album(params['albumid']).reverse
       render json: @album
   end
 

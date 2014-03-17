@@ -8,6 +8,7 @@
   Initially, if the user is logged in with facebook, it should show their albums - the user can click to select an entire album or click in to browse the album. If the user is NOT logged in with Facebook, then the screen should allow them to choose which social network to connect with or upload their own images.
 
   <% if current_user %>
+
   <ul>
     <li>Photos from FB</li>
     <li>Photos from elsewhere</li>
@@ -39,6 +40,9 @@
     </div>
 
     <button class="btn mf_btn" id="done_button"><span class="glyphicon glyphicon-film"></span> Done</button>
+    <button class="btn mf_btn" id="add_more">Add more</button>
+
+    
 
     </div>
 
@@ -47,11 +51,22 @@
     You are not currently logged in!
   <% end %>
 
+
+
 </div>
 
 <script>
 
   $(function() {
+
+    $('#thumbscontainer').bind('mousewheel', function(e) { // on scroll
+      var $div = $('#thumbscontainer');
+
+      // set div scroll top offset to current + extra from this scroll
+      $div.scrollLeft($div.scrollLeft() - e.originalEvent.wheelDelta);
+
+      return false; // prevent body scrolling
+    });
 
     moflix = new Object();
     moflix.photos = [];
@@ -137,16 +152,17 @@
               + " Height:" + photo.height
               + "</p>"
             ); 
-            console.log("Photo object: " + photo);
             moflix.photos.push(photo);
-            // event.photos.push(photo);
-            console.log("Photos object: " + moflix.photos);
+            console.log(moflix.photos); //moflix.photos[0]["source"]
           }; // End for loop
         $('.added_photos_row').append(
               "You have "
               + $('.thumb_holders').find(".thumb_holder").size()
-              + " placeholders available"
+              + " placeholders available. You wish to add "
+              + moflix.photos.length
+              + " to the list"
             );
+        imageListWidth();
 
 
 
@@ -189,7 +205,14 @@
 
 <!-- Sticky footer for thumbnails -->
 <footer class="navbar navbar-fixed-bottom transparent navbar-inverse">
-  <div class="row" id="bottomNav">
+  
+  <div class="container">
+    <div id="thumbscontainer">
+    <ul class="imagelist">
+      
+    </div>
+  </div>
+<!--   <div class="row" id="bottomNav">
     <div class="container thumb_holders">
       <div class="col-lg-3 col-sm-3 col-xs-4 hidden-xs">Reserved for some text</div>
       <div class="col-lg-1 col-sm-1 col-xs-2 text-center"><a href="#"><i class="glyphicon glyphicon-circle-arrow-left"></i><br>Link</a></div>
@@ -197,32 +220,40 @@
       <div class="col-lg-1 col-sm-1 col-xs-2 text-center thumb_holder thumb2"></div>
       <div class="col-lg-1 col-sm-1 col-xs-2 text-center thumb_holder thumb3"></div>
       <div class="col-lg-1 col-sm-1 col-xs-2 text-center thumb_holder thumb4"></div>
-      <div class="col-lg-1 col-sm-1 col-xs-1 text-center thumb_holder thumb5 hidden-xs"></div>
-      <div class="col-lg-1 col-sm-1 col-xs-1 text-center thumb_holder thumb6 hidden-xs"></div>
-      <div class="col-lg-1 col-sm-1 col-xs-1 text-center thumb_holder thumb7 hidden-xs"></div>
+      <div class="col-lg-1 col-sm-1 col-xs-0 text-center thumb_holder thumb5 hidden-xs"></div>
+      <div class="col-lg-1 col-sm-1 col-xs-0 text-center thumb_holder thumb6 hidden-xs"></div>
+      <div class="col-lg-1 col-sm-1 col-xs-0 text-center thumb_holder thumb7 hidden-xs"></div>
       <div class="col-lg-1 col-sm-1 col-xs-2 text-center"><a href="#"><i class="glyphicon glyphicon-circle-arrow-right"></i><br>Link</a></div>
     </div>
-  </div>
+  </div> -->
 </footer>
 
 <script>
 // We're going to remove the thumbnail placeholders that are currrently invisible, so JS knows how many we have available to use.
-  // to_delete = $('.thumb_holder').filter(function() {
-  //  return $(this).css('display') == 'none';
-  // });
-
-  // obj = $('.thumb_holder').filter(function() {
-  //  return $(this).css('display') == 'none';
-  // });
-$(function(){
+ 
+// $(function(){
 
 
-  $('.thumb_holders').find(".thumb_holder").filter(function() {
-   return $(this).css('display') == 'none';
-  }).remove();
+//   $('.thumb_holders').find(".thumb_holder").filter(function() {
+//    return $(this).css('display') == 'none';
+//   }).remove();
 
 
-})
+// });
+
+$( "#add_more" ).click(function() {
+  $('.imagelist').append(
+              "<li class='thumbimage'><img id='tnimage1' src='https://scontent-b-lhr.xx.fbcdn.net/hphotos-prn1/t1.0-9/1017707_10153948172475503_312887545_n.jpg'></li>"
+            );
+        imageListWidth();
+        $('#thumbscontainer').scrollLeft($('.imagelist').outerWidth());
+});
+
+// A function to calculate the width of .imagelist
+function imageListWidth() {
+  var lengthRequired =  (($(".thumbimage").length)*(100+4))+104;  
+  $(".imagelist").css("width", lengthRequired)
+};
 
 </script>
 

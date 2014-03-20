@@ -1,0 +1,313 @@
+<!-- The one with the good text! -->
+
+<style>
+
+.bannercontainer {
+  width:100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.mf-bg {
+  position: absolute;
+  left: 1;
+  top: 1;
+  width: 100%;
+  height: 100%;  
+  background-size: cover;
+  -webkit-filter: blur(10px);
+}
+
+.banner{
+  width:100%;
+  position:relative;
+}
+
+.tp-caption a {
+  color: white;
+}
+
+.tp-caption a:hover {
+  color: white;
+}
+
+.video_end_section .btn-primary {
+  margin-right:10px;
+}
+
+.profile_pic {
+  border: 5px solid #fff;
+  border-radius: 100%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  width: 102px;
+  height: 102px;
+  position: relative;
+  top: 102px;
+  left: -55px;
+}
+
+.mf-caption {
+  font-size: 20px;
+  background: whitesmoke;
+  line-height: 30px;
+  font-family: "Open Sans";
+  font-weight: 200;
+  padding: 5px 15px 7px 50px;
+}
+
+.mf-author {
+  text-align: right;
+  color: white;
+  font-family: "Open Sans";
+  font-size: 16px;
+  padding-right: 20px;
+}
+
+</style>
+
+
+
+<div class="bannercontainer">
+  
+<div class="banner">
+  <ul>
+
+    <!-- For each image -->
+
+    <% @event.images.each do |image| %>
+    <% in_options = ["sft", "sfb", "sfr", "sfl", "lft", "lfb", "lfr", "lfl", "skewfromleft", "skewfromright", "skewfromleftshort", "skewfromrightshort", "randomrotate"] %>
+    <% out_options = ["stt", "stb", "str", "stl", "ltt", "ltb", "ltr", "ltl", "skewtoleft", "skewtoright", "skewtoleftshort", "skewtorightshort", "randomrotateout"] %>
+    <% x_options = ["left", "center", "right" ] %>
+    <% y_options = ["top", "bottom" ] %>
+
+    <!-- Work out how long the slide show remain on the screen -->
+    <% comment_count = image.fbcomments.count %>
+    <% if image.name %>
+      <% comment_count += 1 %>
+    <% end %>
+    <% image_time = (comment_count * 3)*950 %>
+    <% if image_time < 4000 %>
+      <% image_time = 4000 %>
+    <% end %>
+
+    <li class="mf-slide" data-transition="zoomout" data-slotamount="7" data-delay="<%= (image_time+2000).to_s %>">
+      <img src="<%= image.source %>" data-bgrepeat="no-repeat" data-bgfit="contain" data-bgposition="center center">
+
+      <% data_start = 2000 %>
+      <% data_end = 3000 %>
+
+      <% if image.name %>
+        <div class="tp-caption <%= in_options.sample %> <%= out_options.sample %> stb"
+        data-x="<%= x_options.sample %>"
+        data-y="<%= y_options.sample %>"
+        data-hoffset="0"
+        data-voffset="0"
+        data-speed="800"
+        data-start="<%= data_start %>"
+        data-easing="Power4.easeOut"
+        data-end="<%= data_end %>"
+        data-endspeed="800"
+        data-endeasing="Power1.easeIn"
+        data-captionhidden="off"
+        style="z-index: 6">
+        <div><img class="profile_pic" src="<%= image.frompic %>"></div>
+        <div class="mf-caption tp-resizeme"> <%= image.name %></div>
+        <div class="mf-author"><%= image.from %></div>
+      </div>
+
+      <% data_start += 3000 %>  
+      <% data_end += 3000 %>
+      <% end %>
+
+      <% image.fbcomments.reverse.each do |comment| %>
+
+      <div class="tp-caption <%= in_options.sample %> <%= out_options.sample %> stb"
+        data-x="<%= x_options.sample %>"
+        data-y="<%= y_options.sample %>"
+        data-hoffset="0"
+        data-voffset="0"
+        data-speed="800"
+        data-start="<%= data_start %>"
+        data-easing="Power4.easeOut"
+        data-end="<%= data_end %>"
+        data-endspeed="800"
+        data-endeasing="Power1.easeIn"
+        data-captionhidden="off"
+        style="z-index: 6">
+        <div><img class="profile_pic" src="<%= comment.picture %>"></div>
+        <div class="mf-caption tp-resizeme"> <%= comment.message %></div>
+        <div class="mf-author"><%= comment.from_name %></div>
+      </div>
+
+      <% data_start += 3000 %>  
+      <% data_end += 3000 %>    
+
+      <% end %>
+    </li>
+    <% end %>
+
+<!-- Only want Ken burns when there are no comments? -->
+ <!-- <li data-transition="fade" data-slotamount="7" data-masterspeed="900">
+   <img src=""  alt="kenburns1"  data-bgposition="left center" data-kenburns="on" data-duration="4000" data-ease="Power4.easeInOut" data-bgfit="130" data-bgfitend="100" data-bgpositionend="right center">
+ </li>
+
+ <li data-transition="fade" data-slotamount="7" data-masterspeed="900">
+    <img src=""  alt="kenburns1"  data-bgposition="left bottom" data-kenburns="on" data-duration="6000" data-ease="Power4.easeInOut" data-bgfit="120" data-bgfitend="100" data-bgpositionend="center top">
+ </li> -->
+
+<!-- final slide -->
+<li data-transition="fade" data-slotamount="7" data-masterspeed="9000">
+  <img src="<%= asset_path "IMG_0810.JPG" %>" data-bgrepeat="no-repeat" data-bgfit="cover" data-bgposition="center center">
+  <div class="caption sft mediumlarge_light_white_center randomrotateout"  data-x="center" data-y="center" data-voffset="-70" data-speed="7000" data-start="2000" data-easing="easeOutBack">a <span class="moflix">moflix</span> by Paul Lainchbury</div>
+  <div class="caption sfb" data-x="center" data-y="center"  data-speed="7000" data-start="4000" data-easing="easeOutBack"><div class="video_end_section"><a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-share-alt"></span> Share</a><a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-play"></span> Play it again</a><a href="<%= new_event_path %>" class="btn mf_btn btn-lg"><span class="glyphicon glyphicon-film"></span> Create your own</a></div></div>
+</li>
+
+</ul>
+</div>
+</div>
+
+<script type="text/javascript">
+ 
+        var revapi;
+
+   jQuery(document).ready(function() {
+
+      revapi = jQuery('.banner').revolution({
+         // delay:7000,
+         startwidth:960,
+         startheight:500,
+         autoHeight:"on",
+         fullScreenAlignForce:"off",
+ 
+         onHoverStop:"off",
+ 
+         // thumbWidth:100,
+         // thumbHeight:50,
+         // thumbAmount:3,
+ 
+         hideThumbsOnMobile:"on",
+         hideBulletsOnMobile:"on",
+         hideArrowsOnMobile:"on",
+         // hideThumbsUnderResoluition:0,
+ 
+         hideThumbs:0,
+ 
+         navigationType:"none",
+         navigationArrows:"solo",
+         navigationStyle:"round",
+ 
+         navigationHAlign:"center",
+         navigationVAlign:"bottom",
+         navigationHOffset:30,
+         navigationVOffset:30,
+ 
+         soloArrowLeftHalign:"left",
+         soloArrowLeftValign:"center",
+         soloArrowLeftHOffset:20,
+         soloArrowLeftVOffset:0,
+ 
+         soloArrowRightHalign:"right",
+         soloArrowRightValign:"center",
+         soloArrowRightHOffset:20,
+         soloArrowRightVOffset:0,
+ 
+ 
+         touchenabled:"on",
+ 
+         stopAtSlide:3, // Needs to be set to the last slide number
+         stopAfterLoops:-1,
+         hideCaptionAtLimit:0,
+         hideAllCaptionAtLilmit:0,
+         hideSliderAtLimit:0,
+ 
+         dottedOverlay:"none",
+ 
+         fullWidth:"off",
+         forceFullWidth:"off",
+         fullScreen:"on",
+         fullScreenOffsetContainer:"#topheader-to-offset",
+ 
+         shadow:0
+ 
+      });
+
+          var arr = new Array;
+          $('.tp-bgimg' ).each(function( index ) {
+              arr.push($( this ).data("src"));
+            });
+
+          // revapi.bind("revolution.slide.onchange",function (e,data) {
+          //   required = data.slideIndex-1;
+          //   $('.mf-bg').css("background-image", "url(" +arr[required]+")");
+          // });
+ 
+   }); // end doc ready
+ 
+// </script>
+
+// <!-- Music -->
+
+// <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+//     <div id="player"></div>
+
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '113',
+          width: '201',
+          videoId: 'ZbZSe6N_BXs',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        player.setVolume(70);
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          // setTimeout(stopVideo, 10000);
+          done = true;
+        }
+      }
+
+      function stopVideo() {
+        currentVolume = player.getVolume();
+        volumeDecrement = (currentVolume/20)
+        var videoVolume = setInterval(
+             function(){
+                if (player.getVolume() == 0) {
+                    player.stopVideo();
+                    clearInterval(videoVolume);
+                } 
+                player.setVolume(player.getVolume()-volumeDecrement)
+                console.log(player.getVolume());
+             },
+             150
+        );
+        console.log(player.getVolume());
+
+      }
+    </script>
+
+<!-- End of music script -->

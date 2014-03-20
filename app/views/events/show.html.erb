@@ -1,313 +1,507 @@
-<!-- The one with the good text! -->
-
-<style>
-
-.bannercontainer {
-  width:100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+<style type="text/css">
+body {
+width:100%;
+height:100%;
+margin:0;
+padding:0;
+overflow-x:hidden;
+background: black;
 }
 
-.mf-bg {
-  position: absolute;
-  left: 1;
-  top: 1;
-  width: 100%;
-  height: 100%;  
-  background-size: cover;
-  -webkit-filter: blur(10px);
-}
-
-.banner{
-  width:100%;
-  position:relative;
-}
-
-.tp-caption a {
-  color: white;
-}
-
-.tp-caption a:hover {
-  color: white;
-}
-
-.video_end_section .btn-primary {
-  margin-right:10px;
+.magic_slider {
+  top: -70px;
 }
 
 .profile_pic {
-  border: 5px solid #fff;
+  border: 2px solid #fff;
   border-radius: 100%;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-  width: 102px;
-  height: 102px;
-  position: relative;
-  top: 102px;
-  left: -55px;
+  width: 150px;
+  height: 150px;
 }
 
+/*@media(max-width:767px){
+  .profile_pic {
+    border: 2px solid #fff;
+    width: 550px;
+    height: 550px;
+  }
+}
+@media(min-width:992px){
+  .profile_pic {
+    border: 3px solid #fff;
+    width: 300px;
+    height: 300px;
+  }
+}
+@media(min-width:1200px){
+  .profile_pic {
+      border: 3px solid #fff;
+      width: 230px;
+      height: 230px;
+    }
+}*/
+
 .mf-caption {
-  font-size: 20px;
-  background: whitesmoke;
-  line-height: 30px;
+  font-size: 2.2em;
+  background:rgba(255,255,255, 0.8);
+  line-height: 1.3em;
   font-family: "Open Sans";
   font-weight: 200;
-  padding: 5px 15px 7px 50px;
+  padding: 10px 10px 0px 15px;
+  color: black;
+  width: 30%;
+  margin: auto;
+
 }
 
 .mf-author {
   text-align: right;
-  color: white;
   font-family: "Open Sans";
-  font-size: 16px;
-  padding-right: 20px;
+  font-size: 0.7em;
+  line-height: 1em;
+  color: grey;
+  padding: 10px 15px 0px 15px;
+}
+
+.moflix_title {
+  font-family: "Open Sans";
+  text-transform: uppercase;
+  font-size: 5em;
+  line-height: 1.1em;
+  color: white;
+  padding: 5px 15px 5px 15px;
+  font-weight: 200;
+  background: rgba(0,0,0,0.7) 
+}
+
+.polaroid {
+  padding: 10px 12px 20px 12px; /*size of the frame*/
+  /*give the frame's background colour a gradient*/
+  background: #eee6d8; /*fallback colour for browsers that don't support gradients*/
+  background: -webkit-linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
+  background: -moz-linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
+  background: -o-linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
+  background: -ms-linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
+  background: linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
+  /*give the Polaroids a small drop shadow*/
+  -webkit-box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+  -moz-box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+  box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+} 
+
+.clockwise {
+  -webkit-transform:rotate(2deg);
+  -moz-transform: rotate(2deg);
+  -o-transform: rotate(2deg);
+  -ms-transform: rotate(2deg);
+  transform: rotate(2deg);
+  -webkit-box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+  -moz-box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+  box-shadow: -4px 4px 8px -4px rgba(0, 0, 0, .75);
+}
+
+.anti-clockwise {
+  -webkit-transform:rotate(-2deg);
+  -moz-transform: rotate(-2deg);
+  -o-transform: rotate(-2deg);
+  -ms-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+  -webkit-backface-visibility:hidden;
+}
+
+.blurred_bg {
+  width:100%;
+  height:100%;
+  position:absolute;
+  top:0;
+  left:0;
+  -webkit-filter: blur(5px);
+  background: url("https://scontent-b-lhr.xx.fbcdn.net/hphotos-prn1/t1.0-9/301220_10150789914725093_8361216_n.jpg");
+  background-size:cover;
+}
+
+.video_end_section .btn {
+  margin: 15px 10px 0px 0px;
 }
 
 </style>
 
 
+	<script>
+	
+		jQuery(function() {
 
-<div class="bannercontainer">
-  
-<div class="banner">
-  <ul>
+			jQuery('#magic_slider_bullets').magic_slider({
+				autoPlay:8,
+				skin: 'bullets',
+				responsive:true,
+				width: 1920,
+				height: 1200,
+				width100Proc:true,
+				height100Proc:true,
+				/*scrollSlideDuration:1.8,
+				scrollSlideEasing:'easeInQuint', //for slide
+				fadeSlides:false,*/ //for slide
+				scrollSlideDuration:1.5,
+				fadeSlides:true, //for fade
+				showNavArrows:true,
+				showBottomNav:true,
+        showOnInitNavArrows: false,
+        showPreviewThumbs: false,
+				pauseOnMouseOver:false,
+				circleRadius:8,
+				circleLineWidth:4,
+				circleColor: "#FC329B", //849ef3
+				circleAlpha: 50,
+				behindCircleColor: "#000000",
+				behindCircleAlpha: 20,
+				thumbsWrapperMarginTop:-55,
+        loop: false
+			});		
+		});
+	</script>
 
-    <!-- For each image -->
+  <div class="blurred_bg"></div>
 
-    <% @event.images.each do |image| %>
-    <% in_options = ["sft", "sfb", "sfr", "sfl", "lft", "lfb", "lfr", "lfl", "skewfromleft", "skewfromright", "skewfromleftshort", "skewfromrightshort", "randomrotate"] %>
-    <% out_options = ["stt", "stb", "str", "stl", "ltt", "ltb", "ltr", "ltl", "skewtoleft", "skewtoright", "skewtoleftshort", "skewtorightshort", "randomrotateout"] %>
-    <% x_options = ["left", "center", "right" ] %>
-    <% y_options = ["top", "bottom" ] %>
+  <div id="moflix_logo" class="logo_to_fade">moflix</div>
 
-    <!-- Work out how long the slide show remain on the screen -->
-    <% comment_count = image.fbcomments.count %>
-    <% if image.name %>
-      <% comment_count += 1 %>
-    <% end %>
-    <% image_time = (comment_count * 3)*950 %>
-    <% if image_time < 4000 %>
-      <% image_time = 4000 %>
-    <% end %>
+            <div id="magic_slider_bullets">
+            	<div class="myloader"></div>
+                <!-- CONTENT -->
+                <ul class="magic_slider_list">
 
-    <li class="mf-slide" data-transition="zoomout" data-slotamount="7" data-delay="<%= (image_time+2000).to_s %>">
-      <img src="<%= image.source %>" data-bgrepeat="no-repeat" data-bgfit="contain" data-bgposition="center center">
+                  <% slideNumber = 1 %>
+                  <% angleOptions = ["clockwise", "anti-clockwise"] %>
+                  <% intialZoomOptions = [0.4, 0.6, 0.8, 1.0, 1.2] %>
+                  <% finalZoomOptions = [0.4, 0.6, 0.8, 1.0, 1.2] %>
+                  <% @event.images.reverse.each do |image| %>
+                    <% screenTime = 0 %>
 
-      <% data_start = 2000 %>
-      <% data_end = 3000 %>
+                    <% @comment_count = image.fbcomments.count %>
+                    <% if image.name %>
+                      <% @comment_count += 1 %>
+                    <% end %>
+                    <% if image == @event.images.reverse.first %>
+                      <% @comment_count += 2 %>
+                    <% end %>
+                    <% screenTime += (@comment_count * 4.5) %>
+                    <% if screenTime < 8 %>
+                      <% screenTime = 8 %>
+                    <% end %>
 
-      <% if image.name %>
-        <div class="tp-caption <%= in_options.sample %> <%= out_options.sample %> stb"
-        data-x="<%= x_options.sample %>"
-        data-y="<%= y_options.sample %>"
-        data-hoffset="0"
-        data-voffset="0"
-        data-speed="800"
-        data-start="<%= data_start %>"
-        data-easing="Power4.easeOut"
-        data-end="<%= data_end %>"
-        data-endspeed="800"
-        data-endeasing="Power1.easeIn"
-        data-captionhidden="off"
-        style="z-index: 6">
-        <div><img class="profile_pic" src="<%= image.frompic %>"></div>
-        <div class="mf-caption tp-resizeme"> <%= image.name %></div>
-        <div class="mf-author"><%= image.from %></div>
-      </div>
 
-      <% data_start += 3000 %>  
-      <% data_end += 3000 %>
-      <% end %>
+                    <!-- Start of picture <%= slideNumber %> -->
 
-      <% image.fbcomments.reverse.each do |comment| %>
+                      <li data-text-id="#magic_slider_photoText<%= slideNumber %>" data-initialZoom="<%= intialZoomOptions.sample %>" data-finalZoom="<%= finalZoomOptions.sample %>" data-duration="<%= screenTime %>" data-autoPlay="<%= screenTime %>"><img src="<%= image.source %>" width="<%= image.width %>" height="<%= image.height %>" class="title_picture polaroid <%= angleOptions.sample %>"/></li>
 
-      <div class="tp-caption <%= in_options.sample %> <%= out_options.sample %> stb"
-        data-x="<%= x_options.sample %>"
-        data-y="<%= y_options.sample %>"
-        data-hoffset="0"
-        data-voffset="0"
-        data-speed="800"
-        data-start="<%= data_start %>"
-        data-easing="Power4.easeOut"
-        data-end="<%= data_end %>"
-        data-endspeed="800"
-        data-endeasing="Power1.easeIn"
-        data-captionhidden="off"
-        style="z-index: 6">
-        <div><img class="profile_pic" src="<%= comment.picture %>"></div>
-        <div class="mf-caption tp-resizeme"> <%= comment.message %></div>
-        <div class="mf-author"><%= comment.from_name %></div>
-      </div>
+                    <!-- End of picture <%= slideNumber %> -->
 
-      <% data_start += 3000 %>  
-      <% data_end += 3000 %>    
+                  <% slideNumber += 1 %>
+                  <% end %>
+                </ul>    
+                
+               
+                
+               <!-- TEXTS -->
+              
+                <% slideNumber = 1 %>
+                <% positionOptions = [{:caption_left => 1300, :caption_top => 150, :pic_left => 1150, :pic_top =>150}, {:caption_left => 250, :caption_top => 150, :pic_left => 100, :pic_top =>150}, {:caption_left => 1300, :caption_top => 625, :pic_left => 1150, :pic_top =>625}] %>
 
-      <% end %>
-    </li>
-    <% end %>
+                <% @event.images.reverse.each do |image| %>
+                  <% @startDelay = 1 %>
+                <!-- Text for picture <%= slideNumber %> -->
 
-<!-- Only want Ken burns when there are no comments? -->
- <!-- <li data-transition="fade" data-slotamount="7" data-masterspeed="900">
-   <img src=""  alt="kenburns1"  data-bgposition="left center" data-kenburns="on" data-duration="4000" data-ease="Power4.easeInOut" data-bgfit="130" data-bgfitend="100" data-bgpositionend="right center">
- </li>
+                  <div id="magic_slider_photoText<%= slideNumber %>" class="magic_slider_texts">
 
- <li data-transition="fade" data-slotamount="7" data-masterspeed="900">
-    <img src=""  alt="kenburns1"  data-bgposition="left bottom" data-kenburns="on" data-duration="6000" data-ease="Power4.easeInOut" data-bgfit="120" data-bgfitend="100" data-bgpositionend="center top">
- </li> -->
+                    <!-- TODO Need to ensure the long texts only appear in the top slots to prevent being cut off on certain screens -->
 
-<!-- final slide -->
-<li data-transition="fade" data-slotamount="7" data-masterspeed="9000">
-  <img src="<%= asset_path "IMG_0810.JPG" %>" data-bgrepeat="no-repeat" data-bgfit="cover" data-bgposition="center center">
-  <div class="caption sft mediumlarge_light_white_center randomrotateout"  data-x="center" data-y="center" data-voffset="-70" data-speed="7000" data-start="2000" data-easing="easeOutBack">a <span class="moflix">moflix</span> by Paul Lainchbury</div>
-  <div class="caption sfb" data-x="center" data-y="center"  data-speed="7000" data-start="4000" data-easing="easeOutBack"><div class="video_end_section"><a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-share-alt"></span> Share</a><a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-play"></span> Play it again</a><a href="<%= new_event_path %>" class="btn mf_btn btn-lg"><span class="glyphicon glyphicon-film"></span> Create your own</a></div></div>
-</li>
+                    <% if image == @event.images.reverse.first %>
+                    <div class="magic_slider_text_line moflix_title" 
+                      data-initial-left="179" 
+                      data-initial-top="243" 
+                      data-initial-skew="50deg,50deg"
+                      data-initial-scale="0"
+                      data-final-skew="0deg,0deg"
+                      data-final-scale="1"
+                      data-final-left="179" 
+                      data-final-top="643" 
+                      data-duration="1.0" 
+                      data-fade-start="0" 
+                      data-delay="2.0"
+                      data-easing="easeInOutBack"
+                      data-intermediate-left="7000"
+                      data-intermediate-top="643" 
+                      data-intermediate-duration="4.0" 
+                      data-intermediate-delay="4.0" 
+                      data-intermediate-easing="swing"
+                      >A <span class="moflix">moflix</span> by Paul Lainchbury
+                      </div> 
+                      
+                      <div class="magic_slider_text_line textElement42_FullScreen" 
+                        data-initial-left="-200" 
+                        data-initial-top="1000" 
+                        data-initial-skew="0deg,70deg"
+                        data-initial-scale="0"
+                        data-final-skew="0deg,0deg"
+                        data-final-scale="1"
+                        data-final-left="231" 
+                        data-final-top="730" 
+                        data-duration="1.0" 
+                        data-fade-start="0" 
+                        data-delay="2.0"
+                        data-easing="easeOutBack"
+                        data-intermediate-left="7000" 
+                        data-intermediate-top="720" 
+                        data-intermediate-duration="4.0" 
+                        data-intermediate-delay="4.0" 
+                        data-intermediate-easing="swing"
+                        >
+                        September 2013
+                      </div>
+                      <% @startDelay += 7 %> 
+                    <% end %>
 
-</ul>
-</div>
-</div>
+                    <% if image.name %>
 
-<script type="text/javascript">
- 
-        var revapi;
+                    <% position = positionOptions.sample %>
 
-   jQuery(document).ready(function() {
+                    <div class="magic_slider_text_line mf-caption"  
+                       data-initial-left="<%= position[:caption_left] %>"
+                       data-initial-top="<%= position[:caption_top] %>" 
+                       data-initial-scale="0"
+                       data-final-scale="1"
+                       data-final-left="<%= position[:caption_left] %>" 
+                       data-final-top="<%= position[:caption_top] %>" 
+                       data-duration="1" 
+                       data-fade-start="0" 
+                       data-delay="<%= @startDelay %>"
+                       data-easing="easeOutBack"
+                       data-intermediate-left="7000" 
+                       data-intermediate-top="250" 
+                       data-intermediate-duration="2.0" 
+                       data-intermediate-delay="3.0" 
+                       data-intermediate-easing="swing">                       
+                       <%= image.name %> <p class="mf-author"><%= image.from %> on Facebook</p>
+                       </div>
 
-      revapi = jQuery('.banner').revolution({
-         // delay:7000,
-         startwidth:960,
-         startheight:500,
-         autoHeight:"on",
-         fullScreenAlignForce:"off",
- 
-         onHoverStop:"off",
- 
-         // thumbWidth:100,
-         // thumbHeight:50,
-         // thumbAmount:3,
- 
-         hideThumbsOnMobile:"on",
-         hideBulletsOnMobile:"on",
-         hideArrowsOnMobile:"on",
-         // hideThumbsUnderResoluition:0,
- 
-         hideThumbs:0,
- 
-         navigationType:"none",
-         navigationArrows:"solo",
-         navigationStyle:"round",
- 
-         navigationHAlign:"center",
-         navigationVAlign:"bottom",
-         navigationHOffset:30,
-         navigationVOffset:30,
- 
-         soloArrowLeftHalign:"left",
-         soloArrowLeftValign:"center",
-         soloArrowLeftHOffset:20,
-         soloArrowLeftVOffset:0,
- 
-         soloArrowRightHalign:"right",
-         soloArrowRightValign:"center",
-         soloArrowRightHOffset:20,
-         soloArrowRightVOffset:0,
- 
- 
-         touchenabled:"on",
- 
-         stopAtSlide:3, // Needs to be set to the last slide number
-         stopAfterLoops:-1,
-         hideCaptionAtLimit:0,
-         hideAllCaptionAtLilmit:0,
-         hideSliderAtLimit:0,
- 
-         dottedOverlay:"none",
- 
-         fullWidth:"off",
-         forceFullWidth:"off",
-         fullScreen:"on",
-         fullScreenOffsetContainer:"#topheader-to-offset",
- 
-         shadow:0
- 
-      });
+                       <!-- profile pic -->
+                      <div class="magic_slider_text_line" 
+                       data-initial-left="<%= position[:pic_left] %>" 
+                       data-initial-top="<%= position[:pic_top] %>" 
+                       data-initial-scale="0"
+                       data-final-scale="1"
+                       data-final-left="<%= position[:pic_left] %>" 
+                       data-final-top="<%= position[:pic_top] %>" 
+                       data-duration="1" 
+                       data-fade-start="0" 
+                       data-delay="<%= @startDelay %>"
+                       data-easing="easeOutBack"
+                       data-intermediate-left="7000" 
+                       data-intermediate-top="250" 
+                       data-intermediate-duration="2.0" 
+                       data-intermediate-delay="3.0" 
+                       data-intermediate-easing="swing">                       
+                       <img src="<%= image.frompic %>" class="profile_pic" />
+                       </div>
 
-          var arr = new Array;
-          $('.tp-bgimg' ).each(function( index ) {
-              arr.push($( this ).data("src"));
-            });
+                       <% @startDelay += 4 %>
 
-          // revapi.bind("revolution.slide.onchange",function (e,data) {
-          //   required = data.slideIndex-1;
-          //   $('.mf-bg').css("background-image", "url(" +arr[required]+")");
-          // });
- 
-   }); // end doc ready
- 
-// </script>
+                       <% end %>
 
-// <!-- Music -->
+                    <% image.fbcomments.reverse.each do |comment| %>
 
-// <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-//     <div id="player"></div>
+                    <% position = positionOptions.sample %>
 
-    <script>
-      // 2. This code loads the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
+                    <div class="magic_slider_text_line mf-caption"  
+                       data-initial-left="<%= position[:caption_left] %>"
+                       data-initial-top="<%= position[:caption_top] %>" 
+                       data-initial-scale="0"
+                       data-final-scale="1"
+                       data-final-left="<%= position[:caption_left] %>" 
+                       data-final-top="<%= position[:caption_top] %>" 
+                       data-duration="1" 
+                       data-fade-start="0" 
+                       data-delay="<%= @startDelay %>"
+                       data-easing="easeOutBack"
+                       data-intermediate-left="7000" 
+                       data-intermediate-top="250" 
+                       data-intermediate-duration="2.0" 
+                       data-intermediate-delay="3.0" 
+                       data-intermediate-easing="swing">                       
+                       <%= comment.message %> <p class="mf-author"><%= comment.from_name %> on Facebook</p>
+                       </div>
 
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                       <!-- profile pic -->
+                      <div class="magic_slider_text_line" 
+                       data-initial-left="<%= position[:pic_left] %>" 
+                       data-initial-top="<%= position[:pic_top] %>" 
+                       data-initial-scale="0"
+                       data-final-scale="1"
+                       data-final-left="<%= position[:pic_left] %>" 
+                       data-final-top="<%= position[:pic_top] %>" 
+                       data-duration="1" 
+                       data-fade-start="0" 
+                       data-delay="<%= @startDelay %>"
+                       data-easing="easeOutBack"
+                       data-intermediate-left="7000" 
+                       data-intermediate-top="250" 
+                       data-intermediate-duration="2.0" 
+                       data-intermediate-delay="3.0" 
+                       data-intermediate-easing="swing">                       
+                       <img src="<%= comment.picture %>" class="profile_pic" />
+                       </div>
 
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          height: '113',
-          width: '201',
-          videoId: 'ZbZSe6N_BXs',
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
+                       <% @startDelay += 4 %>
 
-      // 4. The API will call this function when the video player is ready.
-      function onPlayerReady(event) {
-        player.setVolume(70);
-        event.target.playVideo();
-      }
+                       <% end %>
 
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
-      var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          // setTimeout(stopVideo, 10000);
-          done = true;
-        }
-      }
+                  <% if image == @event.images.reverse.last %>
 
-      function stopVideo() {
-        currentVolume = player.getVolume();
-        volumeDecrement = (currentVolume/20)
-        var videoVolume = setInterval(
-             function(){
-                if (player.getVolume() == 0) {
-                    player.stopVideo();
-                    clearInterval(videoVolume);
-                } 
-                player.setVolume(player.getVolume()-volumeDecrement)
-                console.log(player.getVolume());
-             },
-             150
-        );
-        console.log(player.getVolume());
+                   <div class="magic_slider_text_line final_div" 
+                     data-initial-left="1000" 
+                     data-initial-top="88"
+                     data-initial-skew="80deg,40deg"
+                     data-final-skew="0deg,0deg" 
+                     data-final-left="120" 
+                     data-final-top="310" 
+                     data-duration="0.5" 
+                     data-fade-start="0" 
+                     data-delay="<%= @startDelay %>">
+                      <div class="video_end_section">
+                        <a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-share-alt"></span> Share</a>
 
-      }
-    </script>
+                        <a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-play"></span> Play it again</a>
+
+                        <a href="<%= new_event_path %>" class="btn mf_btn btn-lg"><span class="glyphicon glyphicon-film"></span> Create your own</a>
+                      </div>
+                     </div>                    
+                  <% end %>
+
+                  </div>
+                <!-- End of text for picture <%= slideNumber %> -->
+                <% slideNumber += 1 %>
+                <% end %>              
+
+  <!--EndTexts-->  
+                                                             
+                           
+           </div>  
+
+<!-- Music -->
+
+<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+
+    // <script>
+    //   // 2. This code loads the IFrame Player API code asynchronously.
+    //   var tag = document.createElement('script');
+
+    //   tag.src = "https://www.youtube.com/iframe_api";
+    //   var firstScriptTag = document.getElementsByTagName('script')[0];
+    //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    //   // 3. This function creates an <iframe> (and YouTube player)
+    //   //    after the API code downloads.
+    //   var player;
+    //   function onYouTubeIframeAPIReady() {
+    //     player = new YT.Player('player', {
+    //       height: '113',
+    //       width: '201',
+    //       videoId: 'Wy3SV2fvoG8',
+    //       events: {
+    //         'onReady': onPlayerReady,
+    //         'onStateChange': onPlayerStateChange
+    //       }
+    //     });
+    //   }
+
+    //   // 4. The API will call this function when the video player is ready.
+    //   function onPlayerReady(event) {
+    //     player.setVolume(70);
+    //     event.target.playVideo();
+    //   }
+
+    //   // 5. The API calls this function when the player's state changes.
+    //   //    The function indicates that when playing a video (state=1),
+    //   //    the player should play for six seconds and then stop.
+    //   var done = false;
+    //   function onPlayerStateChange(event) {
+    //     if (event.data == YT.PlayerState.PLAYING && !done) {
+    //       // setTimeout(stopVideo, 10000);
+    //       done = true;
+    //     }
+    //   }
+
+    //   function stopVideo() {
+    //     currentVolume = player.getVolume();
+    //     volumeDecrement = (currentVolume/20)
+    //     var videoVolume = setInterval(
+    //          function(){
+    //             if (player.getVolume() == 0) {
+    //                 player.stopVideo();
+    //                 clearInterval(videoVolume);
+    //             } 
+    //             player.setVolume(player.getVolume()-volumeDecrement)
+    //             console.log(player.getVolume());
+    //          },
+    //          150
+    //     );
+    //     console.log(player.getVolume());
+
+    //   }
+    // </script>
 
 <!-- End of music script -->
+
+<!-- Menu navbar script -->
+
+<script>
+    $(function() {
+        // As we're sliding out the menu bar, let's make a more subtle Moflix logo appear in it's place
+
+        $('.logo_to_fade').css('display', 'none');
+
+        fadeBgLogoOut = function() {
+            $( ".logo_to_fade" ).fadeOut( 2000 );
+        };
+
+        fadeBgLogoIn = function() {
+            $( ".logo_to_fade" ).fadeIn( 3000 );
+        };
+
+        // Slide out the menu bar when playing a slideshow
+        var n = 0
+        var startTimer = setInterval(
+             function(){ 
+                  if (n == 1) {            
+                      $('.navbar').animate({top:'-50px'}, {queue: false, duration: 1500});
+                      fadeBgLogoIn();
+                      clearInterval(startTimer);  
+                    }
+                    n =+ 1;
+             },
+             1000
+        );
+
+        // Listen for a change in the position of the final slide and slide the menu bar back in.
+        var starting_position = $('.final_div').position().top;
+        console.log(starting_position)
+        var timer = setInterval(
+            function(){ 
+              console.log(starting_position);
+                if (starting_position != $('.final_div').position().top) {
+                    $('.navbar').animate({top:'0px'}, {queue: false, duration: 1500});
+                    fadeBgLogoOut();
+                    // stopVideo();
+                    clearInterval(timer); 
+                    } 
+                },
+                1000
+        );
+
+    }); // Close page load function
+</script>
+
+<!-- End of menu navbar script -->
+

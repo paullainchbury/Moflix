@@ -2,7 +2,9 @@
 <html>
 <head>
   <title>Moflix</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
@@ -12,56 +14,15 @@
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300' rel='stylesheet' type='text/css'>
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" type="text/css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   
-    <script>
-  
-    jQuery(function() {
-
-      jQuery('#bannerscollection_zoominout_opportune').bannerscollection_zoominout({
-      skin: 'opportune',
-      setAsBg:true,
-      width: 1920,
-      height: 1200,
-      width100Proc:true,
-      height100Proc:true,
-      pauseOnMouseOver:false,
-      responsive: true,
-      loop: false,
-      enableTouchScreen: true,
-      showAllControllers: false,
-      scrollSlideDuration: 1.5,
-      responsiveRelativeToBrowser: false,
-      circleColor: "#FC329B"
-      }); 
-    });
-  </script>
-
 </head>
 <body>
-  <!-- Facebook API -->
-
-    <!-- <div id="fb-root"></div>
-    <script>
-      window.fbAsyncInit = function () {
-    FB.init({ appId: '212771185582572', cookie: true, xfbml: true, oauth: true });
-
-    // *** here is my code ***
-    if (typeof facebookInit == 'function') {
-        facebookInit();
-    }
-};
-
-(function(d){
-    var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-    js = d.createElement('script'); js.id = id; js.async = true;
-    js.src = "//connect.facebook.net/en_US/all.js";
-    d.getElementsByTagName('head')[0].appendChild(js);
-}(document));
-    </script>
- -->
-    <!-- End of Facebook API -->
+  <div class="mf-bg">
+</div>
 
   <div class="navbar transparent navbar-inverse navbar-static-top" role="navigation">
       <div class="container">

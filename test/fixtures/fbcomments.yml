@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  fb_created_time: MyString
+  from_id: MyString
+  from_name: MyString
+  like_count: 1
+  user_likes: false
+  message: MyString
+  image: 
+
+two:
+  fb_created_time: MyString
+  from_id: MyString
+  from_name: MyString
+  like_count: 1
+  user_likes: false
+  message: MyString
+  image: 

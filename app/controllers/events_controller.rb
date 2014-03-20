@@ -10,8 +10,10 @@ class EventsController < ApplicationController
     end
   end
 
+  def anothershow
+  end
+
   def showdev
-    
   end
 
   # GET /events/1
@@ -48,6 +50,7 @@ class EventsController < ApplicationController
 
     # Put the photos for the event into the dB
     params['event']['photos'].each do |photo|
+      
       photoobject = @event.images.build
       photoobject.fb_id = photo[1]["id"]
       photoobject.fb_created_time = photo[1]["created"]
@@ -55,8 +58,23 @@ class EventsController < ApplicationController
       photoobject.width = photo[1]["width"]
       photoobject.source = photo[1]["source"]
       photoobject.from = photo[1]["from"]
+      photoobject.fromid = photo[1]["fromid"]
+      photoobject.frompic = current_user.get_profile_pic(photoobject.fromid)
       photoobject.name = photo[1]["name"]
-    end
+      if photo[1]["comments"] 
+        comments = photo[1]["comments"]["data"]
+        comments.each do |comment|
+          commentobject = photoobject.fbcomments.build
+          commentobject.fb_created_time = comment[1]['created_time']
+          commentobject.like_count = comment[1]['like_count']
+          commentobject.user_likes = comment[1]['user_likes']
+          commentobject.message = comment[1]['message']
+          commentobject.from_name = comment[1]['from']['name']
+          commentobject.from_id = comment[1]['from']['id']
+          commentobject.picture = current_user.get_profile_pic(comment[1]['from']['id'])
+        end #end each comment
+      end #end if comments
+    end #end each photo
 
 
     # Set the event organiser

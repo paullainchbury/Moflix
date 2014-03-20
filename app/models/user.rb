@@ -67,4 +67,8 @@ class User < ActiveRecord::Base
     self.facebook_details.get_connections("#{album_id}", "photos")
   end
 
+  def get_profile_pic(user_id=self.uid)
+    self.facebook_details.get_picture("#{user_id}", :type => "large")
+  end
+
 end

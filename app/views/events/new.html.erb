@@ -111,7 +111,6 @@
       url: "/photos_by_album?albumid=" + albumId,
       dataType: "json",
       success: function(data){
-        console.log(data);
         // Add each photo in the Ajax response to the moflix.photos array
         for (var i=0;i<data.length;i++)
           {
@@ -123,6 +122,9 @@
             photo.source = data[i]['source'];
             photo.created = data[i]['created_time'];
             photo.from = data[i]['from']['name'];
+            photo.fromid = data[i]['from']['id'];
+            photo.comments = data[i]['comments'];
+            photo.likes = data[i]['likes'];
             $('.imagelist').append(
               "<li class='thumbimage'><img id='tnimage1' src='"
               + photo.source
@@ -132,7 +134,6 @@
             scrollToEnd();
 
             moflix.photos.push(photo);
-            console.log(moflix.photos); 
           }; // End for loop
       } //End success callback
     }); // End Ajax request
@@ -149,7 +150,6 @@
     } else {
       moflix.title = "Something else" //$('#event_title').val();
     }
-    console.log(moflix.title);
 
     $.ajax({
       type: "POST",
@@ -162,7 +162,6 @@
              "event":moflix
              },
       success: function(data){
-        console.log(data);
         alert("Moflix created")
       }
     }); // end of AJAX request

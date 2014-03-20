@@ -9,7 +9,8 @@
 /* Stuff I've added below this line*/
 
  .moflix {
-  font-family: Slackey, cursive; 
+  font-family: Slackey, cursive;
+  text-transform: lowercase; 
  }
 
  .mf_btn { 
@@ -178,4 +179,6 @@ display: inline;
   vertical-align: top;
   margin-right: 4px;
 }
+
+
 

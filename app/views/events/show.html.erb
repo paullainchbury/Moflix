@@ -1,290 +1,255 @@
-<div id="moflix_logo" class="logo_to_fade">moflix</div>
-<p>See if we can put something here</p>
+<!-- The one with the good text! -->
+
+<style>
+
+.bannercontainer {
+  width:100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.mf-bg {
+  position: absolute;
+  left: 1;
+  top: 1;
+  width: 100%;
+  height: 100%;  
+  background-size: cover;
+  -webkit-filter: blur(10px);
+}
+
+.banner{
+  width:100%;
+  position:relative;
+}
+
+.tp-caption a {
+  color: white;
+}
+
+.tp-caption a:hover {
+  color: white;
+}
+
+.video_end_section .btn-primary {
+  margin-right:10px;
+}
+
+.profile_pic {
+  border: 5px solid #fff;
+  border-radius: 100%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  width: 102px;
+  height: 102px;
+  position: relative;
+  top: 102px;
+  left: -55px;
+}
+
+.mf-caption {
+  font-size: 20px;
+  background: whitesmoke;
+  line-height: 30px;
+  font-family: "Open Sans";
+  font-weight: 200;
+  padding: 5px 15px 7px 50px;
+}
+
+.mf-author {
+  text-align: right;
+  color: white;
+  font-family: "Open Sans";
+  font-size: 16px;
+  padding-right: 20px;
+}
+
+</style>
 
 
-<script>
-    $(function() {
-        // As we're sliding out the menu bar, let's make a more subtle Moflix logo appear in it's place
 
-        $('.logo_to_fade').css('display', 'none');
-
-        fadeBgLogoOut = function() {
-            $( ".logo_to_fade" ).fadeOut( 2000 );
-        };
-
-        fadeBgLogoIn = function() {
-            $( ".logo_to_fade" ).fadeIn( 3000 );
-        };
-
-        // Slide out the menu bar when playing a slideshow
-        var n = 0
-        var startTimer = setInterval(
-             function(){ 
-                    console.log(n);
-                  if (n == 1) {            
-                      $('.navbar').animate({top:'-50px'}, {queue: false, duration: 1500});
-                      fadeBgLogoIn();
-                      clearInterval(startTimer);  
-                    }
-                    n =+ 1;
-             },
-             1000
-        );
-
-        // Listen for a change in the position of the final slide and slide the menu bar back in.
-        var starting_position = $('.final_div').position().top;
-        var timer = setInterval(
-            function(){ 
-                if (starting_position != $('.final_div').position().top) {
-                    $('.navbar').animate({top:'0px'}, {queue: false, duration: 1500});
-                    fadeBgLogoOut();
-                    stopVideo();
-                    clearInterval(timer); 
-                    } 
-                },
-                3000
-        );
-
-    }); // Close page load function
-</script>
-
-<div id="bannerscollection_zoominout_opportune">
-              <div class="myloader"></div>
-                <!-- CONTENT -->
-
-                <ul class="bannerscollection_zoominout_list">
-                
-                <!-- OK, here's where we build the images for the moflix -->
-                <% @count = 1 %>
-                <% @event.images.each do |image| %>
-                  <% if image %>
-                    <% if image == @event.images.last %>
-                    <li data-horizontalPosition="center" data-verticalPosition="center" data-initialZoom="1" data-finalZoom="0.8" data-duration="12" data-text-id="#bannerscollection_zoominout_final"><img src="<%= image.source %>" class="try_this" width="<%= image.width %>px" height="<%= image.height %>px"/></li>
-                    <% elsif image == @event.images.first %>
-                    <li data-horizontalPosition="center" data-verticalPosition="center" data-initialZoom="1" data-finalZoom="0.8" data-duration="12" data-text-id="#bannerscollection_zoominout_intro"><img src="<%= image.source %>" class="try_this" width="<%= image.width %>px" height="<%= image.height %>px"/></li>
-                    <% @count += 1 %>
-                    <% else %>
-                    <li data-initialZoom="1" data-finalZoom="0.80" data-horizontalPosition="center" data-verticalPosition="center" data-text-id="#bannerscollection_zoominout_photoText<%= @count %>"><img src="<%= image.source %>" class="try_this" width="<%= image.width %>px" height="<%= image.height %>px"/></li>
-                    <% @count += 1 %>
-                    <% end %>
-                  <% end %>
-                <% end %>
-
-                </ul> 
-
-
-                   
-                <!-- How about we add a video slide and fade the music down for the duration? -->
-                <!-- <li data-horizontalPosition="right" data-verticalPosition="top" data-initialZoom="0.77" data-finalZoom="1" data-bottom-thumb="images/opportuneFullWidth/thumbs/03_opportune.jpg" data-video="true" data-autoPlay="7"><img src="images/opportuneFullWidth/03_opportune.jpg" alt="" width="2500" height="782"  /><iframe width="100%" height="100%" src="http://www.youtube.com/embed/2muxrT5_a6E" frameborder="0" allowfullscreen></iframe></li> -->
+<div class="bannercontainer">
   
-               <!-- TEXTS --> 
+<div class="banner">
+  <ul>
 
-               <% @count = 2 %>
-               <% @event.images.each do |image| %>
-                <% if image %>
-                  <% if (image != @event.images.first) && (image != @event.images.last) %>
-                    
-                    <!-- photoText2 -->
-                    <div id="bannerscollection_zoominout_photoText<%= @count %>" class="bannerscollection_zoominout_texts">
+    <!-- For each image -->
 
-                      <div class="bannerscollection_zoominout_text_line textElement42_opportuneFullWidth with_shadow" 
-                      data-initial-left="1900" 
-                      data-initial-top="155" 
-                      data-initial-skew="80deg,40deg"
-                      data-final-skew="0deg,0deg"
-                      data-final-left="1086" 
-                      data-final-top="155" 
-                      data-duration="1" 
-                      data-fade-start="0" 
-                      data-delay="0.3">
-                      <%= image.name %>
-                      </div>
-                      <div class="bannerscollection_zoominout_text_line textElement43_opportuneFullWidth with_shadow" 
-                      data-initial-left="1086" 
-                      data-initial-top="550" 
-                      data-initial-skew="80deg,40deg"
-                      data-final-skew="0deg,0deg"
-                      data-final-left="1086" 
-                      data-final-top="300" 
-                      data-duration="2" 
-                      data-fade-start="0" 
-                      data-delay="0.5">
-                      <%= image.from %> on Facebook
-                      </div>               
-                    </div><!--End photoText2-->  
+    <% @event.images.each do |image| %>
+    <% in_options = ["sft", "sfb", "sfr", "sfl", "lft", "lfb", "lfr", "lfl", "skewfromleft", "skewfromright", "skewfromleftshort", "skewfromrightshort", "randomrotate"] %>
+    <% out_options = ["stt", "stb", "str", "stl", "ltt", "ltb", "ltr", "ltl", "skewtoleft", "skewtoright", "skewtoleftshort", "skewtorightshort", "randomrotateout"] %>
+    <% x_options = ["left", "center", "right" ] %>
+    <% y_options = ["top", "bottom" ] %>
 
-                  <% @count +=1 %>
-                  <% end %>
-                <% end %>
-               <% end %>
+    <!-- Work out how long the slide show remain on the screen -->
+    <% comment_count = image.fbcomments.count %>
+    <% if image.name %>
+      <% comment_count += 1 %>
+    <% end %>
+    <% image_time = (comment_count * 3)*950 %>
+    <% if image_time < 4000 %>
+      <% image_time = 4000 %>
+    <% end %>
 
-               <!--Title Slide Texts-->
-              <div id="bannerscollection_zoominout_intro" class="bannerscollection_zoominout_texts">
-                    <div class="bannerscollection_zoominout_text_line textElement52_opportuneFullWidth" 
-                    data-delay="0"
-                    data-fade-start="0"
-                    data-duration="3"
-                    data-initial-left="150" 
-                    data-initial-top="0"
-                    data-final-left="150" 
-                    data-final-top="360" 
-                    data-intermediate-left="-2000"
-                    data-intermediate-top="360"
-                    data-intermediate-delay="3"
-                    data-intermediate-duration="5"
-                    >
-                    <%= @event.title %><br/>September 2013
-                    </div>
-                    
-                    <div class="bannerscollection_zoominout_text_line textElement22_opportuneFullWidth with_shadow"
-                    data-delay="0"
-                    data-fade-start="0"
-                    data-duration="4"
-                    data-initial-left="150" 
-                    data-initial-top="384" 
-                    data-final-left="150" 
-                    data-final-top="320" 
-                    data-intermediate-left="-2000"
-                    data-intermediate-top="320"
-                    data-intermediate-delay="2"
-                    data-intermediate-duration="5">
-                    A moflix by Matthew Preston
-                    </div>
-              </div><!--End Title Slide Texts-->
+    <li class="mf-slide" data-transition="zoomout" data-slotamount="7" data-delay="<%= (image_time+2000).to_s %>">
+      <img src="<%= image.source %>" data-bgrepeat="no-repeat" data-bgfit="contain" data-bgposition="center center">
 
-              <!-- Final slide text -->
-              <div id="bannerscollection_zoominout_final" class="bannerscollection_zoominout_texts">
-                    <div class="bannerscollection_zoominout_text_line textElement52_opportuneFullWidth" 
-                    data-delay="0"
-                    data-fade-start="0"
-                    data-duration="3"
-                    data-initial-left="150" 
-                    data-initial-top="0"
-                    data-final-left="150" 
-                    data-final-top="360" 
-                    data-intermediate-left="-2000"
-                    data-intermediate-top="360"
-                    data-intermediate-delay="3"
-                    data-intermediate-duration="5"
-                    >
-                    Thanks for watching!<br/>
-                    </div>
-                    
-                    <div class="bannerscollection_zoominout_text_line textElement22_opportuneFullWidth with_shadow"
-                    data-delay="0"
-                    data-fade-start="0"
-                    data-duration="4"
-                    data-initial-left="150" 
-                    data-initial-top="384" 
-                    data-final-left="150" 
-                    data-final-top="320" 
-                    data-intermediate-left="-2000"
-                    data-intermediate-top="320"
-                    data-intermediate-delay="2"
-                    data-intermediate-duration="5">
-                    <%= @event.title %>
-                    </div>
+      <% data_start = 2000 %>
+      <% data_end = 3000 %>
 
-                    <!-- teaser for Moflix -->
+      <% if image.name %>
+        <div class="tp-caption <%= in_options.sample %> <%= out_options.sample %> stb"
+        data-x="<%= x_options.sample %>"
+        data-y="<%= y_options.sample %>"
+        data-hoffset="0"
+        data-voffset="0"
+        data-speed="800"
+        data-start="<%= data_start %>"
+        data-easing="Power4.easeOut"
+        data-end="<%= data_end %>"
+        data-endspeed="800"
+        data-endeasing="Power1.easeIn"
+        data-captionhidden="off"
+        style="z-index: 6">
+        <div><img class="profile_pic" src="<%= image.frompic %>"></div>
+        <div class="mf-caption tp-resizeme"> <%= image.name %></div>
+        <div class="mf-author"><%= image.from %></div>
+      </div>
 
-                    <div class="bannerscollection_zoominout_text_line textElement52_opportuneFullWidth final_div" 
-                    data-delay="10"
-                    data-fade-start="0"
-                    data-duration="3"
-                    data-initial-left="150" 
-                    data-initial-top="0"
-                    data-final-left="150" 
-                    data-final-top="360" 
-                    >
-                    <div class="video_end_section">
-                        <a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-share-alt"></span> Share</a>
+      <% data_start += 3000 %>  
+      <% data_end += 3000 %>
+      <% end %>
 
-                        <a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-play"></span> Play it again</a>
+      <% image.fbcomments.reverse.each do |comment| %>
 
-                        <a href="<%= new_event_path %>" class="btn mf_btn btn-lg"><span class="glyphicon glyphicon-film"></span> Create your own</a>
-                    </div>
-                    
-                    </div>
-                    <!-- end teaser for Moflix -->
+      <div class="tp-caption <%= in_options.sample %> <%= out_options.sample %> stb"
+        data-x="<%= x_options.sample %>"
+        data-y="<%= y_options.sample %>"
+        data-hoffset="0"
+        data-voffset="0"
+        data-speed="800"
+        data-start="<%= data_start %>"
+        data-easing="Power4.easeOut"
+        data-end="<%= data_end %>"
+        data-endspeed="800"
+        data-endeasing="Power1.easeIn"
+        data-captionhidden="off"
+        style="z-index: 6">
+        <div><img class="profile_pic" src="<%= comment.picture %>"></div>
+        <div class="mf-caption tp-resizeme"> <%= comment.message %></div>
+        <div class="mf-author"><%= comment.from_name %></div>
+      </div>
 
+      <% data_start += 3000 %>  
+      <% data_end += 3000 %>    
 
+      <% end %>
+    </li>
+    <% end %>
 
-              </div><!--End Final Slide Texts-->
+<!-- Only want Ken burns when there are no comments? -->
+ <!-- <li data-transition="fade" data-slotamount="7" data-masterspeed="900">
+   <img src=""  alt="kenburns1"  data-bgposition="left center" data-kenburns="on" data-duration="4000" data-ease="Power4.easeInOut" data-bgfit="130" data-bgfitend="100" data-bgpositionend="right center">
+ </li>
 
+ <li data-transition="fade" data-slotamount="7" data-masterspeed="900">
+    <img src=""  alt="kenburns1"  data-bgposition="left bottom" data-kenburns="on" data-duration="6000" data-ease="Power4.easeInOut" data-bgfit="120" data-bgfitend="100" data-bgpositionend="center top">
+ </li> -->
 
+<!-- final slide -->
+<li data-transition="fade" data-slotamount="7" data-masterspeed="9000">
+  <img src="<%= asset_path "IMG_0810.JPG" %>" data-bgrepeat="no-repeat" data-bgfit="cover" data-bgposition="center center">
+  <div class="caption sft mediumlarge_light_white_center randomrotateout"  data-x="center" data-y="center" data-voffset="-70" data-speed="7000" data-start="2000" data-easing="easeOutBack">a <span class="moflix">moflix</span> by Paul Lainchbury</div>
+  <div class="caption sfb" data-x="center" data-y="center"  data-speed="7000" data-start="4000" data-easing="easeOutBack"><div class="video_end_section"><a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-share-alt"></span> Share</a><a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-play"></span> Play it again</a><a href="<%= new_event_path %>" class="btn mf_btn btn-lg"><span class="glyphicon glyphicon-film"></span> Create your own</a></div></div>
+</li>
 
-              <!-- photoText2 -->
-           
-              <div id="bannerscollection_zoominout_photoText0" class="bannerscollection_zoominout_texts">
+</ul>
+</div>
+</div>
 
-                    <div class="bannerscollection_zoominout_text_line textElement42_opportuneFullWidth with_shadow" 
-                    data-initial-left="1900" 
-                    data-initial-top="155" 
-                    data-initial-skew="80deg,40deg"
-                    data-final-skew="0deg,0deg"
-                    data-final-left="1086" 
-                    data-final-top="155" 
-                    data-duration="1" 
-                    data-fade-start="0" 
-                    data-delay="0.3">
-                    Here is a quote from me.<br />Something in here
-                    </div>
-                    
-                    <div class="bannerscollection_zoominout_text_line textElement43_opportuneFullWidth with_shadow" 
-                    data-initial-left="1086" 
-                    data-initial-top="550" 
-                    data-initial-skew="80deg,40deg"
-                    data-final-skew="0deg,0deg"
-                    data-final-left="1086" 
-                    data-final-top="300" 
-                    data-duration="2" 
-                    data-fade-start="0" 
-                    data-delay="0.5">
-                    Paul Lainchbury on Instagram
-                    </div>               
-               </div><!--End photoText2-->  
+<script type="text/javascript">
+ 
+        var revapi;
 
+   jQuery(document).ready(function() {
 
-               <!-- photoText3 -->
-                <div id="bannerscollection_zoominout_photoText0" class="bannerscollection_zoominout_texts experiment">
-                    
-                    <div class="bannerscollection_zoominout_text_line textElement51_opportuneFullWidth" 
-                    data-initial-left="10" 
-                    data-initial-top="80" 
-                    data-final-left="1250" 
-                    data-final-top="40" 
-                    data-duration="5" 
-                    data-fade-start="0" 
-                    data-delay="0">
-                    Paul Lainchbury on Twitter
-                    </div>
-                    
-                    <div class="bannerscollection_zoominout_text_line textElement52_opportuneFullWidth msg" 
-                    data-initial-left="1175" 
-                    data-initial-top="110" 
-                    data-initial-scale="0"
-                    data-final-scale="1" 
-                    data-final-left="775" 
-                    data-final-top="70" 
-                    data-duration="3" 
-                    data-fade-start="0" 
-                    data-delay="0.5">
-                    What a great time we had<br />in Greece. I can't want<br />to go back again!
-                    </div>
-                                    
-               </div><!--End photoText3-->   
-               
-           </div>
+      revapi = jQuery('.banner').revolution({
+         // delay:7000,
+         startwidth:960,
+         startheight:500,
+         autoHeight:"on",
+         fullScreenAlignForce:"off",
+ 
+         onHoverStop:"off",
+ 
+         // thumbWidth:100,
+         // thumbHeight:50,
+         // thumbAmount:3,
+ 
+         hideThumbsOnMobile:"on",
+         hideBulletsOnMobile:"on",
+         hideArrowsOnMobile:"on",
+         // hideThumbsUnderResoluition:0,
+ 
+         hideThumbs:0,
+ 
+         navigationType:"none",
+         navigationArrows:"solo",
+         navigationStyle:"round",
+ 
+         navigationHAlign:"center",
+         navigationVAlign:"bottom",
+         navigationHOffset:30,
+         navigationVOffset:30,
+ 
+         soloArrowLeftHalign:"left",
+         soloArrowLeftValign:"center",
+         soloArrowLeftHOffset:20,
+         soloArrowLeftVOffset:0,
+ 
+         soloArrowRightHalign:"right",
+         soloArrowRightValign:"center",
+         soloArrowRightHOffset:20,
+         soloArrowRightVOffset:0,
+ 
+ 
+         touchenabled:"on",
+ 
+         stopAtSlide:3, // Needs to be set to the last slide number
+         stopAfterLoops:-1,
+         hideCaptionAtLimit:0,
+         hideAllCaptionAtLilmit:0,
+         hideSliderAtLimit:0,
+ 
+         dottedOverlay:"none",
+ 
+         fullWidth:"off",
+         forceFullWidth:"off",
+         fullScreen:"on",
+         fullScreenOffsetContainer:"#topheader-to-offset",
+ 
+         shadow:0
+ 
+      });
 
-<p id="notice"><%= notice %></p>
+          var arr = new Array;
+          $('.tp-bgimg' ).each(function( index ) {
+              arr.push($( this ).data("src"));
+            });
 
-<%= link_to 'Back', events_path %>
+          // revapi.bind("revolution.slide.onchange",function (e,data) {
+          //   required = data.slideIndex-1;
+          //   $('.mf-bg').css("background-image", "url(" +arr[required]+")");
+          // });
+ 
+   }); // end doc ready
+ 
+// </script>
 
+// <!-- Music -->
 
-<!-- Music -->
-
-<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <div id="player"></div>
+// <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+//     <div id="player"></div>
 
     <script>
       // 2. This code loads the IFrame Player API code asynchronously.
@@ -301,7 +266,7 @@
         player = new YT.Player('player', {
           height: '113',
           width: '201',
-          videoId: 'y6Sxv-sUYtM',
+          videoId: 'ZbZSe6N_BXs',
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -346,5 +311,3 @@
     </script>
 
 <!-- End of music script -->
-
-

@@ -1,0 +1,371 @@
+<div id="moflix_logo" class="logo_to_fade">moflix</div>
+
+<script>
+  
+    jQuery(function() {
+
+      jQuery('#bannerscollection_zoominout_opportune').bannerscollection_zoominout({
+      skin: 'opportune',
+      setAsBg:true,
+      width: 1920,
+      height: 1200,
+      width100Proc:true,
+      height100Proc:true,
+      pauseOnMouseOver:false,
+      responsive: true,
+      loop: false,
+      enableTouchScreen: true,
+      showAllControllers: false,
+      scrollSlideDuration: 1.5,
+      responsiveRelativeToBrowser: false,
+      circleColor: "#FC329B"
+      }); 
+    });
+  </script>
+
+<script>
+    $(function() {
+        // As we're sliding out the menu bar, let's make a more subtle Moflix logo appear in it's place
+
+        $('.logo_to_fade').css('display', 'none');
+
+        fadeBgLogoOut = function() {
+            $( ".logo_to_fade" ).fadeOut( 2000 );
+        };
+
+        fadeBgLogoIn = function() {
+            $( ".logo_to_fade" ).fadeIn( 3000 );
+        };
+
+        // Slide out the menu bar when playing a slideshow
+        var n = 0
+        var startTimer = setInterval(
+             function(){ 
+                    console.log(n);
+                  if (n == 1) {            
+                      $('.navbar').animate({top:'-50px'}, {queue: false, duration: 1500});
+                      fadeBgLogoIn();
+                      clearInterval(startTimer);  
+                    }
+                    n =+ 1;
+             },
+             1000
+        );
+
+        // Listen for a change in the position of the final slide and slide the menu bar back in.
+        var starting_position = $('.final_div').position().top;
+        var timer = setInterval(
+            function(){ 
+                if (starting_position != $('.final_div').position().top) {
+                    $('.navbar').animate({top:'0px'}, {queue: false, duration: 1500});
+                    fadeBgLogoOut();
+                    stopVideo();
+                    clearInterval(timer); 
+                    } 
+                },
+                3000
+        );
+
+    }); // Close page load function
+</script>
+
+<div id="bannerscollection_zoominout_opportune">
+              <div class="myloader"></div>
+                <!-- CONTENT -->
+
+                <ul class="bannerscollection_zoominout_list">
+                
+                <!-- OK, here's where we build the images for the moflix -->
+                <% @count = 1 %>
+                <% @event.images.each do |image| %>
+                  <% if image %>
+                    <% if image == @event.images.last %>
+                    <li data-horizontalPosition="center" data-verticalPosition="center" data-initialZoom="1" data-finalZoom="0.8" data-duration="12" data-text-id="#bannerscollection_zoominout_final"><img src="<%= image.source %>" class="try_this" width="<%= image.width %>px" height="<%= image.height %>px"/></li>
+                    <% elsif image == @event.images.first %>
+                    <li data-horizontalPosition="center" data-verticalPosition="center" data-initialZoom="1" data-finalZoom="0.8" data-duration="12" data-text-id="#bannerscollection_zoominout_intro"><img src="<%= image.source %>" class="try_this" width="<%= image.width %>px" height="<%= image.height %>px"/></li>
+                    <% @count += 1 %>
+                    <% else %>
+                    <li data-initialZoom="1" data-finalZoom="0.80" data-horizontalPosition="center" data-verticalPosition="center" data-text-id="#bannerscollection_zoominout_photoText<%= @count %>"><img src="<%= image.source %>" class="try_this" width="<%= image.width %>px" height="<%= image.height %>px"/></li>
+                    <% @count += 1 %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+
+                </ul> 
+
+
+                   
+                <!-- How about we add a video slide and fade the music down for the duration? -->
+                <!-- <li data-horizontalPosition="right" data-verticalPosition="top" data-initialZoom="0.77" data-finalZoom="1" data-bottom-thumb="images/opportuneFullWidth/thumbs/03_opportune.jpg" data-video="true" data-autoPlay="7"><img src="images/opportuneFullWidth/03_opportune.jpg" alt="" width="2500" height="782"  /><iframe width="100%" height="100%" src="http://www.youtube.com/embed/2muxrT5_a6E" frameborder="0" allowfullscreen></iframe></li> -->
+  
+               <!-- TEXTS --> 
+
+               <% @count = 2 %>
+               <% @event.images.each do |image| %>
+                <% if image %>
+                  <% if (image != @event.images.first) && (image != @event.images.last) %>
+                    
+                    <!-- photoText2 -->
+                    <div id="bannerscollection_zoominout_photoText<%= @count %>" class="bannerscollection_zoominout_texts">
+
+                      <div class="bannerscollection_zoominout_text_line textElement42_opportuneFullWidth with_shadow" 
+                      data-initial-left="1900" 
+                      data-initial-top="155" 
+                      data-initial-skew="80deg,40deg"
+                      data-final-skew="0deg,0deg"
+                      data-final-left="1086" 
+                      data-final-top="155" 
+                      data-duration="1" 
+                      data-fade-start="0" 
+                      data-delay="0.3">
+                      <%= image.name %>
+                      </div>
+                      <div class="bannerscollection_zoominout_text_line textElement43_opportuneFullWidth with_shadow" 
+                      data-initial-left="1086" 
+                      data-initial-top="550" 
+                      data-initial-skew="80deg,40deg"
+                      data-final-skew="0deg,0deg"
+                      data-final-left="1086" 
+                      data-final-top="300" 
+                      data-duration="2" 
+                      data-fade-start="0" 
+                      data-delay="0.5">
+                      <%= image.from %> on Facebook
+                      </div>               
+                    </div><!--End photoText2-->  
+
+                  <% @count +=1 %>
+                  <% end %>
+                <% end %>
+               <% end %>
+
+               <!--Title Slide Texts-->
+              <div id="bannerscollection_zoominout_intro" class="bannerscollection_zoominout_texts">
+                    <div class="bannerscollection_zoominout_text_line textElement52_opportuneFullWidth" 
+                    data-delay="0"
+                    data-fade-start="0"
+                    data-duration="3"
+                    data-initial-left="150" 
+                    data-initial-top="0"
+                    data-final-left="150" 
+                    data-final-top="360" 
+                    data-intermediate-left="-2000"
+                    data-intermediate-top="360"
+                    data-intermediate-delay="3"
+                    data-intermediate-duration="5"
+                    >
+                    <%= @event.title %><br/>September 2013
+                    </div>
+                    
+                    <div class="bannerscollection_zoominout_text_line textElement22_opportuneFullWidth with_shadow"
+                    data-delay="0"
+                    data-fade-start="0"
+                    data-duration="4"
+                    data-initial-left="150" 
+                    data-initial-top="384" 
+                    data-final-left="150" 
+                    data-final-top="320" 
+                    data-intermediate-left="-2000"
+                    data-intermediate-top="320"
+                    data-intermediate-delay="2"
+                    data-intermediate-duration="5">
+                    A moflix by Matthew Preston
+                    </div>
+              </div><!--End Title Slide Texts-->
+
+              <!-- Final slide text -->
+              <div id="bannerscollection_zoominout_final" class="bannerscollection_zoominout_texts">
+                    <div class="bannerscollection_zoominout_text_line textElement52_opportuneFullWidth" 
+                    data-delay="0"
+                    data-fade-start="0"
+                    data-duration="3"
+                    data-initial-left="150" 
+                    data-initial-top="0"
+                    data-final-left="150" 
+                    data-final-top="360" 
+                    data-intermediate-left="-2000"
+                    data-intermediate-top="360"
+                    data-intermediate-delay="3"
+                    data-intermediate-duration="5"
+                    >
+                    Thanks for watching!<br/>
+                    </div>
+                    
+                    <div class="bannerscollection_zoominout_text_line textElement22_opportuneFullWidth with_shadow"
+                    data-delay="0"
+                    data-fade-start="0"
+                    data-duration="4"
+                    data-initial-left="150" 
+                    data-initial-top="384" 
+                    data-final-left="150" 
+                    data-final-top="320" 
+                    data-intermediate-left="-2000"
+                    data-intermediate-top="320"
+                    data-intermediate-delay="2"
+                    data-intermediate-duration="5">
+                    <%= @event.title %>
+                    </div>
+
+                    <!-- teaser for Moflix -->
+
+                    <div class="bannerscollection_zoominout_text_line textElement52_opportuneFullWidth final_div" 
+                    data-delay="10"
+                    data-fade-start="0"
+                    data-duration="3"
+                    data-initial-left="150" 
+                    data-initial-top="0"
+                    data-final-left="150" 
+                    data-final-top="360" 
+                    >
+                    <div class="video_end_section">
+                        <a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-share-alt"></span> Share</a>
+
+                        <a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-play"></span> Play it again</a>
+
+                        <a href="<%= new_event_path %>" class="btn mf_btn btn-lg"><span class="glyphicon glyphicon-film"></span> Create your own</a>
+                    </div>
+                    
+                    </div>
+                    <!-- end teaser for Moflix -->
+
+
+
+              </div><!--End Final Slide Texts-->
+
+
+
+              <!-- photoText2 -->
+           
+              <div id="bannerscollection_zoominout_photoText0" class="bannerscollection_zoominout_texts">
+
+                    <div class="bannerscollection_zoominout_text_line textElement42_opportuneFullWidth with_shadow" 
+                    data-initial-left="1900" 
+                    data-initial-top="155" 
+                    data-initial-skew="80deg,40deg"
+                    data-final-skew="0deg,0deg"
+                    data-final-left="1086" 
+                    data-final-top="155" 
+                    data-duration="1" 
+                    data-fade-start="0" 
+                    data-delay="0.3">
+                    Here is a quote from me.<br />Something in here
+                    </div>
+                    
+                    <div class="bannerscollection_zoominout_text_line textElement43_opportuneFullWidth with_shadow" 
+                    data-initial-left="1086" 
+                    data-initial-top="550" 
+                    data-initial-skew="80deg,40deg"
+                    data-final-skew="0deg,0deg"
+                    data-final-left="1086" 
+                    data-final-top="300" 
+                    data-duration="2" 
+                    data-fade-start="0" 
+                    data-delay="0.5">
+                    Paul Lainchbury on Instagram
+                    </div>               
+               </div><!--End photoText2-->  
+
+
+               <!-- photoText3 -->
+                <div id="bannerscollection_zoominout_photoText0" class="bannerscollection_zoominout_texts experiment">
+                    
+                    <div class="bannerscollection_zoominout_text_line textElement51_opportuneFullWidth" 
+                    data-initial-left="10" 
+                    data-initial-top="80" 
+                    data-final-left="1250" 
+                    data-final-top="40" 
+                    data-duration="5" 
+                    data-fade-start="0" 
+                    data-delay="0">
+                    Paul Lainchbury on Twitter
+                    </div>
+                    
+                    <div class="bannerscollection_zoominout_text_line textElement52_opportuneFullWidth msg" 
+                    data-initial-left="1175" 
+                    data-initial-top="110" 
+                    data-initial-scale="0"
+                    data-final-scale="1" 
+                    data-final-left="775" 
+                    data-final-top="70" 
+                    data-duration="3" 
+                    data-fade-start="0" 
+                    data-delay="0.5">
+                    What a great time we had<br />in Greece. I can't want<br />to go back again!
+                    </div>
+                                    
+               </div><!--End photoText3-->   
+               
+           </div>
+
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Back', events_path %>
+
+
+<!-- Music -->
+
+<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '113',
+          width: '201',
+          videoId: 'Wy3SV2fvoG8',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        player.setVolume(70);
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          // setTimeout(stopVideo, 10000);
+          done = true;
+        }
+      }
+
+      function stopVideo() {
+        currentVolume = player.getVolume();
+        volumeDecrement = (currentVolume/20)
+        var videoVolume = setInterval(
+             function(){
+                if (player.getVolume() == 0) {
+                    player.stopVideo();
+                    clearInterval(videoVolume);
+                } 
+                player.setVolume(player.getVolume()-volumeDecrement)
+                console.log(player.getVolume());
+             },
+             150
+        );
+        console.log(player.getVolume());
+
+      }
+    </script>
+
+<!-- End of music script -->
+
+

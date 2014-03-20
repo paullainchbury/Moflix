@@ -12,6 +12,8 @@
  *= require bootstrap.min
  *= require bootstrap-theme.min
  *= require bannerscollection_zoominout
+ *= require ../rs-plugin/css/settings.css
+ *= require ../magic/magic_slider.css
  *= require_tree .
  */
 

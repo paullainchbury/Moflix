@@ -1,3 +1,5 @@
+<% if current_user %>
+
 <div class="container mf_container">
   <h1>New event</h1>
 
@@ -6,8 +8,6 @@
   Here's where we want links to the various connections available (Facebook, Instagram etc.)
 
   Initially, if the user is logged in with facebook, it should show their albums - the user can click to select an entire album or click in to browse the album. If the user is NOT logged in with Facebook, then the screen should allow them to choose which social network to connect with or upload their own images.
-
-  <% if current_user %>
 
   <ul>
     <li>Photos from FB</li>
@@ -38,9 +38,7 @@
     <button class="btn mf_btn" id="done_button"><span class="glyphicon glyphicon-film"></span> Done</button>
     <button class="btn mf_btn" id="add_more">Add more</button>
     </div>
-  <% else %>
-    You are not currently logged in!
-  <% end %>
+
 </div>
 
 <script>
@@ -215,4 +213,8 @@ function scrollToEnd() {
 };
 
 </script>
+
+  <% else %>
+    <% redirect_to login_path %>
+  <% end %>
 

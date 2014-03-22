@@ -235,7 +235,8 @@ background: black;
                       data-intermediate-duration="4.0" 
                       data-intermediate-delay="4.0" 
                       data-intermediate-easing="swing"
-                      >A <span class="moflix">moflix</span> by Paul Lainchbury
+                      >A <span class="moflix">moflix</span> by <%= User.find(@event.events_users.where(user_type: 'organiser').first.user_id).name %>
+
                       </div> 
                       
                       <div class="magic_slider_text_line textElement42_FullScreen" 

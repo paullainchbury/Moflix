@@ -1,18 +1,14 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => "new_user form-signin", :role => "form"}) do |f| %>
+  <h2 class="form-signin-heading">Create with <span class="moflix">moflix</span></h2>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+  <%= link_to '<i class="fa fa-facebook"></i>Sign up with Facebook'.html_safe, omniauth_authorize_path(resource_name, "facebook"), :class => "btn btn-block btn-social btn-lg btn-facebook" %>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+  <a class="btn btn-block btn-social btn-lg btn-instagram"><i class="fa fa-instagram"></i>Sign up with Instagram</a>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+  <a class="btn btn-block btn-social btn-lg btn-flickr"><i class="fa fa-flickr"></i>Sign up with Flickr</a>
 
-  <div><%= f.submit "Sign up" %></div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+
+

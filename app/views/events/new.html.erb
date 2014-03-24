@@ -28,10 +28,11 @@
           <div id="albums_loading">Loading facebook albums...</div>
         </div>
       
-      <div class="fb_friends_albums"></div>
-        <div class="row fb_albums_row">
-          <div class="container"><h3>My Albums</h3></div>
-        </div>
+      <div class="row fb_album_contents"></div> <!-- For displaying the photos within a particular album -->
+      <div class="row fb_friends_albums"></div>
+      <div class="row fb_albums_row">
+        <div class="container"><h3>My Albums</h3></div>
+      </div>
     </div>
 
       <div class="col-lg-12 col-sm-12 col-xs-12">
@@ -44,6 +45,7 @@
 </div>
 
 <script>
+
   $(function() {
 // Typeahead.js stuff
 var fb_friends = new Bloodhound({
@@ -111,7 +113,7 @@ function onSelected($e, datum) {
     moflix.photos = [];
 
 
-
+// Need this to get the album cover photos as the url of the image is not made available with the album data
 function getPhotoById(id) {
   coverPhoto = $.ajax({
         type: "GET",
@@ -124,10 +126,10 @@ function getPhotoById(id) {
 }; //end of getPhotoById
 
 
-    // Ensure the empty divs contain the image backgrounds are responsive
-    $( window ).resize(function() {
-      thumbnailHeight();
-    });
+  // Ensure the empty divs contain the image backgrounds are responsive
+  $( window ).resize(function() {
+    thumbnailHeight();
+  });
 
     // Get the user's FB albums and build the view of them
     $.ajax({
@@ -150,7 +152,7 @@ function getPhotoById(id) {
                   "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
                   "<p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p>" +
                   "<div class='thumbnail img-responsive'>" +
-                  "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"'><button class='btn btn-default btn-primary browse'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></div></div>"
+                  "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"' data-name='"+ data[i]['name'] +"'><button class='btn btn-default btn-primary browse'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></div></div>"
                   // <a href='#' class='btn btn-default btn-info btn-lg'><span class='glyphicon glyphicon-search'></span> Choose pictures</a>
                   );          
               }; // End of for loop
@@ -161,7 +163,7 @@ function getPhotoById(id) {
               });  
 
               $( ".browse" ).click(function() {
-                browseAlbum($(this).parent().attr("id"));
+                displayPhotos($(this).parent().attr("id"), $(this).parent().attr("data-name"));
               });
 
       } // Close success callback
@@ -172,6 +174,7 @@ function getPhotoById(id) {
   function getFriendsPhotoAlbums(datum) {
     $('.fb_friends_albums').empty();
     $('.fb_friends_albums').fadeOut(0);
+    $('.fb_album_contents').empty();
     $('.fb_albums_row').fadeOut(0);
     $( '.loading_stuff' ).fadeIn(0);
     var name = datum["name"].split(" ")[0];
@@ -194,13 +197,12 @@ function getPhotoById(id) {
                   dataType: "json"
                 });
                 data[i]['cover'] = pictureURL.responseText;
-                console.log(data[i]);
                 // build album add and browse buttons
                 $('.fb_friends_albums').append(
                   "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
                   "<div class='album_title'><p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p></div>" +
                   "<div class='thumbnail img-responsive'>" +
-                  "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"'><button class='browse btn btn-default btn-primary'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></div></div>"
+                  "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"' data-name='"+ data[i]['name'] +"'><button class='browse btn btn-default btn-primary'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></div></div>"
                   // <a href='#' class='btn btn-default btn-info btn-lg'><span class='glyphicon glyphicon-search'></span> Choose pictures</a>
                   );          
               }; // End of for loop
@@ -213,10 +215,11 @@ function getPhotoById(id) {
 
               $( ".browse" ).click(function() {
                 //browseAlbum($(this).parent().attr("id"));
-                console.log("Ok, so you want to browse album " + $(this).parent().attr("id"));
+                displayPhotos($(this).parent().attr("id"), $(this).parent().attr("data-name"));
+                // console.log("Ok, so you want to browse album " + $(this).parent().attr("id"));
               });
               
-        }
+        } //End of success callback
     });
 }; //End of getFriendsPhotoAlbums
 
@@ -245,14 +248,70 @@ function getPhotoById(id) {
               + photo.source
               +"'></li>"
             );
-
-            addAlbumPhotos(photo);
-
+              addAlbumPhotos(photo);
           }; // End for loop
       } //End success callback
     }); // End Ajax request
   } // End getAlbumPhotos function
 
+  // Once we have the photos from the album, let's display them.
+  function displayPhotos(albumId, albumName) {
+    //$('.fb_friends_albums').fadeOut(0);
+    //$('.fb_albums_row').fadeOut(0);
+    $('.fb_album_contents').fadeOut(0);
+    $('.fb_album_contents').empty();
+    $('.fb_album_contents').append(
+      '<div class="container"><h3>' + albumName + '</h3></div>'
+      );
+    $( '.loading_stuff' ).fadeIn(0);
+    // Ajax call to get the photos
+    $.ajax({
+      type: "GET",
+      url: "/photos_by_album?albumid=" + albumId,
+      dataType: "json",
+      async: false,
+      success: function(data){
+        // Add each photo in the Ajax response to the moflix.photos array
+        for (var i=0;i<data.length;i++)
+          {
+            // var photo = new Object;
+            // photo.id = data[i]['id'];
+            // photo.name = data[i]['name'];
+            // photo.height = data[i]['height'];
+            // photo.width = data[i]['width'];
+            // photo.source = data[i]['source'];
+            // photo.created = data[i]['created_time'];
+            // photo.from = data[i]['from']['name'];
+            // photo.fromid = data[i]['from']['id'];
+            // photo.comments = data[i]['comments'];
+            // photo.likes = data[i]['likes'];
+
+            // console.log(photo.source);
+
+            $('.fb_album_contents').append(
+              "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
+              "<div class='thumbnail img-responsive'>" +
+              "<div class='mf_thumbnail' style='background-image: url(" + data[i]['source'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] + "'><button class='browse btn btn-default btn-primary'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></div></div>"
+              // <a href='#' class='btn btn-default btn-info btn-lg'><span class='glyphicon glyphicon-search'></span> Choose pictures</a>
+              );          
+
+            // $('.fb_album_contents').append(
+            //   "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
+            //   "<div class='thumbnail img-responsive'>" +
+            //   "<div class='mf_thumbnail' style='background-image: url(" + photo.source + ")'><div class='mf_thumb_buttons' id='" + photo.id +"'><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add photo</button></div></div></div></div>"
+            //   );  
+
+          }; // End for loop
+          $( '.loading_stuff' ).fadeOut(0);
+          $('.fb_album_contents').fadeIn(0);
+          thumbnailHeight();
+          
+      } //End success callback
+
+    }); // End Ajax request
+
+
+  }
 
 
   function addAlbumPhotos(photo) {
@@ -309,15 +368,18 @@ function getPhotoById(id) {
 
 
 
-function browseAlbum(albumId) {
-  console.log("Ok, so you want to browse album " + albumId);
-  getAlbumPhotos(albumId);
-};
+// function browseAlbum(albumId) {
+//   console.log("Ok, so you want to browse album " + albumId);
+//   getAlbumPhotos(albumId);
+// };
 
 // The div contained within the Thumbnails is empty. Here we force the height of it to show the background image
 function thumbnailHeight() {
+  console.log("calling thumbnailHeight");
   div = $('.mf_thumbnail');
   divWidth = div.width();
+  console.log("div = " + div);
+  console.log("divWidth of mf_thumbnail = " + divWidth);
   div.css('height', divWidth);
 };
 

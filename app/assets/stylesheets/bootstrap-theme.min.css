@@ -189,6 +189,7 @@ display: inline;
 
 .search_breadcrumbs ol {
   line-height: 3.3;
+  min-height: 62px;
 }
 
 .album_title {
@@ -203,6 +204,14 @@ display: inline;
   bottom: 0;
   font-size:11px;
   margin-bottom: 0;
+}
+
+#thumbscontainer p {
+  color: white;
+  max-width: 400px;
+  margin:auto;
+  text-align: center;
+  margin-top:5px;
 }
 
 

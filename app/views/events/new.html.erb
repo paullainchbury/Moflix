@@ -4,41 +4,35 @@
   <h3>Choose photos to add to your Moflix</h3>
 
     <div id="FB_albums_container">
-
       <div class="search_breadcrumbs">
-
           <ol class="breadcrumb">
-              
               <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
-                <!-- <span class="input-group-addon"><i class="fa fa-facebook"></i></span> -->
                 <input type="text" class="form-control fb_friends" placeholder="Find friends albums">
               </div>
-
-              <li><a href="#">Facebook Albums</a></li>
-              <li class="active">My albums</li>
           </ol>
-
+      </div>
+      <div class="loading_stuff">
+        <div class="spinner">
+          <div class="double-bounce1"></div>
+          <div class="double-bounce2"></div>
         </div>
-
-        <div class="loading_stuff">
-          <div class="spinner">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
-          </div>
-          <div id="albums_loading">Loading facebook albums...</div>
-        </div>
+        <div id="albums_loading">Loading facebook albums...</div>
+      </div>
       
       <div class="row fb_album_contents"></div> <!-- For displaying the photos within a particular album -->
-      <div class="row fb_friends_albums"></div>
-      <div class="row fb_albums_row">
-        <div class="container"><h3>My Albums</h3></div>
+      <div class="row fb_friends_albums"></div> <!-- For displaying a friends albums -->
+      <div class="row fb_albums_row"> <!-- For displaying the users own albums -->
+        <div class="container"><h3 id="my_albums_header">My Albums</h3></div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+          <button class="btn mf_btn" id="done_button"><span class="glyphicon glyphicon-film"></span> Done</button>
+          <button class="btn mf_btn" id="add_more">Add more</button>
+        </div>
       </div>
     </div>
 
-      <div class="col-lg-12 col-sm-12 col-xs-12">
-        <button class="btn mf_btn" id="done_button"><span class="glyphicon glyphicon-film"></span> Done</button>
-        <button class="btn mf_btn" id="add_more">Add more</button>
-      </div>
+      
 
     </div>
 
@@ -111,7 +105,6 @@ function onSelected($e, datum) {
   moflix = new Object();
   moflix.photos = [];
 
-
 // Need this to get the album cover photos as the url of the image is not made available with the album data
 function getPhotoById(id) {
   coverPhoto = $.ajax({
@@ -171,6 +164,16 @@ function getPhotoById(id) {
   }); // Close page load function
 
   function getFriendsPhotoAlbums(datum) {
+    $('.breadcrumb').find('.btn').remove();
+    $('.breadcrumb').append(
+      '<a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a>'
+      );
+    $( "#my_album" ).click(function() {
+      $('.breadcrumb').find('.btn').remove();
+      $('.fb_friends_albums').fadeOut(0);
+      $('.fb_album_contents').fadeOut(0);
+      $('.fb_albums_row').fadeIn(0);
+    });
     $('.fb_friends_albums').empty();
     $('.fb_friends_albums').fadeOut(0);
     $('.fb_album_contents').empty();
@@ -178,7 +181,7 @@ function getPhotoById(id) {
     $( '.loading_stuff' ).fadeIn(0);
     var name = datum["name"].split(" ")[0];
     $('.fb_friends_albums').append(
-      '<div class="container"><h3>' + name + '\'s Albums</h3></div>'
+      '<div class="container"><h3 id="albumOwner">' + name + '\'s Albums</h3></div>'
       );
     // make an Ajax call to get the albums
     $.ajax({
@@ -242,6 +245,7 @@ function getPhotoById(id) {
             photo.fromid = data[i]['from']['id'];
             photo.comments = data[i]['comments'];
             photo.likes = data[i]['likes'];
+            $('#thumbscontainer').find('p').remove();
             $('.imagelist').append(
               "<li class='thumbimage'><img id='tnimage1' src='"
               + photo.source
@@ -255,13 +259,32 @@ function getPhotoById(id) {
 
   // Once we have the photos from the album, let's display them.
   function displayPhotos(albumId, albumName) {
+    $('.breadcrumb').find('.btn').remove();
+    $('.breadcrumb').append(
+      '<a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a>'
+      );
+    if ($('#my_albums_header').is(":visible")){
+      headingTitle = "My Albums"
+    };
+    if ($('#albumOwner').is(":visible")){
+      headingTitle = $('#albumOwner').html();
+    };
+    $( "#my_album" ).click(function() {
+      $('.breadcrumb').find('.btn').remove();
+      $('.fb_friends_albums').fadeOut(0);
+      $('.fb_album_contents').fadeOut(0);
+      $('.fb_albums_row').fadeIn(0);
+    });
     $('.loading_stuff').fadeIn(0);
     var photosForDisplay = [];
     //$('.fb_album_contents').fadeOut(0);
     $('.fb_album_contents').empty();
     $('.fb_album_contents').append(
-      '<div class="container"><h3>' + albumName + '</h3></div>'
+      '<div class="container"><h3><a href="#" id="hide_gallery">' + headingTitle + '</a> / ' + albumName + '</h3></div>'
       );
+    $( "#hide_gallery" ).click(function() {
+      $('.fb_album_contents').fadeOut(0);
+    });
     // Ajax call to get the photos
     $.ajax({
       type: "GET",
@@ -298,7 +321,7 @@ function getPhotoById(id) {
           $('.add_photo').click(function() {
             var photoObject = $(this).parent().attr("id").toString()
             var result = $.grep(photosForDisplay, function(e){ return e.id === photoObject });
-            //console.log(result[0]['source']);
+            $('#thumbscontainer').find('p').remove();
             $('.imagelist').append(
               "<li class='thumbimage'><img id='tnimage1' src='"
               + result[0]['source']
@@ -355,6 +378,7 @@ function getPhotoById(id) {
   
   <div class="container">
     <div id="thumbscontainer">
+      <p>Choose photos to add to your Moflix</p><p>and they'll appear here.</p>
     <ul class="imagelist">
     </div>
   </div>
@@ -389,6 +413,7 @@ $( "#add_more" ).click(function() {
       photo.source = "https://scontent-b-lhr.xx.fbcdn.net/hphotos-prn1/t1.0-9/1017707_10153948172475503_312887545_n.jpg";
       photo.created = "2013-11-01T11:57:48+0000";
       photo.from = "Moflix Test";
+      $('#thumbscontainer').find('p').remove();
       $('.imagelist').append(
         "<li class='thumbimage'><img id='tnimage1' src='"
         + photo.source

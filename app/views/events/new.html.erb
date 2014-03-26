@@ -1,7 +1,50 @@
 <% if current_user %>
 
 <div class="container mf_container">
-  <h3>Choose photos to add to your Moflix</h3>
+
+  <ul class="nav nav-pills mf-steps">
+    <li class="active"><a href="#" id="show_photos">1. Choose photos</a></li>
+    <li><a href="#" id="show_music">2. Select Music</a></li>
+    <li><a href="#">3. Publish</a></li>
+  </ul>
+
+    <div id="music_container">
+      <div class="search_breadcrumbs">
+          <ol class="breadcrumb">
+              <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
+                <input type="text" class="form-control youtube_vids" placeholder="Search for an artist">
+              </div>
+          </ol>
+      </div>
+      <div class="row music_vids_row"> <!-- For displaying the videos -->
+        <div class="container"><h3 id="my_albums_header">Popular Songs</h3></div>
+        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
+        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
+        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
+        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
+        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
+        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
+        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
+        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
+        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
+
+        
+
+
+
+        
+        
+
+        
+
+
+        
+
+        
+
+      </div>
+    </div>
+
 
     <div id="FB_albums_container">
       <div class="search_breadcrumbs">
@@ -160,6 +203,20 @@ function getPhotoById(id) {
 
       } // Close success callback
     }); // Close Ajax call
+
+  $( "#show_music" ).click(function() {
+    $('#FB_albums_container').slideUp( "slow");
+    $('#music_container').slideDown( "slow");
+  })
+
+  $("#show_photos" ).click(function() {
+    $('#music_container').slideUp( "slow");
+    $('#FB_albums_container').slideDown( "slow");
+  })
+
+
+
+
 
   }); // Close page load function
 

@@ -81,6 +81,33 @@ html{
 //   z-index: 20;
 // }
 
+.mf-steps {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.mf-steps li {
+  margin-right: 10px;
+}
+
+.mf-steps>li.active>a, .mf-steps>li.active>a:hover,.mf-steps>li.active>a:focus {
+  background: #FF0084;
+}
+
+#music_container {
+  display:none;
+}
+
+.music_vid {
+  text-align: center;
+  margin-bottom: 20px
+}
+
+.music_vid button {
+  margin-bottom: 25px;
+}
+
+
 
 
 

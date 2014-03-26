@@ -5,7 +5,7 @@
     <div class="row">
       <div id="gallery">
         <ul>
-          <% @events.each do |event| %>
+          <% @events.reverse.each do |event| %>
             <% if event.get_cover %>
               <% if event.get_cover.source != nil %>
                 <% calculation = event.get_cover.width.to_f / 275 %>

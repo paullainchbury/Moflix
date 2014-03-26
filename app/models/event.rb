@@ -6,6 +6,10 @@ class Event < ActiveRecord::Base
   has_many :status_updates
   # after_save :create_statuses_for_event
 
+def get_cover
+  self.images.reverse.first
+end
+
 def create_statuses_for_event
   if start_time
     if start_time <= Time.zone.now

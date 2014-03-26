@@ -1,0 +1,59 @@
+#gallery {
+  position: relative;
+}
+
+#gallery li {
+  list-style: none;
+  -webkit-box-shadow: 0px 5px 9px 0px rgba(50, 50, 50, 0.39);
+  -moz-box-shadow: 0px 5px 9px 0px rgba(50, 50, 50, 0.39);
+  box-shadow: 0px 5px 9px 0px rgba(50, 50, 50, 0.39);
+}
+
+#gallery li .text_section {
+  background-color: #F0F0F0;
+  font-size: 0.9em;
+  padding-top: 10px;
+  padding-left: 8px;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+}
+
+.tweet {
+  background-color: #F0F0F0;
+  font-size: 1.1em;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  width: 200px;
+  height: 150px;
+  font-weight: 200;
+}
+
+h4.media-heading {
+  margin: 0 0 3px;
+  font-size: 16px;
+}
+
+.hoverimage { position: absolute; top: 0; left: 0; display: none; background: rgba(0, 0, 0, 0.5); width:100%; height:100%; }
+.gal_image:hover .hoverimage { display: block; }
+
+.hoverimage .play_button {
+  font-size: 60px;
+  width: 50px;
+  text-align: center;
+  margin: auto;
+  display: block;
+  /*top: 100px;*/
+  margin-top:37%;
+  position: relative;
+  color: #FF0084;
+}
+
+.gal_image {
+  position:relative;
+}
+
+.gal-user-profile {
+  border-radius: 4px;
+}

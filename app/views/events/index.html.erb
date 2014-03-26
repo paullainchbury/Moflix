@@ -1,34 +1,70 @@
 <div class="container mf_container">
-  <iframe width="560" height="315" src="//www.youtube.com/embed/xUTcxBnOVlw?rel=0" frameborder="0" allowfullscreen></iframe>
   
-  <h1>Listing events</h1>
+  <h1>Gallery</h1>
 
-  <table>
-    <tr>
-      <th>Title</th>
-      <th>Start time</th>
-      <th>End time</th>
-      <th>Privacy status</th>
-      <th>Users</th>
-      <th></th>
-      <th></th>
-    </tr>
+    <div class="row">
+      <div id="gallery">
+        <ul>
+          <% @events.each do |event| %>
+            <% if event.get_cover %>
+              <% if event.get_cover.source != nil %>
+                <% calculation = event.get_cover.width.to_f / 275 %>
+                  <li>
+                    <div class="gal_image">
+                      <img src="<%=event.get_cover.source %>" width="275" height="<%= (event.get_cover.height.to_f) / calculation %>">
+                      <div class="hoverimage"><a href="<%= event_path(event) %>
+                        "><i class="fa fa-youtube-play play_button"></i></a></div>
+                    </div>
+                    <div class="text_section">
+                      <div class="media">
+                        <a class="pull-left" href="#">
+                          <img class="gal-user-profile" src="
+                          <% if event.users.first.image %>
+                            <%= event.users.first.image %>
+                          <% else %>
+                            <!-- Put code for anonymous user image here -->
+                          <% end %>
+                          " width="35" height="35">
+                        </a>
+                        <div class="media-body">
+                          <h4 class="media-heading">
+                            <% if event.title %>
+                              <%= event.title %>
+                            <% else %>
+                              Just another moflix
+                            <% end %>
+                          </h4>
+                          by 
+                          <% if event.users.first.name %>
+                            <%= event.users.first.name %>
+                          <% else %>
+                            an anonymous user
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+            <% end %>
+            <% end %>
+          <% end %>
 
-  <% @events.each do |event| %>
-    <tr>
-      <td><%= event.title %></td>
-      <td><%= event.start_time %></td>
-      <td><%= event.end_time %></td>
-      <td><%= event.privacy_status %></td>
-      <td> Show users here <td>
-      <td><%= link_to 'Show', event %></td>
-      <td><%= link_to 'Edit', edit_event_path(event) %></td>
-      <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-  </table>
-
-  <br />
-
-  <%= link_to 'New Event', new_event_path %>
+      </ul>
+    </div>
+  <div class="clearfix">
 </div>
+
+<script>
+$(function() {
+  
+  $('#gallery li').wookmark({
+    autoResize: true, // This will auto-update the layout when the browser window is resized.
+    container: $('#gallery'), // Optional, used for some extra CSS styling
+    offset: 13, // Optional, the distance between grid items
+    itemWidth: 280 // Optional, the width of a grid item
+  })
+  
+})
+
+</script>
+
+

@@ -18,30 +18,9 @@
       </div>
       <div class="row music_vids_row"> <!-- For displaying the videos -->
         <div class="container"><h3 id="my_albums_header">Popular Songs</h3></div>
-        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
-        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
-        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
-        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
-        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
-        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
-        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
-        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
-        <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/JXRN_LkCa_o?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
-
-        
-
-
-
-        
-        
-
-        
-
-
-        
-
-        
-
+        <% @musictracks.each do |track| %>
+          <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/<%= track.src %>?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song" id="<%= track.id %>"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
+        <% end %>
       </div>
     </div>
 

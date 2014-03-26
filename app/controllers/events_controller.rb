@@ -33,11 +33,12 @@ class EventsController < ApplicationController
       redirect_to login_url
     else
       @event = Event.new
+      @musictracks = Musictrack.all
       respond_to do |format|
         format.html # new.html.erb
         format.json { render json: @event }
       end
-  end
+    end
   end
 
   # GET /events/1/edit

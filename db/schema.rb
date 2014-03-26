@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140326205845) do
+ActiveRecord::Schema.define(:version => 20140326211721) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(:version => 20140326205845) do
   add_index "images", ["event_id"], :name => "index_images_on_event_id"
 
   create_table "musictracks", :force => true do |t|
-    t.string   "type"
+    t.string   "tracktype"
     t.string   "src"
     t.integer  "event_id"
     t.string   "title"

@@ -127,6 +127,13 @@ function onSelected($e, datum) {
   moflix = new Object();
   moflix.photos = [];
 
+// Event listener for the select song button
+$('.choose_song').click(function() {
+  moflix.musictrack = $(this).attr('id');
+})
+
+  
+
 // Need this to get the album cover photos as the url of the image is not made available with the album data
 function getPhotoById(id) {
   coverPhoto = $.ajax({
@@ -134,7 +141,6 @@ function getPhotoById(id) {
         url: "/get_picture?pictureid=" + id,
         dataType: "json",
         success: function(data){
-          console.log(data);
         }
     });
 } // End of getPhotoById function
@@ -252,9 +258,7 @@ function getPhotoById(id) {
               });  
 
               $( ".browse" ).click(function() {
-                //browseAlbum($(this).parent().attr("id"));
                 displayPhotos($(this).parent().attr("id"), $(this).parent().attr("data-name"));
-                // console.log("Ok, so you want to browse album " + $(this).parent().attr("id"));
               });
               
         } //End of success callback
@@ -377,7 +381,6 @@ function getPhotoById(id) {
     imageListWidth();
     scrollToEnd();
     moflix.photos.push(photo);
-    console.log(moflix.photos);
   }
 
 // Creating the event and posting to rails
@@ -458,7 +461,6 @@ $( "#add_more" ).click(function() {
       imageListWidth();
       scrollToEnd();
       moflix.photos.push(photo);
-      console.log(moflix)
 });
 
 </script>

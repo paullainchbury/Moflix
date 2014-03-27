@@ -52,6 +52,10 @@ class EventsController < ApplicationController
     @event = Event.new()
     @event.title = params['event']['title']
 
+    if params['event']['musictrack']
+      @event.musictracks << Musictrack.find( params['event']['musictrack'] )
+    end
+
     # Put the photos for the event into the dB
     params['event']['photos'].each do |photo|
       

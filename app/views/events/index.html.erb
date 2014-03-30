@@ -13,7 +13,7 @@
                     <div class="gal_image">
                       <img src="<%=event.get_cover.source %>" width="275" height="<%= (event.get_cover.height.to_f) / calculation %>">
                       <div class="hoverimage"><a href="<%= event_path(event) %>
-                        "><i class="fa fa-youtube-play play_button"></i></a></div>
+                        " class="play_button"><i class="fa fa-youtube-play play_button"></i></a></div>
                     </div>
                     <div class="text_section">
                       <div class="media">
@@ -29,7 +29,7 @@
                         <div class="media-body">
                           <h4 class="media-heading">
                             <% if event.title %>
-                              <%= event.title %>
+                              <%= truncate(event.title, length: 30) %>
                             <% else %>
                               Just another moflix
                             <% end %>

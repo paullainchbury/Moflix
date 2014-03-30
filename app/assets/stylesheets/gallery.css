@@ -50,6 +50,10 @@ h4.media-heading {
   color: #FF0084;
 }
 
+a.play_button:hover {
+  text-decoration: none;
+}
+
 .gal_image {
   position:relative;
 }

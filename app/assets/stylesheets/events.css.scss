@@ -49,37 +49,10 @@ html{
   visibility: hidden;
 }
 
-// .try_this {
-
-// -webkit-transform:rotate(-2deg);
-// -moz-transform: rotate(-2deg);
-// -o-transform: rotate(-2deg);
-// -ms-transform: rotate(-2deg);
-// transform: rotate(-2deg);
-// -webkit-backface-visibility:hidden;
-// padding: 16px 18px 20px 18px; /*size of the frame*/
-// /*give the frame's background colour a gradient*/
-// background: #eee6d8; /*fallback colour for browsers that don't support gradients*/
-// background: -webkit-linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
-// background: -moz-linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
-// background: -o-linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
-// background: -ms-linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
-// background: linear-gradient(top, #ede1c9, #fef8e2 20%, #f2ebde 60%);
-// /*give the Polaroids a small drop shadow*/
-// -webkit-box-shadow: 14px 14px 18px 4px rgba(0, 0, 0, .75), inset 0px 0px 8px 8px rgba(0,0,0,0.75);
-// -moz-box-shadow: 14px 14px 18px 4px rgba(0, 0, 0, .75), inset 0px 0px 91px -18px rgba(0,0,0,0.75);
-// box-shadow: 14px 14px 18px 4px rgba(0, 0, 0, .75), inset 0px 0px 91px -18px rgba(0,0,0,0.75);
-// position: relative;
-// }
-
 .mf_container {
   background: white;
   border-radius: 5px;
 }
-
-// .video_end_section {
-//   z-index: 20;
-// }
 
 .mf-steps {
   margin-top: 20px;

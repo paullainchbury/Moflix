@@ -5,15 +5,22 @@
   <ul class="nav nav-pills mf-steps">
     <li class="active"><a href="#" id="show_photos">1. Choose photos</a></li>
     <li><a href="#" id="show_music">2. Select Music</a></li>
-    <li><a href="#">3. Publish</a></li>
+    <li><a href="#" id="publish_btn">3. Publish</a></li>
   </ul>
 
+  <div class="stats">
+    <p>Photos added:</p>
+    <p>Comments:</p>
+    <p> Music selected: </p>
+    <p> Approx runtime:</p>
+  </div>
+
     <div id="music_container">
-      <div class="search_breadcrumbs">
-          <ol class="breadcrumb">
-              <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
-                <input type="text" class="form-control youtube_vids" placeholder="Search for an artist">
-              </div>
+      <div class="music_search_breadcrumbs">
+          <ol class="music_breadcrumb">
+            <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
+              <input type="text" class="form-control youtube_vids" placeholder="Search for an artist">
+            </div>
           </ol>
       </div>
       <div class="row music_vids_row"> <!-- For displaying the videos -->
@@ -27,7 +34,8 @@
 
     <div id="FB_albums_container">
       <div class="search_breadcrumbs">
-          <ol class="breadcrumb">
+          <ol class="breadcrumb albums_breadcrumb">
+            <a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a>
               <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
                 <input type="text" class="form-control fb_friends" placeholder="Find friends albums">
               </div>
@@ -63,6 +71,10 @@
 <script>
 
   $(function() {
+
+  // Hide the 'Back to My Albums' button as we start with a view of the user's albums
+  $('.breadcrumb').find('.btn').fadeOut(0);
+  
 // Typeahead.js stuff
 var fb_friends = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -115,6 +127,8 @@ function onSelected($e, datum) {
 }
 // end of typeahead stuff
 
+
+    // This function controls the moflix timeline and changes the scroll direction
     $('#thumbscontainer').bind('mousewheel', function(e) { // on scroll
       var $div = $('#thumbscontainer');
 
@@ -172,7 +186,7 @@ function getPhotoById(id) {
                   "<p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p>" +
                   "<div class='thumbnail img-responsive'>" +
                   "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"' data-name='"+ data[i]['name'] +"'><button class='btn btn-default btn-primary browse'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></div></div>"
-                  // <a href='#' class='btn btn-default btn-info btn-lg'><span class='glyphicon glyphicon-search'></span> Choose pictures</a>
+                  // TODO Sometimes, FB returns an album with no cover photo - if this is the case, then we need to substitute the last (or first?) photo in the album to prevent the error being displayed.
                   );          
               }; // End of for loop
               thumbnailHeight();
@@ -189,16 +203,27 @@ function getPhotoById(id) {
       } // Close success callback
     }); // Close Ajax call
 
-  $( "#show_music" ).click(function() {
+  $( '#show_music' ).click(function() {
+    $('#publish_btn').parent().removeClass( "active" );
+    $('#show_photos').parent().removeClass( "active" );
+    $('#show_music').parent().addClass( "active" );
     $('#FB_albums_container').slideUp( "slow");
     $('#music_container').slideDown( "slow");
   })
 
-  $("#show_photos" ).click(function() {
+  $( '#show_photos' ).click(function() {
+    $('#publish_btn').parent().removeClass( "active" );
+    $('#show_music').parent().removeClass( "active" );
+    $('#show_photos').parent().addClass( "active" );
     $('#music_container').slideUp( "slow");
     $('#FB_albums_container').slideDown( "slow");
   })
 
+  $('#publish_btn').click(function() {
+    $('#show_music').parent().removeClass( "active" );
+    $('#show_photos').parent().removeClass( "active" );
+    $('#publish_btn').parent().addClass( "active" );
+  })
 
 
 
@@ -206,12 +231,12 @@ function getPhotoById(id) {
   }); // Close page load function
 
   function getFriendsPhotoAlbums(datum) {
-    $('.breadcrumb').find('.btn').remove();
-    $('.breadcrumb').append(
-      '<a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a>'
-      );
+    $('.breadcrumb').find('.btn').fadeIn(0);
+    //$('.breadcrumb').find('.btn').remove();
+    // $('.breadcrumb').append(
+    //   '<a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a>'
+    //   );
     $( "#my_album" ).click(function() {
-      $('.breadcrumb').find('.btn').remove();
       $('.fb_friends_albums').fadeOut(0);
       $('.fb_album_contents').fadeOut(0);
       $('.fb_albums_row').fadeIn(0);
@@ -299,22 +324,29 @@ function getPhotoById(id) {
 
   // Once we have the photos from the album, let's display them.
   function displayPhotos(albumId, albumName) {
-    $('.breadcrumb').find('.btn').remove();
-    $('.breadcrumb').append(
-      '<a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a>'
-      );
+    $('.breadcrumb').find('.btn').fadeIn(0);
+    // $('.breadcrumb').find('.btn').remove();
+    // $('.breadcrumb').append(
+    //   '<a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a>'
+    //   );
+        // This is a fucking problem
+    $( '#my_album' ).click(function(event) {
+      event.preventDefault();
+      $('.breadcrumb').find('.btn').fadeOut(0);
+      console.log("you clicked on my album");
+      // $('.breadcrumb').find('.btn').remove();
+      $('.fb_friends_albums').fadeOut(0);
+      $('.fb_album_contents').fadeOut(0);
+      $('.fb_albums_row').fadeIn(0);
+    });
+    // End of the problem
+    headingTitle = "Albums";
     if ($('#my_albums_header').is(":visible")){
       headingTitle = "My Albums"
     };
     if ($('#albumOwner').is(":visible")){
       headingTitle = $('#albumOwner').html();
     };
-    $( "#my_album" ).click(function() {
-      $('.breadcrumb').find('.btn').remove();
-      $('.fb_friends_albums').fadeOut(0);
-      $('.fb_album_contents').fadeOut(0);
-      $('.fb_albums_row').fadeIn(0);
-    });
     $('.loading_stuff').fadeIn(0);
     var photosForDisplay = [];
     //$('.fb_album_contents').fadeOut(0);
@@ -323,8 +355,9 @@ function getPhotoById(id) {
       '<div class="container"><h3><a href="#" id="hide_gallery">' + headingTitle + '</a> / ' + albumName + '</h3></div>'
       );
     $( "#hide_gallery" ).click(function() {
-      $('.fb_album_contents').fadeOut(0);
-    });
+          $('.fb_album_contents').fadeOut(0);
+        });
+
     // Ajax call to get the photos
     $.ajax({
       type: "GET",
@@ -369,13 +402,10 @@ function getPhotoById(id) {
             );
             addAlbumPhotos(result[0]);
           });
-          
       } //End success callback
 
     }); // End Ajax request
   } // End of displayPhotos function
-
-
 
   function addAlbumPhotos(photo) {
     imageListWidth();

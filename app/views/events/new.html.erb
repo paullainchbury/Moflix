@@ -148,12 +148,14 @@ $(function() {
         photo.fromid = data["data"][i]['user']['id'];
         photo.comments = data["data"][i]['comments'];
         photo.likes = data["data"][i]['likes'];
+        photo.frompic = data["data"][i]['user']['profile_picture'];
+
         photosForDisplay.push(photo);
 
         $('.instagram_contents').append(
           "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
           "<div class='thumbnail img-responsive'>" +
-          "<div class='mf_thumbnail' style='background-image: url(" + photo.source + ")'><div class='mf_thumb_buttons' id='" + photo.id + "'><br/><button class='btn btn-default btn-success add_photo'><span class='glyphicon glyphicon-plus'></span> Add photo</button></div></div></div></div>"
+          "<div class='mf_thumbnail' style='background-image: url(" + photo.source + ")'><div class='mf_thumb_buttons' id='" + photo.id + "'><br/><button class='btn btn-default btn-success add_instagram_photo'><span class='glyphicon glyphicon-plus'></span> Add photo</button></div></div></div></div>"
           );          
       }; // End for loop
       
@@ -172,8 +174,8 @@ $(function() {
         ev.preventDefault;
         return false;
       });
-      $('.add_photo').click(function(ev) {
-        console.log("OK");
+      $('.add_instagram_photo').click(function(ev) {
+        console.log("Click function on line 178");
         var photoObject = $(this).parent().attr("id").toString()
         var result = $.grep(photosForDisplay, function(e){ return e.id === photoObject });
         $('#thumbscontainer').find('p').remove();
@@ -490,6 +492,7 @@ $(function() {
           $('.fb_album_contents').fadeIn(0);
           thumbnailHeight();
           $('.add_photo').click(function() {
+            console.log("Click funciton online 495")
             var photoObject = $(this).parent().attr("id").toString()
             var result = $.grep(photosForDisplay, function(e){ return e.id === photoObject });
             $('#thumbscontainer').find('p').remove();

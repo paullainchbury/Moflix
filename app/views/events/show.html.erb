@@ -179,7 +179,7 @@ background: black;
                     <% screenTime = 0 %>
 
                     <% @comment_count = image.fbcomments.count %>
-                    <% if image.name %>
+                    <% if image.name && (image.name != "") %>
                       <% @comment_count += 1 %>
                     <% end %>
                     <% if image == @event.images.reverse.first %>
@@ -263,7 +263,7 @@ background: black;
                       <% @startDelay += 7 %> 
                     <% end %>
 
-                    <% if image.name %>
+                    <% if image.name && (image.name != "") %>
 
                     <% position = positionOptions.sample %>
 
@@ -330,7 +330,13 @@ background: black;
                        data-intermediate-duration="2.0" 
                        data-intermediate-delay="3.0" 
                        data-intermediate-easing="swing">                       
-                       <%= comment.message %> <p class="mf-author"><%= comment.from_name %> on Facebook</p>
+                       <%= comment.message %> <p class="mf-author"><%= comment.from_name %> on
+                       <% binding.pry %> 
+                        <% if comment.came_from_site == nil %>
+                          Facebook
+                        <% else %>
+                          <%= comment.came_from_site %>
+                        <% end %></p>
                        </div>
 
                        <!-- profile pic -->

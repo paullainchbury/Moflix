@@ -1,4 +1,4 @@
-<% if current_user %>
+<% #if current_user %>
 
 <div class="container mf_container">
 
@@ -22,21 +22,24 @@
   </ul>
 
   <div id="instagram_container">
+    <div class="instagram_albums_breadcrumbs">
+      <ol class="breadcrumb instagram_albums_breadcrumb">
+        <a href="#" class="btn btn-default btn-primary" id="my_instagram"><span class="glyphicon glyphicon-arrow-left"></span> My instagram</a>
+          <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
+            <input type="text" class="form-control instagram_search" placeholder="Search instagram">
+          </div>
+      </ol>
+      </div>
     <% if current_user.instagram_token != "" %>
-      You are connected with instagram
     <% else %>
       <a href="/users/auth/instagram" class="btn btn-block btn-social btn-lg btn-instagram"><i class="fa fa-instagram"></i>Connect with Instagram</a>
     <% end %>
-    <ol>
-      <li>Show the user's own stuff</li>
-      <li>Search hastags</li>
-    </ol>
     <div class="row instagram_contents"></div>
   </div>
 
     <div id="music_container">
-      <div class="music_search_breadcrumbs">
-          <ol class="music_breadcrumb">
+      <div class="music_search_albums_breadcrumbs">
+          <ol class="breadcrumb music_albums_breadcrumb">
             <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
               <input type="text" class="form-control youtube_vids" placeholder="Search for an artist">
             </div>
@@ -51,7 +54,7 @@
 
 
     <div id="FB_albums_container">
-      <div class="search_breadcrumbs">
+      <div class="search_albums_breadcrumbs">
           <ol class="breadcrumb albums_breadcrumb">
             <a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a>
               <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
@@ -90,8 +93,22 @@
 
 $(function() {
   // Hide the 'Back to My Albums' button as we start with a view of the user's albums
-  $('.breadcrumb').find('.btn').fadeOut(0);
+  $('.albums_breadcrumb').find('.btn').fadeOut(0);
   $('#instagram_container').fadeOut(0);
+  $('#my_instagram').fadeOut(0);
+
+  $('.instagram_search').bind("enterKey",function(e){
+    console.log("You want to search instagram for " + $('.instagram_search').val());
+    searchInstagram($('.instagram_search').val());
+  });
+
+  $('.instagram_search').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+      $(this).trigger("enterKey");
+    }
+  });
+
 
   $('#instagram_photos').click(function() {
     $('#FB_albums_container').fadeOut(0);
@@ -100,6 +117,7 @@ $(function() {
     $('#instagram_container').fadeIn(0);
     // Make the Ajax call to instagram (if we haven't already done so)
     if ($('.instagram_contents').children().length == 0) {
+      $('.instagram_contents').append("<div class='container'><h3>My instagram photos</h3></div>");
       getInstagramPhotos();
     };
     return false;
@@ -112,6 +130,19 @@ $(function() {
     $('#FB_albums_container').fadeIn(0);
     return false;
   })
+
+  function searchInstagram(searchTerm){
+    var url = "https://api.instagram.com/v1/tags/" + searchTerm.replace(/ /g,'') + "/media/recent?client_id=6bb0888d23d145058cb6ab49c268ec3b";
+    instagramPhotos = $.ajax({
+          type: "GET",
+          url: url,
+          dataType: "jsonp",
+          crossDomain: true,
+          success: function(data){
+            console.log(data);
+          }
+      });
+  }
 
   function getInstagramPhotos(url) {
     userInstagramUid = "<%= current_user.instagram_uid %>";
@@ -340,7 +371,7 @@ $(function() {
   }); // End of page load function
 
   function getFriendsPhotoAlbums(datum) {
-    $('.breadcrumb').find('.btn').fadeIn(0);
+    $('.albums_breadcrumb').find('.btn').fadeIn(0);
     $( "#my_album" ).click(function() {
       $('.fb_friends_albums').fadeOut(0);
       $('.fb_album_contents').fadeOut(0);
@@ -430,11 +461,11 @@ $(function() {
 
   // Once we have the photos from the album, let's display them.
   function displayPhotos(albumId, albumName) {
-    $('.breadcrumb').find('.btn').fadeIn(0);
+    $('.albums_breadcrumb').find('.btn').fadeIn(0);
     
     $( '#my_album' ).click(function(event) {
       event.preventDefault();
-      $('.breadcrumb').find('.btn').fadeOut(0);
+      $('.albums_breadcrumb').find('.btn').fadeOut(0);
       $('.fb_friends_albums').fadeOut(0);
       $('.fb_album_contents').fadeOut(0);
       $('.fb_albums_row').fadeIn(0);
@@ -596,7 +627,7 @@ $( "#add_more" ).click(function() {
 
 </script>
 
-  <% else %>
-    <% redirect_to login_path %>
-  <% end %>
+  <% #else %>
+    <% #redirect_to login_path %>
+  <% #end %>
 

@@ -8,6 +8,7 @@ gem 'rails', '3.2.16'
 gem 'pg'
 gem 'devise'
 gem 'omniauth-facebook'
+gem 'omniauth-instagram'
 gem 'koala'
 gem 'pry-byebug'
 

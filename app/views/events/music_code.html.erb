@@ -1,0 +1,3 @@
+        <% @musictracks.each do |track| %>
+          <div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width="250" height="200" src="//www.youtube.com/embed/<%= track.src %>?modestbranding=1&controls=0" frameborder="0"></iframe><br/><button class="btn btn-default btn-success btn-sm choose_song" id="<%= track.id %>"><span class="glyphicon glyphicon-headphones"></span> Select this song</button></div>
+        <% end %>

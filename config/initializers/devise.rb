@@ -1,6 +1,7 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -30,6 +31,7 @@ Devise.setup do |config|
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
   # config.authentication_keys = [ :email ]
+  config.authentication_keys = [ :email ]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
@@ -228,8 +230,11 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+  require "omniauth-instagram"
 
   config.omniauth :facebook, '212771185582572', 'bf9a677226c7fcba6df65d091198364c', { :scope => "email,publish_actions,user_photos,friends_photos,user_status,friends_status,friends_videos,user_videos,user_events,friends_events,read_stream,create_event,rsvp_event" }
+
+  config.omniauth :instagram, '6bb0888d23d145058cb6ab49c268ec3b', '1c702c96ef0e453d99be1df0028a933a'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -5,10 +5,10 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook, :instagram]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :uid, :provider, :facebook_token, :image
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :uid, :provider, :facebook_token, :image, :instagram_token
 
   def self.find_for_facebook_oauth(auth)
   where(auth.slice(:provider, :uid)).first_or_create do |user|
@@ -17,6 +17,22 @@ class User < ActiveRecord::Base
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.name = auth.info.name
+      user.image = auth.info.image # assuming the user model has an image
+    end
+  end
+
+  def email_required?
+    false
+  end
+
+  def self.find_for_instagram_oauth(auth)
+  where(auth.slice(:provider, :uid)).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.password = Devise.friendly_token[0,20]
+      user.email = ""
+      user.name = auth.info.name
+      # Need to do something for name here as Instagram only has a nickname
       user.image = auth.info.image # assuming the user model has an image
     end
   end

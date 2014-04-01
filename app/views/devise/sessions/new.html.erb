@@ -3,7 +3,7 @@
 
   <%= link_to '<i class="fa fa-facebook"></i>Sign in with Facebook'.html_safe, omniauth_authorize_path(resource_name, "facebook"), :class => "btn btn-block btn-social btn-lg btn-facebook" %>
 
-  <a class="btn btn-block btn-social btn-lg btn-instagram"><i class="fa fa-instagram"></i>Sign in with Instagram</a>
+  <%= link_to '<i class="fa fa-instagram"></i>Sign in with Instagram'.html_safe, omniauth_authorize_path(resource_name, "instagram"), :class => "btn btn-block btn-social btn-lg btn-instagram" %>
 
   <a class="btn btn-block btn-social btn-lg btn-flickr"><i class="fa fa-flickr"></i>Sign in with Flickr</a>
 

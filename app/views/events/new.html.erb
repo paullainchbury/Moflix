@@ -93,19 +93,16 @@ $(function() {
   $('.breadcrumb').find('.btn').fadeOut(0);
   $('#instagram_container').fadeOut(0);
 
-    // <ul class="nav nav-tabs nav-justified photo_sources">
-    //   <li class="active" id="facebook_photos"><a href="#"> Facebook photos</a></li>
-    //   <li><a href="#" id="instagram_photos"><i class="fa fa-instagram"></i> Instagram Photos</a></li>
-    //   <li><a href="#" id="flickr_photos"><i class="fa fa-flickr"></i> Flickr Photos</a></li>
-    // </ul>
-
   $('#instagram_photos').click(function() {
     $('#FB_albums_container').fadeOut(0);
     $('li#facebook_photos').removeClass( "active" );
     $('li#instagram_photos').addClass( "active" );
     $('#instagram_container').fadeIn(0);
-    // Make the Ajax call to instagram
-    getInstagramPhotos();
+    // Make the Ajax call to instagram (if we haven't already done so)
+    if ($('.instagram_contents').children().length == 0) {
+      getInstagramPhotos();
+    };
+    return false;
   })
 
   $('#facebook_photos').click(function() {
@@ -113,49 +110,83 @@ $(function() {
     $('li#instagram_photos').removeClass( "active" );
     $('li#facebook_photos').addClass( "active" );
     $('#FB_albums_container').fadeIn(0);
+    return false;
   })
 
-
-
-  function getInstagramPhotos() {
+  function getInstagramPhotos(url) {
     userInstagramUid = "<%= current_user.instagram_uid %>";
     userInstagramAccessToken = "<%= current_user.instagram_token %>"
+    if (url == undefined) {
+      var url = "https://api.instagram.com/v1/users/"+ userInstagramUid +"/media/recent?access_token="+userInstagramAccessToken;
+    };
     instagramPhotos = $.ajax({
           type: "GET",
-          url: "https://api.instagram.com/v1/users/"+ userInstagramUid +"/media/recent?access_token="+userInstagramAccessToken,
+          url: url,
           dataType: "jsonp",
           crossDomain: true,
           success: function(data){
-            console.log(data);
-            // Add each photo in the Ajax response to the moflix.photos array
-            for (var i=0;i<data["data"].length;i++)
-              {
-
-                var photo = new Object;
-                photo.id = data["data"][i]['id'];
-                photo.name = data["data"][i]['caption'];
-                photo.height = data["data"][i]['images']['standard_resolution']['height'];
-                photo.width = data["data"][i]['images']['standard_resolution']['width'];
-                photo.source = data["data"][i]['images']['standard_resolution']['url'];
-                photo.created = data["data"][i]['created_time'];
-                photo.from = data["data"][i]['user']['full_name'];
-                photo.fromid = data["data"][i]['user']['id'];
-                photo.comments = data["data"][i]['comments'];
-                photo.likes = data["data"][i]['likes'];
-                console.log(photo);
-                photosForDisplay.push(photo);
-
-
-                $('.instagram_contents').append(
-                  "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
-                  "<div class='thumbnail img-responsive'>" +
-                  "<div class='mf_thumbnail' style='background-image: url(" + photo.source + ")'><div class='mf_thumb_buttons' id='" + photo.id + "'><br/><button class='btn btn-default btn-success add_photo'><span class='glyphicon glyphicon-plus'></span> Add photo</button></div></div></div></div>"
-                  );          
-              }; // End for loop
-              thumbnailHeight();
+            // console.log(data);
+            displayInstagramPhotos(data);
           }
       });
   } // End of getInstagramPhotos function
+
+  function displayInstagramPhotos(data){
+  // Add each photo in the Ajax response to the moflix.photos array
+    $('div.instagram_show_more').remove();
+    for (var i=0;i<data["data"].length;i++)
+      {
+        var photo = new Object;
+        photo.cameFromSite = "Instagram";
+        photo.id = data["data"][i]['id'];
+        photo.name = data["data"][i]['caption'];
+        photo.height = data["data"][i]['images']['standard_resolution']['height'];
+        photo.width = data["data"][i]['images']['standard_resolution']['width'];
+        photo.source = data["data"][i]['images']['standard_resolution']['url'];
+        photo.created = data["data"][i]['created_time'];
+        photo.from = data["data"][i]['user']['full_name'];
+        photo.fromid = data["data"][i]['user']['id'];
+        photo.comments = data["data"][i]['comments'];
+        photo.likes = data["data"][i]['likes'];
+        photosForDisplay.push(photo);
+
+        $('.instagram_contents').append(
+          "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
+          "<div class='thumbnail img-responsive'>" +
+          "<div class='mf_thumbnail' style='background-image: url(" + photo.source + ")'><div class='mf_thumb_buttons' id='" + photo.id + "'><br/><button class='btn btn-default btn-success add_photo'><span class='glyphicon glyphicon-plus'></span> Add photo</button></div></div></div></div>"
+          );          
+      }; // End for loop
+      
+      if (data['pagination']['next_url'] != undefined) {
+        nextUrl = data['pagination']['next_url'];
+        $('.instagram_contents').append(
+          "<div class='col-lg-2 col-sm-3 col-xs-6 instagram_show_more'>" +
+          "<div class='thumbnail img-responsive '>" +
+          "<div class='mf_thumbnail'><a href='#'' class='btn btn-default btn-info btn-lg instagram_get_more' data-url=" + nextUrl +"><span class='glyphicon glyphicon-circle-arrow-right'></span> Show more</a></div></div></div>"
+          ); 
+      }
+      thumbnailHeight();
+      $('.instagram_get_more').click(function(ev) {
+        getInstagramPhotos($(this).attr('data-url'));
+        // console.log($(this).attr('data-url'));
+        ev.preventDefault;
+        return false;
+      });
+      $('.add_photo').click(function(ev) {
+        console.log("OK");
+        var photoObject = $(this).parent().attr("id").toString()
+        var result = $.grep(photosForDisplay, function(e){ return e.id === photoObject });
+        $('#thumbscontainer').find('p').remove();
+        $('.imagelist').append(
+          "<li class='thumbimage'><img id='tnimage1' src='"
+          + result[0]['source']
+          +"'></li>"
+        );
+        addAlbumPhotos(result[0]);
+        console.log(result[0]);
+      });
+
+  } // End of addInstagramPhotos function
 
   // This function controls the moflix timeline and changes the scroll direction
   $('#thumbscontainer').bind('mousewheel', function(e) { // on scroll
@@ -276,6 +307,7 @@ $(function() {
             $( ".browse" ).click(function() {
               $('.loading_stuff').fadeIn(0);
               displayPhotos($(this).parent().attr("id"), $(this).parent().attr("data-name"));
+              
             });
 
     } // Close success callback
@@ -371,6 +403,7 @@ $(function() {
         for (var i=0;i<data.length;i++)
           {
             var photo = new Object;
+            photo.cameFromSite = "Facebook";
             photo.id = data[i]['id'];
             photo.name = data[i]['name'];
             photo.height = data[i]['height'];
@@ -396,15 +429,10 @@ $(function() {
   // Once we have the photos from the album, let's display them.
   function displayPhotos(albumId, albumName) {
     $('.breadcrumb').find('.btn').fadeIn(0);
-    // $('.breadcrumb').find('.btn').remove();
-    // $('.breadcrumb').append(
-    //   '<a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a>'
-    //   );
+    
     $( '#my_album' ).click(function(event) {
       event.preventDefault();
       $('.breadcrumb').find('.btn').fadeOut(0);
-      console.log("you clicked on my album");
-      // $('.breadcrumb').find('.btn').remove();
       $('.fb_friends_albums').fadeOut(0);
       $('.fb_album_contents').fadeOut(0);
       $('.fb_albums_row').fadeIn(0);
@@ -438,6 +466,7 @@ $(function() {
         for (var i=0;i<data.length;i++)
           {
             var photo = new Object;
+            photo.cameFromSite = "Facebook";
             photo.id = data[i]['id'];
             photo.name = data[i]['name'];
             photo.height = data[i]['height'];

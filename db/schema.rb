@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140401142103) do
+ActiveRecord::Schema.define(:version => 20140402174031) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20140401142103) do
     t.string   "from_name"
     t.integer  "like_count"
     t.boolean  "user_likes"
-    t.string   "message"
+    t.text     "message"
     t.integer  "image_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(:version => 20140401142103) do
     t.integer  "event_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.string   "name"
+    t.text     "name"
     t.string   "fromid"
     t.string   "frompic"
   end

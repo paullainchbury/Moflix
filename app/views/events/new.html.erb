@@ -35,6 +35,7 @@
       <a href="/users/auth/instagram" class="btn btn-block btn-social btn-lg btn-instagram"><i class="fa fa-instagram"></i>Connect with Instagram</a>
     <% end %>
     <div class="row instagram_contents"></div>
+    <div class="row instagram_search_contents"></div>
   </div>
 
     <div id="music_container">
@@ -98,8 +99,13 @@ $(function() {
   $('#my_instagram').fadeOut(0);
 
   $('.instagram_search').bind("enterKey",function(e){
+    $('.instagram_search_contents').empty();
     console.log("You want to search instagram for " + $('.instagram_search').val());
     searchInstagram($('.instagram_search').val());
+    $('.instagram_contents').slideUp( "slow");
+    $('#my_instagram').fadeIn(0);
+    $('.instagram_search').val("");
+    $('.instagram_search_contents').slideDown("slow");
   });
 
   $('.instagram_search').keyup(function(e){
@@ -108,6 +114,13 @@ $(function() {
       $(this).trigger("enterKey");
     }
   });
+
+  $('#my_instagram').click(function() {
+    $('#my_instagram').fadeOut(0);
+    $('.instagram_contents').slideDown( "slow");
+    $('.instagram_search_contents').fadeOut(0);
+    return false;
+  })
 
 
   $('#instagram_photos').click(function() {
@@ -139,15 +152,17 @@ $(function() {
           dataType: "jsonp",
           crossDomain: true,
           success: function(data){
+            $('.instagram_search_contents').append("<div class='container'><h3>Instagram results for \"" + searchTerm + "\"</h3></div>");
             console.log(data);
+            displayInstagramPhotos(data, "search");
           }
       });
   }
 
-  function getInstagramPhotos(url) {
+  function getInstagramPhotos(url, source) {
     userInstagramUid = "<%= current_user.instagram_uid %>";
     userInstagramAccessToken = "<%= current_user.instagram_token %>"
-    if (url == undefined) {
+    if ((url == undefined) && (source == undefined)) {
       var url = "https://api.instagram.com/v1/users/"+ userInstagramUid +"/media/recent?access_token="+userInstagramAccessToken;
     };
     instagramPhotos = $.ajax({
@@ -157,14 +172,27 @@ $(function() {
           crossDomain: true,
           success: function(data){
             // console.log(data);
-            displayInstagramPhotos(data);
+            if (source == "search") {
+              displayInstagramPhotos(data, "search");
+            }
+            else {
+              displayInstagramPhotos(data);
+            }
+            
           }
       });
   } // End of getInstagramPhotos function
 
-  function displayInstagramPhotos(data){
+  function displayInstagramPhotos(data, source){
   // Add each photo in the Ajax response to the moflix.photos array
-    $('div.instagram_show_more').remove();
+  if (source == "search") {
+    $('.instagram_search_contents').find('.instagram_show_more').remove();
+    thediv = $('.instagram_search_contents');
+  }
+  else {
+    $('.instagram_contents').find('.instagram_show_more').remove();
+    thediv = $('.instagram_contents');
+  }
     for (var i=0;i<data["data"].length;i++)
       {
         var photo = new Object;
@@ -183,7 +211,7 @@ $(function() {
 
         photosForDisplay.push(photo);
 
-        $('.instagram_contents').append(
+        thediv.append(
           "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
           "<div class='thumbnail img-responsive'>" +
           "<div class='mf_thumbnail' style='background-image: url(" + photo.source + ")'><div class='mf_thumb_buttons' id='" + photo.id + "'><br/><button class='btn btn-default btn-success add_instagram_photo'><span class='glyphicon glyphicon-plus'></span> Add photo</button></div></div></div></div>"
@@ -192,19 +220,25 @@ $(function() {
       
       if (data['pagination']['next_url'] != undefined) {
         nextUrl = data['pagination']['next_url'];
-        $('.instagram_contents').append(
+        thediv.append(
           "<div class='col-lg-2 col-sm-3 col-xs-6 instagram_show_more'>" +
           "<div class='thumbnail img-responsive '>" +
           "<div class='mf_thumbnail'><a href='#'' class='btn btn-default btn-info btn-lg instagram_get_more' data-url=" + nextUrl +"><span class='glyphicon glyphicon-circle-arrow-right'></span> Show more</a></div></div></div>"
           ); 
       }
       thumbnailHeight();
-      $('.instagram_get_more').click(function(ev) {
-        getInstagramPhotos($(this).attr('data-url'));
-        // console.log($(this).attr('data-url'));
-        ev.preventDefault;
-        return false;
-      });
+        $('.instagram_get_more').click(function(ev) {
+          if (source == "search") {
+            getInstagramPhotos($(this).attr('data-url'), "search");
+          }
+          else {
+            getInstagramPhotos($(this).attr('data-url'));
+          }
+          // console.log($(this).attr('data-url'));
+          ev.preventDefault;
+          return false;
+        });
+      
       $('.add_instagram_photo').click(function(ev) {
         console.log("Click function on line 178");
         var photoObject = $(this).parent().attr("id").toString()

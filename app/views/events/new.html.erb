@@ -239,21 +239,34 @@ $(function() {
           return false;
         });
       
-      $('.add_instagram_photo').click(function(ev) {
-        console.log("Click function on line 178");
-        var photoObject = $(this).parent().attr("id").toString()
-        var result = $.grep(photosForDisplay, function(e){ return e.id === photoObject });
-        $('#thumbscontainer').find('p').remove();
-        $('.imagelist').append(
-          "<li class='thumbimage'><img id='tnimage1' src='"
-          + result[0]['source']
-          +"'></li>"
-        );
-        addAlbumPhotos(result[0]);
-        console.log(result[0]);
-      });
+      // multiple event listeners!!
+      // $('.add_instagram_photo').click(function(ev) {
+      //   console.log("Click function on line 178");
+      //   var photoObject = $(this).parent().attr("id").toString()
+      //   var result = $.grep(photosForDisplay, function(e){ return e.id === photoObject });
+      //   $('#thumbscontainer').find('p').remove();
+      //   $('.imagelist').append(
+      //     "<li class='thumbimage'><img id='tnimage1' src='"
+      //     + result[0]['source']
+      //     +"'></li>"
+      //   );
+      //   addAlbumPhotos(result[0]);
+      //   console.log(result[0]);
+      // });
 
   } // End of addInstagramPhotos function
+
+  $(document).on('click', '.add_instagram_photo', function(){ 
+    var photoObject = $(this).parent().attr("id").toString()
+    var result = $.grep(photosForDisplay, function(e){ return e.id === photoObject });
+    $('#thumbscontainer').find('p').remove();
+    $('.imagelist').append(
+      "<li class='thumbimage'><img id='tnimage1' src='"
+      + result[0]['source']
+      +"'></li>"
+    );
+    addAlbumPhotos(result[0]);
+  });
 
   // This function controls the moflix timeline and changes the scroll direction
   $('#thumbscontainer').bind('mousewheel', function(e) { // on scroll

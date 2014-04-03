@@ -66,8 +66,8 @@ class EventsController < ApplicationController
       photoobject.source = photo[1]["source"]
       photoobject.from = photo[1]["from"]
       photoobject.fromid = photo[1]["fromid"]
-      photoobject.name = photo[1]["name"]
       if photo[1]["cameFromSite"] == "Facebook"
+        photoobject.name = photo[1]["name"]
         photoobject.frompic = current_user.get_profile_pic(photoobject.fromid)
         if photo[1]["comments"] 
           comments = photo[1]["comments"]["data"]
@@ -84,6 +84,7 @@ class EventsController < ApplicationController
       end #end if comments
       end #end if came came from Facebook
       if photo[1]["cameFromSite"] == "Instagram"
+        photoobject.name = photo[1]["name"]["text"]
         photoobject.frompic = photo[1]["frompic"]
         if photo[1]["comments"]["count"] != "0"
           comments = photo[1]["comments"]["data"]

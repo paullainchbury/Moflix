@@ -42,7 +42,7 @@
       <div class="music_search_albums_breadcrumbs">
           <ol class="breadcrumb music_albums_breadcrumb">
             <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
-              <input type="text" class="form-control youtube_vids" placeholder="Search for an artist">
+              <input type="text" class="form-control search_youtube" placeholder="Search for an artist">
             </div>
           </ol>
       </div>
@@ -238,21 +238,6 @@ $(function() {
           ev.preventDefault;
           return false;
         });
-      
-      // multiple event listeners!!
-      // $('.add_instagram_photo').click(function(ev) {
-      //   console.log("Click function on line 178");
-      //   var photoObject = $(this).parent().attr("id").toString()
-      //   var result = $.grep(photosForDisplay, function(e){ return e.id === photoObject });
-      //   $('#thumbscontainer').find('p').remove();
-      //   $('.imagelist').append(
-      //     "<li class='thumbimage'><img id='tnimage1' src='"
-      //     + result[0]['source']
-      //     +"'></li>"
-      //   );
-      //   addAlbumPhotos(result[0]);
-      //   console.log(result[0]);
-      // });
 
   } // End of addInstagramPhotos function
 
@@ -394,11 +379,14 @@ $(function() {
   }); // Close Ajax call
 
   $( '#show_music' ).click(function() {
+    // If it's blank (the first time) - we want to go and get the top 40
+    getYouTubeTop40();
     $('#publish_btn').parent().removeClass( "active" );
     $('#show_photos').parent().removeClass( "active" );
     $('#show_music').parent().addClass( "active" );
     $('#FB_albums_container').slideUp( "slow");
     $('#music_container').slideDown( "slow");
+    return false;
   })
 
   $( '#show_photos' ).click(function() {
@@ -407,6 +395,7 @@ $(function() {
     $('#show_photos').parent().addClass( "active" );
     $('#music_container').slideUp( "slow");
     $('#FB_albums_container').slideDown( "slow");
+    return false;
   })
 
   $('#publish_btn').click(function() {
@@ -416,6 +405,44 @@ $(function() {
   })
 
   }); // End of page load function
+
+  function getYouTubeTop40() {
+    $.ajax({
+      type: "GET",
+
+      url: "https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails"
+                    + "&playlistId=PL7C00E83736FB02C3"
+                    + "&maxResults=20"
+                    + "&videoEmbeddable=true"
+                    + "&key=AIzaSyBJaay41IqyhSQ7aUe2Xv5YrjuPibbLXVk",
+      dataType: "json",
+      success: function(data){
+        displayYoutubeResults(data);
+      } //End success callback
+    }); // End Ajax request
+  } // End getYouTubeTop40
+
+  function displayYoutubeResults(data) {
+    console.log(data);
+  }
+
+  function searchYoutube(searchTerm) {
+    // TODO Need to ensure Search Term is formatted with a '+' instead of spaces.
+    $.ajax({
+      type: "GET",
+      url: "https://www.googleapis.com/youtube/v3/search?part=snippet"
+                     + "&q=" + searchTerm
+                     + "&type=playlist"
+                     + "&maxResults=20"
+                     + "&videoEmbeddable=true"
+                     + "&order=viewCount"
+                     + "&key=AIzaSyBJaay41IqyhSQ7aUe2Xv5YrjuPibbLXVk",
+      dataType: "json",
+      success: function(data){
+        console.log(data);
+      } //End success callback
+    }); // End Ajax request
+  }
 
   function getFriendsPhotoAlbums(datum) {
     $('.albums_breadcrumb').find('.btn').fadeIn(0);

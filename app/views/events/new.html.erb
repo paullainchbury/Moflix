@@ -15,53 +15,39 @@
     <p id="runtime"> Approx runtime:</p>
   </div>
 
-  <ul class="nav nav-tabs nav-justified photo_sources">
-    <li class="active" id="facebook_photos"><a href="#"> Facebook photos</a></li>
-    <li id="instagram_photos"><a href="#"><i class="fa fa-instagram"></i> Instagram Photos</a></li>
-    <li id="flickr_photos"><a href="#"><i class="fa fa-flickr"></i> Flickr Photos</a></li>
-  </ul>
+  <div id="photographs">
 
-  <div id="instagram_container">
-    <div class="instagram_albums_breadcrumbs">
-      <ol class="breadcrumb instagram_albums_breadcrumb">
-        <a href="#" class="btn btn-default btn-primary" id="my_instagram"><span class="glyphicon glyphicon-arrow-left"></span> My instagram</a>
-          <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
-            <input type="text" class="form-control instagram_search" placeholder="Search instagram">
-          </div>
-      </ol>
-      </div>
-    <% if current_user.instagram_token != "" %>
-    <% else %>
-      <a href="/users/auth/instagram" class="btn btn-block btn-social btn-lg btn-instagram"><i class="fa fa-instagram"></i>Connect with Instagram</a>
-    <% end %>
-    <div class="row instagram_contents"></div>
-    <div class="row instagram_search_contents"></div>
-  </div>
+    <ul class="nav nav-tabs nav-justified photo_sources">
+      <li class="active" id="facebook_photos"><a href="#"> Facebook photos</a></li>
+      <li id="instagram_photos"><a href="#"><i class="fa fa-instagram"></i> Instagram Photos</a></li>
+      <li id="flickr_photos"><a href="#"><i class="fa fa-flickr"></i> Flickr Photos</a></li>
+    </ul>
 
-    <div id="music_container">
-      <div class="music_search_albums_breadcrumbs">
-          <ol class="breadcrumb music_albums_breadcrumb">
+    <div id="instagram_container">
+      <div class="instagram_albums_breadcrumbs">
+        <ol class="breadcrumb instagram_albums_breadcrumb">
+          <a href="#" class="btn btn-default btn-primary" id="my_instagram"><span class="glyphicon glyphicon-arrow-left"></span> My instagram</a>
             <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
-              <input type="text" class="form-control search_youtube" placeholder="Search for an artist">
+              <input type="text" class="form-control instagram_search" placeholder="Search instagram">
             </div>
-          </ol>
-      </div>
-      <div class="row music_vids_row"> <!-- For displaying the videos -->
-        <div class="container"><h3 id="my_albums_header">Popular Songs</h3></div>
-
-      </div>
+        </ol>
+        </div>
+      <% if current_user.instagram_token != "" %>
+      <% else %>
+        <a href="/users/auth/instagram" class="btn btn-block btn-social btn-lg btn-instagram"><i class="fa fa-instagram"></i>Connect with Instagram</a>
+      <% end %>
+      <div class="row instagram_contents"></div>
+      <div class="row instagram_search_contents"></div>
     </div>
-
-
 
     <div id="FB_albums_container">
       <div class="search_albums_breadcrumbs">
-          <ol class="breadcrumb albums_breadcrumb">
-            <a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a>
-              <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
-                <input type="text" class="form-control fb_friends" placeholder="Find friends albums">
-              </div>
-          </ol>
+        <ol class="breadcrumb albums_breadcrumb">
+          <a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a>
+          <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
+            <input type="text" class="form-control fb_friends" placeholder="Find friends albums">
+          </div>
+        </ol>
       </div>
       <div class="loading_stuff">
         <div class="spinner">
@@ -82,8 +68,22 @@
           <button class="btn mf_btn" id="add_more">Add more</button>
         </div>
       </div>
-    </div>
+    </div> <!-- End of FB albums container -->
+  </div> <!-- End of photographs container -->
 
+  <div id="music_container">
+    <div class="music_search_albums_breadcrumbs">
+        <ol class="breadcrumb music_albums_breadcrumb">
+          <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
+            <input type="text" class="form-control search_youtube" placeholder="Search for an artist">
+          </div>
+        </ol>
+    </div>
+    <div class="row music_vids_row"> <!-- For displaying the videos -->
+      <div class="container"><h3 id="my_albums_header">Popular Songs</h3></div>
+      <div id="youtube_results"></div>
+    </div>
+  </div> <!-- End of music container -->
       
 
     </div>
@@ -318,7 +318,9 @@ $(function() {
   // end of typeahead stuff
 
   // Event listener for the select song button
-  $('.choose_song').click(function() {
+
+  $(document).on('click', '.choose_song', function(){ 
+    alert("Ok, the song has been added to your playlist");
     moflix.musictrack = $(this).attr('id');
   })
 
@@ -379,12 +381,14 @@ $(function() {
   }); // Close Ajax call
 
   $( '#show_music' ).click(function() {
-    // If it's blank (the first time) - we want to go and get the top 40
-    getYouTubeTop40();
+    // Only if there is no music to show, we want to go and get the top 40
+    if ($('#youtube_results').is(':empty')) {
+      getYouTubeTop40();
+    }
     $('#publish_btn').parent().removeClass( "active" );
     $('#show_photos').parent().removeClass( "active" );
     $('#show_music').parent().addClass( "active" );
-    $('#FB_albums_container').slideUp( "slow");
+    $('#photographs').slideUp( "slow");
     $('#music_container').slideDown( "slow");
     return false;
   })
@@ -394,7 +398,7 @@ $(function() {
     $('#show_music').parent().removeClass( "active" );
     $('#show_photos').parent().addClass( "active" );
     $('#music_container').slideUp( "slow");
-    $('#FB_albums_container').slideDown( "slow");
+    $('#photographs').slideDown( "slow");
     return false;
   })
 
@@ -402,6 +406,9 @@ $(function() {
     $('#show_music').parent().removeClass( "active" );
     $('#show_photos').parent().removeClass( "active" );
     $('#publish_btn').parent().addClass( "active" );
+    $('#music_container').slideUp( "slow");
+    $('#photographs').slideUp( "slow");
+    return false;
   })
 
   }); // End of page load function
@@ -423,7 +430,17 @@ $(function() {
   } // End getYouTubeTop40
 
   function displayYoutubeResults(data) {
-    console.log(data);
+    // Loop through the results
+    for (var i=0;i<data.items.length;i++)
+        {
+          // console.log(data.items[i].contentDetails.videoId);
+          $('#youtube_results').append(
+          "<div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width='250' height='200' src='//www.youtube.com/embed/" + data.items[i].contentDetails.videoId +
+          "?modestbranding=1&controls=0&frameborder='0'></iframe><br/><button class='btn btn-default btn-success btn-sm choose_song' id=" + data.items[i].contentDetails.videoId +
+          "><span class='glyphicon glyphicon-headphones'></span> Select this song</button></div>"
+          );
+        }
+    // console.log(data);
   }
 
   function searchYoutube(searchTerm) {

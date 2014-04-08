@@ -75,12 +75,19 @@
     <div class="music_search_albums_breadcrumbs">
         <ol class="breadcrumb music_albums_breadcrumb">
           <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
-            <input type="text" class="form-control search_youtube" placeholder="Search for an artist">
+            <input type="text" class="form-control search_youtube" placeholder="Search for an artist or song">
           </div>
         </ol>
     </div>
+    <div class="youtube_loading">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+      <div id="youtube_loading_text">Loading YouTube...</div>
+    </div>
     <div class="row music_vids_row"> <!-- For displaying the videos -->
-      <div class="container"><h3 id="my_albums_header">Popular Songs</h3></div>
+      <div class="container"><h3 id="music_videos_header">Popular Songs</h3></div>
       <div id="youtube_results"></div>
     </div>
   </div> <!-- End of music container -->
@@ -324,6 +331,18 @@ $(function() {
     moflix.musictrack = $(this).attr('id');
   })
 
+  $('.search_youtube').bind("enterKey",function(e){
+    var searchTerm = $('.search_youtube').val();
+    searchYoutube(searchTerm);
+  });
+
+  $('.search_youtube').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+      $(this).trigger("enterKey");
+    }
+  });
+
   // Function to get the album cover pic from FB as the cover url is not provided with album data
   function getPhotoById(id) {
     coverPhoto = $.ajax({
@@ -381,7 +400,7 @@ $(function() {
   }); // Close Ajax call
 
   $( '#show_music' ).click(function() {
-    // Only if there is no music to show, we want to go and get the top 40
+    // If there are no music video results already, go and and get popular music videos from YouTube when the user clicks on the music pill.
     if ($('#youtube_results').is(':empty')) {
       getYouTubeTop40();
     }
@@ -429,37 +448,48 @@ $(function() {
     }); // End Ajax request
   } // End getYouTubeTop40
 
-  function displayYoutubeResults(data) {
-    // Loop through the results
+  function displayYoutubeResults(data, search) {
+    $('#youtube_results').empty();
     for (var i=0;i<data.items.length;i++)
         {
-          // console.log(data.items[i].contentDetails.videoId);
+          if (!search) 
+          {
+            var videoId = data.items[i].contentDetails.videoId;
+          } else {
+            var videoId = data.items[i].id['videoId'];
+          }
           $('#youtube_results').append(
-          "<div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width='250' height='200' src='//www.youtube.com/embed/" + data.items[i].contentDetails.videoId +
-          "?modestbranding=1&controls=0&frameborder='0'></iframe><br/><button class='btn btn-default btn-success btn-sm choose_song' id=" + data.items[i].contentDetails.videoId +
+          "<div class='col-lg-3 col-sm-6 col-xs-12 music_vid'><iframe width='250' height='200' src='//www.youtube.com/embed/" + videoId +
+          "?modestbranding=1&controls=0&frameborder='0'></iframe><br/><button class='btn btn-default btn-success btn-sm choose_song' id=" + videoId +
           "><span class='glyphicon glyphicon-headphones'></span> Select this song</button></div>"
           );
+          // TODO more button to show paginated response
         }
-    // console.log(data);
   }
 
   function searchYoutube(searchTerm) {
+    searchTerm = searchTerm.replace(/ /g,"+");
+    $('#music_videos_header').empty();
+    $('.search_youtube').val("");
+    // Want to show the youtube loading here
+    $('#music_videos_header').append("Search results for " + searchTerm);
     // TODO Need to ensure Search Term is formatted with a '+' instead of spaces.
+
     $.ajax({
       type: "GET",
       url: "https://www.googleapis.com/youtube/v3/search?part=snippet"
                      + "&q=" + searchTerm
-                     + "&type=playlist"
+                     + "&type=video"
                      + "&maxResults=20"
                      + "&videoEmbeddable=true"
                      + "&order=viewCount"
                      + "&key=AIzaSyBJaay41IqyhSQ7aUe2Xv5YrjuPibbLXVk",
       dataType: "json",
       success: function(data){
-        console.log(data);
+        displayYoutubeResults(data, searchTerm);
       } //End success callback
     }); // End Ajax request
-  }
+  } // End searchYoutube function
 
   function getFriendsPhotoAlbums(datum) {
     $('.albums_breadcrumb').find('.btn').fadeIn(0);

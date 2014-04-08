@@ -61,6 +61,7 @@ html{
 
 .mf-steps li {
   margin-right: 10px;
+  margin-top: 12px;
 }
 
 .mf-steps>li.active>a, .mf-steps>li.active>a:hover,.mf-steps>li.active>a:focus {
@@ -116,6 +117,23 @@ html{
 
 .edit-moflix:hover {
   color: white;
+}
+
+.stats-item {
+  border: 1px lightgray solid;
+  padding: 10px 15px;
+  float: left;
+  margin-right: 10px;
+  font-size: 0.9em;
+}
+
+.stats-item-detail {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.mf-steps {
+  margin-bottom: 60px;
 }
 
 

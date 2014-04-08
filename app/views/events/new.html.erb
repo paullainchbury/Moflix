@@ -6,14 +6,14 @@
     <li class="active"><a href="#" id="show_photos">1. Choose photos</a></li>
     <li><a href="#" id="show_music">2. Select Music</a></li>
     <li><a href="#" id="publish_btn">3. Edit/Publish</a></li>
+    <div class="stats pull-right">
+      <div class="stats-item"><i class="fa fa-camera-retro"></i> Photos added: <div class="stats-item-detail" id="no_of_photos">None</div></div>
+      <div class="stats-item"><i class="fa fa-headphones"></i> Music track: <div class="stats-item-detail" id="music_selected">None</div></div>
+      <div class="stats-item"><i class="fa fa-video-camera"></i> Runtime: <div class="stats-item-detail" id="runtime">0 secs</div></div>
+  </div>
   </ul>
 
-  <div class="stats">
-    <p id="no_of_photos">Photos added:</p>
-    <p id="no_of_comments">Comments:</p>
-    <p id="music_selected"> Music selected: </p>
-    <p id="runtime"> Approx runtime:</p>
-  </div>
+  
 
   <div id="photographs">
 
@@ -105,6 +105,7 @@ $(function() {
   $('.albums_breadcrumb').find('.btn').fadeOut(0);
   $('#instagram_container').fadeOut(0);
   $('#my_instagram').fadeOut(0);
+  $('.navbar-btn').fadeOut(0);
 
   $('.instagram_search').bind("enterKey",function(e){
     $('.instagram_search_contents').empty();

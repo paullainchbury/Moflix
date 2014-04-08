@@ -5,7 +5,7 @@
   <ul class="nav nav-pills mf-steps">
     <li class="active"><a href="#" id="show_photos">1. Choose photos</a></li>
     <li><a href="#" id="show_music">2. Select Music</a></li>
-    <li><a href="#" id="publish_btn">3. Publish</a></li>
+    <li><a href="#" id="publish_btn">3. Edit/Publish</a></li>
   </ul>
 
   <div class="stats">
@@ -81,6 +81,7 @@
     </div>
     <div class="youtube_loading">
       <div class="spinner">
+        <!-- TODO Need to change the fb logo to yt here -->
         <div class="double-bounce1"></div>
         <div class="double-bounce2"></div>
       </div>
@@ -404,6 +405,7 @@ $(function() {
     if ($('#youtube_results').is(':empty')) {
       getYouTubeTop40();
     }
+    $('.navbar-fixed-bottom').animate({bottom:'-150px'}, {queue: false, duration: 1500});
     $('#publish_btn').parent().removeClass( "active" );
     $('#show_photos').parent().removeClass( "active" );
     $('#show_music').parent().addClass( "active" );
@@ -418,6 +420,7 @@ $(function() {
     $('#show_photos').parent().addClass( "active" );
     $('#music_container').slideUp( "slow");
     $('#photographs').slideDown( "slow");
+    $('.navbar-fixed-bottom').animate({bottom:'0px'}, {queue: false, duration: 1500});
     return false;
   })
 
@@ -427,6 +430,7 @@ $(function() {
     $('#publish_btn').parent().addClass( "active" );
     $('#music_container').slideUp( "slow");
     $('#photographs').slideUp( "slow");
+    $('.navbar-fixed-bottom').animate({bottom:'-150px'}, {queue: false, duration: 1500});
     return false;
   })
 
@@ -700,8 +704,10 @@ $(function() {
 </script>
 
 <!-- Sticky footer for thumbnails -->
+
 <footer class="navbar navbar-fixed-bottom transparent navbar-inverse">
-  
+
+  <a href="#" class="pull-right edit-moflix">Edit your moflix</a>
   <div class="container">
     <div id="thumbscontainer">
       <p>Choose photos to add to your Moflix</p><p>and they'll appear here.</p>

@@ -102,6 +102,22 @@ html{
   margin-top: 6px;
 }
 
+.edit-moflix {
+  position: absolute;
+  right: 6%;
+  top: -30px;
+  background-color: rgba(0,0,0,0.7);
+  height: 30px;
+  padding: 5px 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: white;
+}
+
+.edit-moflix:hover {
+  color: white;
+}
+
 
 
 

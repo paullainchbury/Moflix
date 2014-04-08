@@ -449,6 +449,8 @@ $(function() {
   } // End getYouTubeTop40
 
   function displayYoutubeResults(data, search) {
+    $('#youtube_results').fadeOut(0);
+    $('.youtube_loading').fadeIn(0);
     $('#youtube_results').empty();
     for (var i=0;i<data.items.length;i++)
         {
@@ -464,7 +466,9 @@ $(function() {
           "><span class='glyphicon glyphicon-headphones'></span> Select this song</button></div>"
           );
           // TODO more button to show paginated response
-        }
+        };
+    $('.youtube_loading').fadeOut(0);
+    $('#youtube_results').fadeIn(0);
   }
 
   function searchYoutube(searchTerm) {

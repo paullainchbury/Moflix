@@ -273,6 +273,27 @@ $(function() {
     addAlbumPhotos(result[0]);
   });
 
+  
+  $(document).on('click', '.trash_it', function(){ 
+    console.log(moflix.photos.length);
+    var id = $(this).parent().attr("id").toString();
+    // Need to remove the photo from the li on the sortable page
+    var liToRemove = $('#sortable').find("#" + id);
+    liToRemove.remove();
+
+    var objectToRemove = $.grep(moflix.photos, function(e){ return e.id == id; });
+    var indexToRemove = $.inArray(objectToRemove[0], moflix.photos);
+    moflix.photos.splice(indexToRemove,1);
+    
+    // Need to remove the photo from the thumbnails bar at the bottom of the page - could just rebuild the thumbnail list?
+
+    // Need to update photos added and runtime
+    updateStatsPhotos();
+    updateStatsRuntime();
+
+  });
+
+
   // This function controls the moflix timeline and changes the scroll direction
   $('#thumbscontainer').bind('mousewheel', function(e) { // on scroll
     var $div = $('#thumbscontainer');
@@ -457,7 +478,7 @@ $(function() {
       // Append each item to the sortable ul
       for (var i=0;i<moflix.photos.length;i++) {
         // console.log(moflix.photos[i]);
-        $('#sortable').append("<li class='ui-state-default' id='" + moflix.photos[i]['id'] + "'><img src='" + moflix.photos[i]['source'] + "' class='cropped'/></li>");
+        $('#sortable').append("<li class='ui-state-default' id='" + moflix.photos[i]['id'] + "'><img src='" + moflix.photos[i]['source'] + "' class='cropped'/><div class='trash_it'><i class='fa fa-trash-o'></i></div></li>");
       }
     }
   }

@@ -284,7 +284,7 @@ $(function() {
     var objectToRemove = $.grep(moflix.photos, function(e){ return e.id == id; });
     var indexToRemove = $.inArray(objectToRemove[0], moflix.photos);
     moflix.photos.splice(indexToRemove,1);
-    
+
     // Need to remove the photo from the thumbnails bar at the bottom of the page - could just rebuild the thumbnail list?
 
     // Need to update photos added and runtime
@@ -456,6 +456,17 @@ $(function() {
     $('#photographs').slideDown( "slow");
     $('#music_container').slideUp( "slow");
     $('#publish_container').fadeOut(0);
+    // Need to rebuild the thumbnails bar
+    $('.thumbimage').remove();
+    // Loop through moflix.photos and for each item, add a pic
+    for (var i=0;i<moflix.photos.length;i++) {
+      $('.imagelist').append(
+                "<li class='thumbimage'><img id='tnimage1' src='"
+                + moflix.photos[i].source
+                +"'></li>"
+              );
+    };
+    sortOrder();
     $('.navbar-fixed-bottom').animate({bottom:'0px'}, {queue: false, duration: 1500});
     return false;
   })

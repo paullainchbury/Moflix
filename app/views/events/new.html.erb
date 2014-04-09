@@ -458,25 +458,32 @@ $(function() {
         $('#sortable').append("<li class='ui-state-default' id='" + moflix.photos[i]['id'] + "'><img src='" + moflix.photos[i]['source'] + "' class='cropped'/></li>");
       }
     }
-    else {
-      console.log("Photos dick!!");
-    }
   }
 
   }); // End of page load function
 
   function sortOrder() {
+    // Build a list of photos as they appear in the sorted list
     var items = $('#sortable').find('li').map(function() {
     var item = { };
-
     item.id = this.id;
-
     return item;
     });
-
-    console.log(items);
-
+    tempPhotos = moflix.photos;
+    moflix.photos = [];
+    // Need to loop through the sorteditems
+    for (var i=0;i<items.length;i++) {
+      var id = items[i]['id'];
+      var photo = findPhoto(items[i]['id']);
+      moflix.photos.push(photo[0]);
+    };
   }
+
+  function findPhoto(id){
+      return $.grep(tempPhotos, function(item){
+      return item.id == id;
+    });
+  };
 
   function getYouTubeTop40() {
     $.ajax({

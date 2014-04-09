@@ -632,7 +632,8 @@ $(function() {
               + photo.source
               +"'></li>"
             );
-              addAlbumPhotos(photo);
+            addAlbumPhotos(photo);
+            updateStatsPhotos();
           }; // End for loop
       } //End success callback
     }); // End Ajax request
@@ -691,7 +692,6 @@ $(function() {
             photo.likes = data[i]['likes'];
             photosForDisplay.push(photo);
 
-
             $('.fb_album_contents').append(
               "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
               "<div class='thumbnail img-responsive'>" +
@@ -702,7 +702,6 @@ $(function() {
           $('.fb_album_contents').fadeIn(0);
           thumbnailHeight();
           $('.add_photo').click(function() {
-            console.log("Click funciton online 495")
             var photoObject = $(this).parent().attr("id").toString()
             var result = $.grep(photosForDisplay, function(e){ return e.id === photoObject });
             $('#thumbscontainer').find('p').remove();
@@ -712,11 +711,17 @@ $(function() {
               +"'></li>"
             );
             addAlbumPhotos(result[0]);
+            updateStatsPhotos();
           });
       } //End success callback
 
     }); // End Ajax request
   } // End of displayPhotos function
+
+  function updateStatsPhotos() {
+    var numberOfPhotos = moflix.photos.length;
+    $('#no_of_photos').html(numberOfPhotos);
+  }
 
   function addAlbumPhotos(photo) {
     imageListWidth();

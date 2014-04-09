@@ -2,6 +2,7 @@
 
 <div class="container mf_container">
 
+  <!-- nav pills -->
   <ul class="nav nav-pills mf-steps">
     <li class="active"><a href="#" id="show_photos">1. Choose photos</a></li>
     <li><a href="#" id="show_music">2. Select Music</a></li>
@@ -10,11 +11,11 @@
       <div class="stats-item"><i class="fa fa-camera-retro"></i> Photos added: <div class="stats-item-detail" id="no_of_photos">None</div></div>
       <div class="stats-item"><i class="fa fa-headphones"></i> Music track: <div class="stats-item-detail" id="music_selected">None</div></div>
       <div class="stats-item"><i class="fa fa-video-camera"></i> Runtime: <div class="stats-item-detail" id="runtime">0 secs</div></div>
-  </div>
+    </div>
   </ul>
+  <!-- end of nav pills -->
 
-  
-
+  <!-- container for photograph section -->
   <div id="photographs">
 
     <ul class="nav nav-tabs nav-justified photo_sources">
@@ -92,20 +93,29 @@
       <div id="youtube_results"></div>
     </div>
   </div> <!-- End of music container -->
-      
 
-    </div>
-
-</div>
+  <div id ="publish_container">
+    <div id="publish_options">Things like a title will be contained here.</div>
+    <div id="edit_options">
+      A drag and drop layout will be contained here.
+      <ul id="sortable">
+      </ul>
+      <div class="clearfix"></div>
+    </div> <!--/edit_options-->
+  </div> <!-- End of publish container -->
 
 <script>
 
 $(function() {
+
+  $( "#sortable" ).sortable();
+  $( "#sortable" ).disableSelection();
   // Hide the 'Back to My Albums' button as we start with a view of the user's albums
   $('.albums_breadcrumb').find('.btn').fadeOut(0);
   $('#instagram_container').fadeOut(0);
   $('#my_instagram').fadeOut(0);
   $('.navbar-btn').fadeOut(0);
+  $('#publish_container').fadeOut(0);
 
   $('.instagram_search').bind("enterKey",function(e){
     $('.instagram_search_contents').empty();
@@ -411,6 +421,7 @@ $(function() {
     $('#show_photos').parent().removeClass( "active" );
     $('#show_music').parent().addClass( "active" );
     $('#photographs').slideUp( "slow");
+    $('#publish_container').fadeOut(0);
     $('#music_container').slideDown( "slow");
     return false;
   })
@@ -419,8 +430,9 @@ $(function() {
     $('#publish_btn').parent().removeClass( "active" );
     $('#show_music').parent().removeClass( "active" );
     $('#show_photos').parent().addClass( "active" );
-    $('#music_container').slideUp( "slow");
     $('#photographs').slideDown( "slow");
+    $('#music_container').slideUp( "slow");
+    $('#publish_container').fadeOut(0);
     $('.navbar-fixed-bottom').animate({bottom:'0px'}, {queue: false, duration: 1500});
     return false;
   })
@@ -431,11 +443,40 @@ $(function() {
     $('#publish_btn').parent().addClass( "active" );
     $('#music_container').slideUp( "slow");
     $('#photographs').slideUp( "slow");
+    $('#publish_container').slideDown( "slow" );
     $('.navbar-fixed-bottom').animate({bottom:'-150px'}, {queue: false, duration: 1500});
+    displayEditThumbs();
     return false;
   })
 
+  function displayEditThumbs() {
+    if (moflix.photos.length > 0) {
+      $('#sortable').empty();
+      // Append each item to the sortable ul
+      for (var i=0;i<moflix.photos.length;i++) {
+        // console.log(moflix.photos[i]);
+        $('#sortable').append("<li class='ui-state-default' id='" + moflix.photos[i]['id'] + "'><img src='" + moflix.photos[i]['source'] + "' class='cropped'/></li>");
+      }
+    }
+    else {
+      console.log("Photos dick!!");
+    }
+  }
+
   }); // End of page load function
+
+  function sortOrder() {
+    var items = $('#sortable').find('li').map(function() {
+    var item = { };
+
+    item.id = this.id;
+
+    return item;
+    });
+
+    console.log(items);
+
+  }
 
   function getYouTubeTop40() {
     $.ajax({

@@ -340,8 +340,9 @@ $(function() {
   // Event listener for the select song button
 
   $(document).on('click', '.choose_song', function(){ 
-    alert("Ok, the song has been added to your playlist");
+    alert("Ok, the song has been added to your Moflix");
     moflix.musictrack = $(this).attr('id');
+    updateStatsMusic();
   })
 
   $('.search_youtube').bind("enterKey",function(e){
@@ -633,8 +634,9 @@ $(function() {
               +"'></li>"
             );
             addAlbumPhotos(photo);
-            updateStatsPhotos();
           }; // End for loop
+          updateStatsPhotos();
+
       } //End success callback
     }); // End Ajax request
   } // End of getAlbumPhotos function
@@ -723,10 +725,36 @@ $(function() {
     $('#no_of_photos').html(numberOfPhotos);
   }
 
+  function updateStatsMusic() {
+    $('#music_selected').html("<i class='fa fa-check'></i>");
+  }
+
+  function updateStatsRuntime() {
+    var runTime = 0
+    for (var i=0;i<moflix.photos.length;i++) {
+      if (moflix.photos[i].comments == undefined) {
+        runTime += 6;
+      } else {
+        runTime += 6;
+        runTime += moflix.photos[i].comments['data'].length;
+      }
+    }
+    if (runTime > 59) {
+      var minutes = Math.round(runTime / 60);
+      var seconds = runTime % 60;
+    }
+    else {
+      var minutes = 0;
+      var seconds = runTime;
+    }
+    $('#runtime').html(minutes + "m " + seconds + "s");
+  }
+
   function addAlbumPhotos(photo) {
     imageListWidth();
     scrollToEnd();
     moflix.photos.push(photo);
+    updateStatsRuntime();
   }
 
 // Creating the event and posting to rails

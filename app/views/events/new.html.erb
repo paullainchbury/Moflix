@@ -63,12 +63,6 @@
       <div class="row fb_albums_row"> <!-- For displaying the users own albums -->
         <div class="container"><h3 id="my_albums_header">My Albums</h3></div>
       </div>
-      <div class="row">
-        <div class="col-lg-12 col-sm-12 col-xs-12">
-          <button class="btn mf_btn" id="done_button"><span class="glyphicon glyphicon-film"></span> Done</button>
-          <button class="btn mf_btn" id="add_more">Add more</button>
-        </div>
-      </div>
     </div> <!-- End of FB albums container -->
   </div> <!-- End of photographs container -->
 
@@ -95,7 +89,14 @@
   </div> <!-- End of music container -->
 
   <div id ="publish_container">
-    <div id="publish_options">Things like a title will be contained here.</div>
+    <div id="publish_options">Things like a title will be contained here.
+      <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+          <button class="btn mf_btn" id="done_button"><span class="glyphicon glyphicon-film"></span> Done</button>
+          <button class="btn mf_btn" id="add_more">Add more</button>
+        </div>
+      </div>
+    </div>
     <div id="edit_options">
       A drag and drop layout will be contained here.
       <ul id="sortable">
@@ -725,6 +726,7 @@ $(function() {
 
 // Creating the event and posting to rails
   $( "#done_button" ).click(function() {
+    sortOrder();
     moflix.username = "<%= current_user.name %>";
     moflix.userid = "<%= current_user.id %>";
     if (true) //$('#event_title').val() == ""

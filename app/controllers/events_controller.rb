@@ -53,7 +53,6 @@ class EventsController < ApplicationController
     @event.title = params['event']['title']
 
     if params['event']['musictrack']
-      binding.pry
       musictrack = @event.musictracks.build 
       musictrack.src = params['event']['musictrack']
     end

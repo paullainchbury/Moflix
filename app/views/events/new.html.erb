@@ -450,6 +450,7 @@ $(function() {
   })
 
   $( '#show_photos' ).click(function() {
+    sortOrder();
     $('#publish_btn').parent().removeClass( "active" );
     $('#show_music').parent().removeClass( "active" );
     $('#show_photos').parent().addClass( "active" );
@@ -466,7 +467,6 @@ $(function() {
                 +"'></li>"
               );
     };
-    sortOrder();
     $('.navbar-fixed-bottom').animate({bottom:'0px'}, {queue: false, duration: 1500});
     return false;
   })

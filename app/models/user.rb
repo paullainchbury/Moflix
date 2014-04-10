@@ -43,14 +43,10 @@ class User < ActiveRecord::Base
 
   def statuses()
     self.facebook_details.get_connections("me","statuses")
-
     # if starttime != "" && endtime != ""
     #   raw_statuses.each do |raw_status|
-        
-
     #   end
     # end
-
     # if starttime != "" && endtime != ""
     #   #return statuses within date range
     #   return "nothing"
@@ -68,6 +64,10 @@ class User < ActiveRecord::Base
       @albums.push(album)
     end
     @albums
+  end
+
+  def post_to_wall(comment)
+    self.facebook_details.put_wall_post(comment)
   end
 
   def fb_all_photos

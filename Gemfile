@@ -11,7 +11,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-instagram'
 gem 'koala'
 gem 'pry-byebug'
-
+gem 'rails_12factor', group: :production
 
 
 # Gems used only for assets and not required
@@ -27,6 +27,9 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+#For Heroku
+ruby '2.0.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -395,17 +395,12 @@ background: black;
                 <% slideNumber += 1 %>
                 <% end %>              
 
-  <!--EndTexts-->  
-                                                             
-                           
+  <!--EndTexts-->             
            </div>  
-
 <!-- Music -->
-
 <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <div id="player"></div>
-
-    // <script>
+    <div id="player" style="display:none;"></div>
+    <script>
         var video_id = "<%= @event.musictracks.first ? @event.musictracks.first.src : "none" %>";
         if (video_id != "none"){ 
           // 2. This code loads the IFrame Player API code asynchronously.

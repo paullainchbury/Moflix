@@ -167,9 +167,9 @@ button.add_all {
   border-radius:0;
   border-color: white;
   font-size: 11px;
-  // position: absolute;
-  bottom: 25px;
-  left: 96px;
+  position: absolute;
+  bottom: 65px;
+  left: 25px;
 }
 
 button.browse {
@@ -179,9 +179,21 @@ button.browse {
   border-radius:0;
   border-color: white;
   font-size: 11px;
-  // position: absolute;
-  bottom: 25px;
-  left: 19px;
+  position: absolute;
+  bottom: 30px;
+  left: 25px;
+}
+
+button.add_photo {
+  background: none;
+  background-color:rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius:0;
+  border-color: white;
+  font-size: 11px;
+  position: absolute;
+  bottom: 30px;
+  left: 25px;
 }
 
 button.add_all:hover {
@@ -190,6 +202,11 @@ button.add_all:hover {
 }
 
 button.browse:hover {
+  border-color: white;
+  background-color:rgba(0, 0, 0, 1);
+}
+
+button.add_photo:hover {
   border-color: white;
   background-color:rgba(0, 0, 0, 1);
 }

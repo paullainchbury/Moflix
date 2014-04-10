@@ -120,10 +120,26 @@ fieldset[disabled] .mf_btn.active {
   margin-top: 7%;
 }
 
-.mf_thumbnail:hover :focus :active .mf_thumb_buttons {  display: block; background: rgba(67,81,96,0.7); }
-/*.mf_thumbnail:active .mf_thumb_buttons {  display: block; background: rgba(67,81,96,0.7); }*/
+.mf_thumbnail:hover .mf_thumb_buttons {  display: block; background: rgba(67,81,96,0.7); }
 
-
+@media(max-width:767px){
+  .navbar-fixed-bottom {
+    min-height: 0px;
+  }
+  .thumb_holder {
+    height: 50px;
+  }
+  .mf_thumb_buttons {
+    display: block;
+  }
+}
+@media(min-width:768px){
+  .mf_thumb_buttons {
+    display: block;
+  }
+}
+@media(min-width:992px){}
+@media(min-width:1200px){}
 
 /*Style for thumbnail strip of photos added to Moflix*/
 .navbar-fixed-bottom {
@@ -143,27 +159,6 @@ fieldset[disabled] .mf_btn.active {
   background-position: center;
   background-repeat: none;
 }
-
-@media(max-width:767px){
-  .navbar-fixed-bottom {
-    min-height: 0px;
-  }
-  .thumb_holder {
-    height: 50px;
-  }
-
-  .mf_thumb_buttons {
-    display: block;
-    width: 100%; 
-    height: 100%;
-    padding-top:15%;
-    text-align: center;
-    color: white;
-  }
-}
-@media(min-width:768px){}
-@media(min-width:992px){}
-@media(min-width:1200px){}
 
 #thumbscontainer {
   border: 4px solid black;

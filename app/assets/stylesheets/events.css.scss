@@ -160,6 +160,40 @@ img.cropped {
   line-height: 0.5em;
 }
 
+button.add_all {
+  background: none;
+  background-color:rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius:0;
+  border-color: white;
+  font-size: 11px;
+  position: absolute;
+  bottom: 25px;
+  left: 96px;
+}
+
+button.browse {
+  background: none;
+  background-color:rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius:0;
+  border-color: white;
+  font-size: 11px;
+  position: absolute;
+  bottom: 25px;
+  left: 19px;
+}
+
+button.add_all:hover {
+  border-color: white;
+  background-color:rgba(0, 0, 0, 1);
+}
+
+button.browse:hover {
+  border-color: white;
+  background-color:rgba(0, 0, 0, 1);
+}
+
 
 
 

@@ -423,7 +423,7 @@ $(function() {
                 "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
                 "<p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p>" +
                 "<div class='thumbnail img-responsive'>" +
-                "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"' data-name='"+ data[i]['name'] +"'><button class='btn btn-default btn-primary browse'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></div></div>"
+                "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"' data-name='"+ data[i]['name'] +"'><button class='btn btn-default btn-primary browse'><span class='glyphicon glyphicon-search'></span> Browse</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all</button></div></div></div></div>"
                 // TODO Sometimes, FB returns an album with no cover photo - if this is the case, then we need to substitute the last (or first?) photo in the album to prevent the error being displayed.
                 );          
             }; // End of for loop
@@ -627,7 +627,7 @@ $(function() {
                   "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
                   "<div class='album_title'><p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p></div>" +
                   "<div class='thumbnail img-responsive'>" +
-                  "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"' data-name='"+ data[i]['name'] +"'><button class='browse btn btn-default btn-primary'><span class='glyphicon glyphicon-search'></span> Browse photos</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all photos</button></div></div></div></div>"
+                  "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"' data-name='"+ data[i]['name'] +"'><button class='browse btn btn-default btn-primary'><span class='glyphicon glyphicon-search'></span> Browse</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all</button></div></div></div></div>"
                   // <a href='#' class='btn btn-default btn-info btn-lg'><span class='glyphicon glyphicon-search'></span> Choose pictures</a>
                   );          
               }; // End of for loop

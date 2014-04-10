@@ -366,16 +366,13 @@ $(function() {
     updateStatsMusic();
   })
 
-  $(document).on('click touchstart', '.mf_thumbnail', function(ev){ 
-    // Need an if statement to only run this code if the buttons aren't already displaying
-    // Remove the previous selection buttons and show this one
-    $('.mf_thumb_buttons').hide()
-    var id = ev.target.children[0].id;
-    $('#' + id).show();
-    
-  })
-
-  
+  // $(document).on('touchstart', '.mf_thumbnail', function(ev){ 
+  //   // Need an if statement to only run this code if the buttons aren't already displaying
+  //   // Remove the previous selection buttons and show this one
+  //   $('.mf_thumb_buttons').hide()
+  //   var id = ev.target.children[0].id;
+  //   $('#' + id).show();
+  // })
 
   $('.search_youtube').bind("enterKey",function(e){
     var searchTerm = $('.search_youtube').val();

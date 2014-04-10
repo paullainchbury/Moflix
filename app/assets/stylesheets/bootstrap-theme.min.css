@@ -120,8 +120,8 @@ fieldset[disabled] .mf_btn.active {
   margin-top: 7%;
 }
 
-.mf_thumbnail:hover .mf_thumb_buttons {  display: block; background: rgba(67,81,96,0.7); }
-.mf_thumbnail:active .mf_thumb_buttons {  display: block; background: rgba(67,81,96,0.7); }
+.mf_thumbnail:hover :focus :active .mf_thumb_buttons {  display: block; background: rgba(67,81,96,0.7); }
+/*.mf_thumbnail:active .mf_thumb_buttons {  display: block; background: rgba(67,81,96,0.7); }*/
 
 
 

@@ -33,8 +33,7 @@
             </div>
         </ol>
         </div>
-      <% if current_user.instagram_token != "" %>
-      <% else %>
+      <% if current_user.instagram_token == nil %>
         <a href="/users/auth/instagram" class="btn btn-block btn-social btn-lg btn-instagram"><i class="fa fa-instagram"></i>Connect with Instagram</a>
       <% end %>
       <div class="row instagram_contents"></div>
@@ -182,10 +181,12 @@ $(function() {
 
   function getInstagramPhotos(url, source) {
     userInstagramUid = "<%= current_user.instagram_uid %>";
+    console.log(userInstagramUid);
     userInstagramAccessToken = "<%= current_user.instagram_token %>"
     if ((url == undefined) && (source == undefined)) {
       var url = "https://api.instagram.com/v1/users/"+ userInstagramUid +"/media/recent?access_token="+userInstagramAccessToken;
     };
+
     instagramPhotos = $.ajax({
           type: "GET",
           url: url,

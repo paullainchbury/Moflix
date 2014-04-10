@@ -27,15 +27,16 @@
     <div id="instagram_container">
       <div class="instagram_albums_breadcrumbs">
         <ol class="breadcrumb instagram_albums_breadcrumb">
-          <a href="#" class="btn btn-default btn-primary" id="my_instagram"><span class="glyphicon glyphicon-arrow-left"></span> My instagram</a>
+          <% if current_user.instagram_token == nil %>
+            <a href="/users/auth/instagram" class="btn btn-block btn-social btn-instagram" style="display: inline-block;"><i class="fa fa-instagram"></i>Get my Instagram</a>
+          <% else %>
+            <a href="#" class="btn btn-default btn-primary" id="my_instagram"><span class="glyphicon glyphicon-arrow-left"></span> My instagram</a>
+          <% end %>
             <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
               <input type="text" class="form-control instagram_search" placeholder="Search instagram">
             </div>
         </ol>
         </div>
-      <% if current_user.instagram_token == nil %>
-        <a href="/users/auth/instagram" class="btn btn-block btn-social btn-lg btn-instagram"><i class="fa fa-instagram"></i>Connect with Instagram</a>
-      <% end %>
       <div class="row instagram_contents"></div>
       <div class="row instagram_search_contents"></div>
     </div>
@@ -149,10 +150,10 @@ $(function() {
     $('li#instagram_photos').addClass( "active" );
     $('#instagram_container').fadeIn(0);
     // Make the Ajax call to instagram (if we haven't already done so)
-    if ($('.instagram_contents').children().length == 0) {
-      $('.instagram_contents').append("<div class='container'><h3>My instagram photos</h3></div>");
-      getInstagramPhotos();
-    };
+    // if ($('.instagram_contents').children().length == 0) {
+    //   $('.instagram_contents').append("<div class='container'><h3>My instagram photos</h3></div>");
+    //   getInstagramPhotos();
+    // };
     return false;
   })
 

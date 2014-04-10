@@ -14,8 +14,6 @@
 //= require lib/jquery.slideshowify.js
 //= require lib/jquery.ui.touch-punch.min.js
 //= require lib/bannerscollection_zoominout.js
-//= require ../rs-plugin/js/jquery.themepunch.plugins.min.js
-//= require ../rs-plugin/js/jquery.themepunch.revolution.min.js
 //= require ../magic/js/magic_slider.js
 //= require_tree .
 

@@ -196,6 +196,11 @@ button.add_instagram_photo {
   left: 25px;
 }
 
+button.add_instagram_photo:hover {
+  border-color: white;
+  background-color:rgba(0, 0, 0, 1);
+}
+
 button.add_photo {
   background: none;
   background-color:rgba(0, 0, 0, 0.5);

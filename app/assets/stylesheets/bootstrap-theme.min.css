@@ -132,16 +132,10 @@ fieldset[disabled] .mf_btn.active {
   .mf_thumb_buttons {
     display: block;
   }
-  .mf_container {
-    margin-bottom: 400px;
-  }
 }
 @media(min-width:768px){
   .mf_thumb_buttons {
     display: block;
-  }
-  .mf_container {
-    margin-bottom: 400px;
   }
 }
 @media(min-width:992px){}
@@ -154,7 +148,6 @@ fieldset[disabled] .mf_btn.active {
 }
 
 .mf_container {
-  margin-bottom: 100px;
   padding-bottom: 20px;
 }
 

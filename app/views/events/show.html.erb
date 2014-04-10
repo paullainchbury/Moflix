@@ -117,7 +117,7 @@ background: black;
   top:0;
   left:0;
   -webkit-filter: blur(5px);
-  background: url("https://scontent-b-lhr.xx.fbcdn.net/hphotos-prn1/t1.0-9/301220_10150789914725093_8361216_n.jpg");
+  /*background: url("https://scontent-b-lhr.xx.fbcdn.net/hphotos-prn1/t1.0-9/301220_10150789914725093_8361216_n.jpg");*/
   background-size:cover;
 }
 
@@ -130,9 +130,14 @@ background: black;
 
 	<script>
 	
-		jQuery(function() {
+		$(function() {
 
-			jQuery('#magic_slider_bullets').magic_slider({
+      
+      var src = $('img.title_picture').attr('src');
+
+      $('.blurred_bg').css( "background", "url('" + src + "')" );
+
+			$('#magic_slider_bullets').magic_slider({
 				autoPlay:8,
 				skin: 'bullets',
 				responsive:true,
@@ -149,7 +154,6 @@ background: black;
 				showBottomNav:true,
         showOnInitNavArrows: false,
         showPreviewThumbs: false,
-				pauseOnMouseOver:false,
 				circleRadius:8,
 				circleLineWidth:4,
 				circleColor: "#FC329B", //849ef3
@@ -157,7 +161,8 @@ background: black;
 				behindCircleColor: "#000000",
 				behindCircleAlpha: 20,
 				thumbsWrapperMarginTop:-55,
-        loop: false
+        loop: false,
+        pauseOnMouseOver:false
 			});		
 		});
 	</script>
@@ -174,7 +179,7 @@ background: black;
                   <% slideNumber = 1 %>
                   <% angleOptions = ["clockwise", "anti-clockwise"] %>
                   <% intialZoomOptions = [0.4, 0.6, 0.8, 1.0, 1.2] %>
-                  <% finalZoomOptions = [0.4, 0.6, 0.8, 1.0, 1.2] %>
+                  <% finalZoomOptions = [0.4, 0.6, 0.8, 1.0, 1.2] # could change this to be a multiple of intial? %>
                   <% @event.images.reverse.each do |image| %>
                     <% screenTime = 0 %>
 
@@ -187,7 +192,7 @@ background: black;
                     <% end %>
                     <% screenTime += (@comment_count * 4.5) %>
                     <% if screenTime < 8 %>
-                      <% screenTime = 8 %>
+                      <% screenTime = 6 %>
                     <% end %>
 
 

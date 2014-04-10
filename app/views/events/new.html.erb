@@ -149,11 +149,15 @@ $(function() {
     $('li#facebook_photos').removeClass( "active" );
     $('li#instagram_photos').addClass( "active" );
     $('#instagram_container').fadeIn(0);
+    // Only if the current user has an Instagram login
+    userInstagramUid = "<%= current_user.instagram_uid %>";
+    console.log(userInstagramUid);
     // Make the Ajax call to instagram (if we haven't already done so)
-    // if ($('.instagram_contents').children().length == 0) {
-    //   $('.instagram_contents').append("<div class='container'><h3>My instagram photos</h3></div>");
-    //   getInstagramPhotos();
-    // };
+    if ($('.instagram_contents').children().length == 0) {
+      $('.instagram_contents').append("<div class='container'><h3>My instagram photos</h3></div>");
+      getInstagramPhotos();
+    };
+
     return false;
   })
 

@@ -366,6 +366,15 @@ $(function() {
     updateStatsMusic();
   })
 
+  $(document).on('click', '.mf_thumbnail', function(ev){ 
+    // Need an if statement to only run this code if the buttons aren't already displaying
+    // Remove the previous selection buttons and show this one
+    var id = ev.target.children[0].id;
+    alert(id);
+  })
+
+  
+
   $('.search_youtube').bind("enterKey",function(e){
     var searchTerm = $('.search_youtube').val();
     searchYoutube(searchTerm);

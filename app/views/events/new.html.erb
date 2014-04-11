@@ -19,14 +19,6 @@
     </div>
   </div>
 
-  <!-- nav pills -->
-  
-    
-
-  
-
-  <!-- end of nav pills -->
-
   <!-- container for photograph section -->
   <div id="photographs">
 
@@ -197,6 +189,15 @@ $(function() {
       });
   }
 
+  function isUserOnFacebook() {
+    userFacebookToken = "<%= current_user.facebook_token %>";
+    if (userFacebookToken == "") {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   function getInstagramPhotos(url, source) {
     userInstagramUid = "<%= current_user.instagram_uid %>";
     console.log(userInstagramUid);
@@ -327,57 +328,59 @@ $(function() {
   moflix.photos = [];
   photosForDisplay = [];
   
-  // Typeahead.js stuff
-  var fb_friends = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    limit: 10,
-    prefetch: {
-      // url points to a json file that contains an array of country names, see
-      // https://github.com/twitter/typeahead.js/blob/gh-pages/data/fb_friends.json
-      url: '/fb_friends'
-      // filter: function (parsedResponse) {
-      //         // parsedResponse is the array returned from your backend
-      //         console.log($.parseJSON(parsedResponse));
+  if(isUserOnFacebook()){
+    // Typeahead.js stuff
+    var fb_friends = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      limit: 10,
+      prefetch: {
+        // url points to a json file that contains an array of country names, see
+        // https://github.com/twitter/typeahead.js/blob/gh-pages/data/fb_friends.json
+        url: '/fb_friends'
+        // filter: function (parsedResponse) {
+        //         // parsedResponse is the array returned from your backend
+        //         console.log($.parseJSON(parsedResponse));
 
-      //         // do whatever processing you need here
-      //         //return parsedResponse;
-      //     }
-      // the json file contains an array of strings, but the Bloodhound
-      // suggestion engine expects JavaScript objects so this converts all of
-      // those strings
-      // filter: function(list) {
-      //   return $.map(list, function(country) { return { name: country }; });
-      // }
+        //         // do whatever processing you need here
+        //         //return parsedResponse;
+        //     }
+        // the json file contains an array of strings, but the Bloodhound
+        // suggestion engine expects JavaScript objects so this converts all of
+        // those strings
+        // filter: function(list) {
+        //   return $.map(list, function(country) { return { name: country }; });
+        // }
+      }
+    });
+     
+    //clear the cache
+    fb_friends.clearPrefetchCache();
+    // kicks off the loading/processing of `local` and `prefetch`
+    fb_friends.initialize();
+     
+    // passing in `null` for the `options` arguments will result in the default
+    // options being used
+    $('.input-group .fb_friends')
+      .typeahead(null, {
+        name: 'fb_friends',
+        displayKey: 'name',
+        // `ttAdapter` wraps the suggestion engine in an adapter that
+        // is compatible with the typeahead jQuery plugin
+        source: fb_friends.ttAdapter()
+      })
+      .on('typeahead:selected', onAutocompleted)
+      .on('typeahead:autocompleted', onSelected);
+     
+    function onAutocompleted($e, datum) {
+        getFriendsPhotoAlbums(datum);
     }
-  });
-   
-  //clear the cache
-  fb_friends.clearPrefetchCache();
-  // kicks off the loading/processing of `local` and `prefetch`
-  fb_friends.initialize();
-   
-  // passing in `null` for the `options` arguments will result in the default
-  // options being used
-  $('.input-group .fb_friends')
-    .typeahead(null, {
-      name: 'fb_friends',
-      displayKey: 'name',
-      // `ttAdapter` wraps the suggestion engine in an adapter that
-      // is compatible with the typeahead jQuery plugin
-      source: fb_friends.ttAdapter()
-    })
-    .on('typeahead:selected', onAutocompleted)
-    .on('typeahead:autocompleted', onSelected);
-   
-  function onAutocompleted($e, datum) {
-      getFriendsPhotoAlbums(datum);
-  }
-   
-  function onSelected($e, datum) {
-      getFriendsPhotoAlbums(datum);
-  }
-  // end of typeahead stuff
+     
+    function onSelected($e, datum) {
+        getFriendsPhotoAlbums(datum);
+    }
+    // end of typeahead stuff
+  } // end of if isUserOnFacebook
 
   // Event listener for the select song button
 
@@ -424,44 +427,49 @@ $(function() {
   });
 
   // Get the user's FB albums and build the view of them
-  $.ajax({
-      type: "GET",
-      url: "/user_albums",
-      dataType: "json",
-      success: function(data){
-          $( ".loading_stuff" ).fadeOut(0);
-          for (var i=0;i<data.length;i++)
-            { 
-              var pictureURL = $.ajax({
-                type: "GET",
-                async: false,
-                url: "/get_picture?pictureid=" + data[i]['cover'],
-                dataType: "json"
+  if(isUserOnFacebook()) {
+    $.ajax({
+        type: "GET",
+        url: "/user_albums",
+        dataType: "json",
+        success: function(data){
+            $( ".loading_stuff" ).fadeOut(0);
+            for (var i=0;i<data.length;i++)
+              { 
+                var pictureURL = $.ajax({
+                  type: "GET",
+                  async: false,
+                  url: "/get_picture?pictureid=" + data[i]['cover'],
+                  dataType: "json"
+                });
+                data[i]['cover'] = pictureURL.responseText;
+                // build album add and browse buttons
+                $('.fb_albums_row').append(
+                  "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
+                  "<p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p>" +
+                  "<div class='thumbnail img-responsive'>" +
+                  "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"' data-name='"+ data[i]['name'] +"'><button class='btn btn-default btn-primary browse'><span class='glyphicon glyphicon-search'></span> Browse</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all</button></div></div></div></div>"
+                  // TODO Sometimes, FB returns an album with no cover photo - if this is the case, then we need to substitute the last (or first?) photo in the album to prevent the error being displayed.
+                  );          
+              }; // End of for loop
+              thumbnailHeight();
+              // Set up the click handler for the buttons (have to do this here to ensure it is done AFTER the creation of the divs!)
+              $( ".add_all" ).click(function() {
+                getAlbumPhotos($(this).parent().attr("id"));
+              });  
+
+              $( ".browse" ).click(function() {
+                $('.loading_stuff').fadeIn(0);
+                displayPhotos($(this).parent().attr("id"), $(this).parent().attr("data-name"));
+                
               });
-              data[i]['cover'] = pictureURL.responseText;
-              // build album add and browse buttons
-              $('.fb_albums_row').append(
-                "<div class='col-lg-2 col-sm-3 col-xs-6'>" +
-                "<p>" + data[i]['name'] + " (" + data[i]['count'] + ")</p>" +
-                "<div class='thumbnail img-responsive'>" +
-                "<div class='mf_thumbnail' style='background-image: url(" + data[i]['cover'] + ")'><div class='mf_thumb_buttons' id='" + data[i]['id'] +"' data-name='"+ data[i]['name'] +"'><button class='btn btn-default btn-primary browse'><span class='glyphicon glyphicon-search'></span> Browse</button><br/><button class='btn btn-default btn-success add_all'><span class='glyphicon glyphicon-plus'></span> Add all</button></div></div></div></div>"
-                // TODO Sometimes, FB returns an album with no cover photo - if this is the case, then we need to substitute the last (or first?) photo in the album to prevent the error being displayed.
-                );          
-            }; // End of for loop
-            thumbnailHeight();
-            // Set up the click handler for the buttons (have to do this here to ensure it is done AFTER the creation of the divs!)
-            $( ".add_all" ).click(function() {
-              getAlbumPhotos($(this).parent().attr("id"));
-            });  
-
-            $( ".browse" ).click(function() {
-              $('.loading_stuff').fadeIn(0);
-              displayPhotos($(this).parent().attr("id"), $(this).parent().attr("data-name"));
-              
-            });
-
-    } // Close success callback
-  }); // Close Ajax call
+      } // Close success callback
+    }); // Close Ajax call
+  } else {
+    $('.loading_stuff').hide();
+    $('.fb_friends').hide();
+    $('#my_albums_header').hide();
+  } // End If user is on Facebook
 
   $( '#show_music' ).click(function() {
     // If there are no music video results already, go and and get popular music videos from YouTube when the user clicks on the music pill.

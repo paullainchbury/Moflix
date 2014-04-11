@@ -47,7 +47,10 @@
               </form>
             </li>
           <% if current_user %>
-            <li><a>Signed in <% if current_user.name %> as <%= current_user.name %></a><% end %></li>
+            <li><a>Signed in 
+              <% if current_user.name != nil %> 
+                as <%= current_user.name %>
+              <% end %></a></li>
             <li><a href="<%= logout_path %>">Logout</a></li>
           <% else %>
             <li><a href="<%= login_path %>">Login</a></li>

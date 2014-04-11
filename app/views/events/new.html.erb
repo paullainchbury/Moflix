@@ -7,7 +7,7 @@
       <ul class="nav nav-pills mf-steps">
         <li class="active"><a href="#" id="show_photos">1. Photos</a></li>
         <li><a href="#" id="show_music">2. Music</a></li>
-        <li><a href="#" id="publish_btn">3. Publish!</a></li>
+        <li id="publish" class="disabled"><a href="#" id="publish_btn">3. Publish!</a></li>
       </ul>
     </div>
     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -290,6 +290,7 @@ $(function() {
       + result[0]['source']
       +"'></li>"
     );
+    $('#publish').removeClass("disabled");
     addAlbumPhotos(result[0]);
   });
 
@@ -500,14 +501,16 @@ $(function() {
   })
 
   $('#publish_btn').click(function() {
-    $('#show_music').parent().removeClass( "active" );
-    $('#show_photos').parent().removeClass( "active" );
-    $('#publish_btn').parent().addClass( "active" );
-    $('#music_container').slideUp( "slow");
-    $('#photographs').slideUp( "slow");
-    $('#publish_container').slideDown( "slow" );
-    $('.navbar-fixed-bottom').animate({bottom:'-150px'}, {queue: false, duration: 1500});
-    displayEditThumbs();
+    if($('#publish').attr('class') != "disabled") {
+      $('#show_music').parent().removeClass( "active" );
+      $('#show_photos').parent().removeClass( "active" );
+      $('#publish_btn').parent().addClass( "active" );
+      $('#music_container').slideUp( "slow");
+      $('#photographs').slideUp( "slow");
+      $('#publish_container').slideDown( "slow" );
+      $('.navbar-fixed-bottom').animate({bottom:'-150px'}, {queue: false, duration: 1500});
+      displayEditThumbs();
+    }
     return false;
   })
 
@@ -695,6 +698,7 @@ $(function() {
             );
             addAlbumPhotos(photo);
           }; // End for loop
+          $('#publish').removeClass("disabled");
           updateStatsPhotos();
 
       } //End success callback
@@ -772,6 +776,7 @@ $(function() {
               + result[0]['source']
               +"'></li>"
             );
+            $('#publish').removeClass("disabled");
             addAlbumPhotos(result[0]);
             updateStatsPhotos();
           });
@@ -880,27 +885,6 @@ function imageListWidth() {
 function scrollToEnd() {
   $('#thumbscontainer').scrollLeft($('.imagelist').outerWidth());
 };
-
-// This function is for dev only (until FB works on iphone)
-$( "#add_more" ).click(function() {
-  var photo = new Object;
-      photo.id = "none";
-      photo.name = "This is the test one";
-      photo.height = 720;
-      photo.width = 960;
-      photo.source = "https://scontent-b-lhr.xx.fbcdn.net/hphotos-prn1/t1.0-9/1017707_10153948172475503_312887545_n.jpg";
-      photo.created = "2013-11-01T11:57:48+0000";
-      photo.from = "Moflix Test";
-      $('#thumbscontainer').find('p').remove();
-      $('.imagelist').append(
-        "<li class='thumbimage'><img id='tnimage1' src='"
-        + photo.source
-        +"'></li>"
-      );
-      imageListWidth();
-      scrollToEnd();
-      moflix.photos.push(photo);
-});
 
 </script>
 

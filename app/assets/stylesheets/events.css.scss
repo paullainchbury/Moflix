@@ -136,6 +136,12 @@ html{
   margin-bottom: 60px;
 }
 
+@media(max-width:767px){
+  .mf-steps li {
+    margin-right: 2px;
+  }
+}
+
 #sortable { list-style-type: none; margin: 0; padding: 0; max-width: 100%; }
 #sortable li { margin: 3px 3px 3px 0; float: left; width: 100px; height: 100px; font-size: 4em; text-align: center; background-color: pink; cursor:pointer; position: relative;}
 

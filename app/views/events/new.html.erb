@@ -7,7 +7,7 @@
       <ul class="nav nav-pills mf-steps">
         <li class="active"><a href="#" id="show_photos">1. Photos</a></li>
         <li><a href="#" id="show_music">2. Music</a></li>
-        <li id="publish" class="disabled"><a href="#" id="publish_btn">3. Publish</a></li>
+        <li id="publish" class="disabled"><a href="#" id="publish_btn">3. Review</a></li>
       </ul>
     </div>
     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -827,11 +827,11 @@ $(function() {
     sortOrder();
     moflix.username = "<%= current_user.name %>";
     moflix.userid = "<%= current_user.id %>";
-    if (true) //$('#event_title').val() == ""
+    if ($('#moflix-title').val() == "")
     {
       moflix.title = "A moflix by "+ moflix.username;
     } else {
-      moflix.title = "Something else" //$('#event_title').val();
+      moflix.title = $('#moflix-title').val() == "";
     }
 
     $.ajax({

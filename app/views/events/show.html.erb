@@ -355,7 +355,7 @@ background: black;
                      data-final-top="310" 
                      data-duration="0.5" 
                      data-fade-start="0" 
-                     data-delay="<%= @startDelay %>">
+                     data-delay="<%= @startDelay+2 %>">
                       <div class="video_end_section">
                         <a href="" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-share-alt"></span> Share</a>
 
@@ -428,11 +428,11 @@ background: black;
                         clearInterval(videoVolume);
                     } 
                     player.setVolume(player.getVolume()-volumeDecrement)
-                    console.log(player.getVolume());
+                    // console.log(player.getVolume());
                  },
                  150
             );
-            console.log(player.getVolume());
+            // console.log(player.getVolume());
 
           }
         }
@@ -446,17 +446,13 @@ background: black;
 <script>
     $(function() {
         // As we're sliding out the menu bar, let's make a more subtle Moflix logo appear in it's place
-
         $('.logo_to_fade').css('display', 'none');
-
         fadeBgLogoOut = function() {
             $( ".logo_to_fade" ).fadeOut( 2000 );
         };
-
         fadeBgLogoIn = function() {
             $( ".logo_to_fade" ).fadeIn( 3000 );
         };
-
         // Slide out the menu bar when playing a slideshow
         var n = 0
         var startTimer = setInterval(
@@ -473,11 +469,11 @@ background: black;
 
         // Listen for a change in the position of the final slide and slide the menu bar back in.
         var starting_position = $('.final_div').position().top;
-        console.log(starting_position)
         var timer = setInterval(
             function(){ 
-              console.log(starting_position);
-                if (starting_position != $('.final_div').position().top) {
+              console.log($('.final_div').position().top);
+                // if (starting_position != $('.final_div').position().top) {
+                  if ($('.final_div').position().top > 1) {
                     $('.navbar').animate({top:'0px'}, {queue: false, duration: 1500});
                     fadeBgLogoOut();
                     stopVideo();

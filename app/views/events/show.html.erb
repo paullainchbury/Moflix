@@ -20,28 +20,6 @@ background: black;
   height: 150px;
 }
 
-/*@media(max-width:767px){
-  .profile_pic {
-    border: 2px solid #fff;
-    width: 550px;
-    height: 550px;
-  }
-}
-@media(min-width:992px){
-  .profile_pic {
-    border: 3px solid #fff;
-    width: 300px;
-    height: 300px;
-  }
-}
-@media(min-width:1200px){
-  .profile_pic {
-      border: 3px solid #fff;
-      width: 230px;
-      height: 230px;
-    }
-}*/
-
 .mf-caption {
   font-size: 2.2em;
   background:rgba(255,255,255, 0.8);
@@ -52,7 +30,6 @@ background: black;
   color: black;
   width: 30%;
   margin: auto;
-
 }
 
 .mf-author {
@@ -117,7 +94,6 @@ background: black;
   top:0;
   left:0;
   -webkit-filter: blur(5px);
-  /*background: url("https://scontent-b-lhr.xx.fbcdn.net/hphotos-prn1/t1.0-9/301220_10150789914725093_8361216_n.jpg");*/
   background-size:cover;
 }
 
@@ -178,8 +154,7 @@ background: black;
 
                   <% slideNumber = 1 %>
                   <% angleOptions = ["clockwise", "anti-clockwise"] %>
-                  <% intialZoomOptions = [0.4, 0.6, 0.8, 1.0, 1.2] %>
-                  <% finalZoomOptions = [0.4, 0.6, 0.8, 1.0, 1.2] # could change this to be a multiple of intial? %>
+                  <% zoomOptions = [0.4, 0.6, 0.8, 1.0, 1.2] %>
                   <% @event.images.reverse.each do |image| %>
                     <% screenTime = 0 %>
 
@@ -195,10 +170,11 @@ background: black;
                       <% screenTime = 6 %>
                     <% end %>
 
-
+                    <% initialZoom = zoomOptions.sample %>
+                    <% finalZoom = zoomOptions.select{|x| x!=initialZoom}.sample %>
                     <!-- Start of picture <%= slideNumber %> -->
 
-                      <li data-text-id="#magic_slider_photoText<%= slideNumber %>" data-initialZoom="<%= intialZoomOptions.sample %>" data-finalZoom="<%= finalZoomOptions.sample %>" data-duration="<%= screenTime %>" data-autoPlay="<%= screenTime %>"><img src="<%= image.source %>" width="<%= image.width %>" height="<%= image.height %>" class="title_picture polaroid <%= angleOptions.sample %>"/></li>
+                      <li data-text-id="#magic_slider_photoText<%= slideNumber %>" data-initialZoom="<%= initialZoom %>" data-finalZoom="<%= finalZoom %>" data-duration="<%= screenTime %>" data-autoPlay="<%= screenTime %>"><img src="<%= image.source %>" width="<%= image.width %>" height="<%= image.height %>" class="title_picture polaroid <%= angleOptions.sample %>"/></li>
 
                     <!-- End of picture <%= slideNumber %> -->
 

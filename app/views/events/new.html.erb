@@ -48,6 +48,11 @@
     <div id="FB_albums_container">
       <div class="search_albums_breadcrumbs">
         <ol class="breadcrumb albums_breadcrumb">
+          <% if current_user.facebook_token == nil %>
+            <a href="" class="btn btn-block btn-social btn-facebook" style="display: inline-block;"><i class="fa fa-facebook"></i>Get Facebook photos</a>
+          <% else %>
+            <a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a> 
+          <% end %>
           <a href="#" class="btn btn-default btn-primary" id="my_album"><span class="glyphicon glyphicon-arrow-left"></span> Back to My Albums</a>
           <div class="input-group input-group-lg col-lg-6 col-sm-6 col-xs-12 pull-right">
             <input type="text" class="form-control fb_friends" placeholder="Find friends albums">
@@ -118,6 +123,7 @@ $(function() {
   $( "#sortable" ).disableSelection();
   // Hide the 'Back to My Albums' button as we start with a view of the user's albums
   $('.albums_breadcrumb').find('.btn').fadeOut(0);
+  $('.albums_breadcrumb').find('.btn-facebook').fadeIn(0);
   $('#instagram_container').fadeOut(0);
   $('#my_instagram').fadeOut(0);
   $('.navbar-btn').fadeOut(0);

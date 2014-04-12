@@ -209,7 +209,6 @@ $(function() {
     } else {
       userInstagramUid = "<%= current_user.instagram_uid %>";
     }
-    console.log(userInstagramUid);
     return userInstagramUid;
   }
 
@@ -226,7 +225,6 @@ $(function() {
           dataType: "jsonp",
           crossDomain: true,
           success: function(data){
-            // console.log(data);
             if (source == "search") {
               displayInstagramPhotos(data, "search");
             }
@@ -289,7 +287,6 @@ $(function() {
           else {
             getInstagramPhotos($(this).attr('data-url'));
           }
-          // console.log($(this).attr('data-url'));
           ev.preventDefault;
           return false;
         });
@@ -313,7 +310,6 @@ $(function() {
 
   
   $(document).on('click', '.trash_it', function(){ 
-    console.log(moflix.photos.length);
     var id = $(this).parent().attr("id").toString();
     // Need to remove the photo from the li on the sortable page
     var liToRemove = $('#sortable').find("#" + id);
@@ -356,8 +352,6 @@ $(function() {
         url: '/fb_friends'
         // filter: function (parsedResponse) {
         //         // parsedResponse is the array returned from your backend
-        //         console.log($.parseJSON(parsedResponse));
-
         //         // do whatever processing you need here
         //         //return parsedResponse;
         //     }
@@ -543,7 +537,6 @@ $(function() {
       $('#sortable').empty();
       // Append each item to the sortable ul
       for (var i=0;i<moflix.photos.length;i++) {
-        // console.log(moflix.photos[i]);
         $('#sortable').append("<li class='ui-state-default' id='" + moflix.photos[i]['id'] + "'><img src='" + moflix.photos[i]['source'] + "' class='cropped'/><div class='trash_it'><i class='fa fa-trash-o'></i></div></li>");
       }
     }
@@ -855,7 +848,7 @@ $(function() {
     {
       moflix.title = "A moflix by "+ moflix.username;
     } else {
-      moflix.title = $('#moflix-title').val() == "";
+      moflix.title = $('#moflix-title').val();
     }
 
     $.ajax({

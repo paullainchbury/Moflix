@@ -160,7 +160,12 @@ $(function() {
     $('li#instagram_photos').addClass( "active" );
     $('#instagram_container').fadeIn(0);
     // Only if the current user has an Instagram login
-    userInstagramUid = "<%= current_user.instagram_uid %>";
+    var userProvider = "<%= current_user.provider %>";
+    if (userProvider == "instagram") {
+      userInstagramUid = "<%= current_user.uid %>";
+    } else {
+      userInstagramUid = "<%= current_user.instagram_uid %>";
+    }
     if (userInstagramUid != "") {
       // Make the Ajax call to instagram (if we haven't already done so)
       if ($('.instagram_contents').children().length == 0) {

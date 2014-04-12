@@ -131,7 +131,6 @@ $(function() {
 
   $('.instagram_search').bind("enterKey",function(e){
     $('.instagram_search_contents').empty();
-    console.log("You want to search instagram for " + $('.instagram_search').val());
     searchInstagram($('.instagram_search').val());
     $('.instagram_contents').slideUp( "slow");
     $('#my_instagram').fadeIn(0);
@@ -160,13 +159,7 @@ $(function() {
     $('li#instagram_photos').addClass( "active" );
     $('#instagram_container').fadeIn(0);
     // Only if the current user has an Instagram login
-    var userProvider = "<%= current_user.provider %>";
-    if (userProvider == "instagram") {
-      userInstagramUid = "<%= current_user.uid %>";
-    } else {
-      userInstagramUid = "<%= current_user.instagram_uid %>";
-    }
-    console.log(userInstagramUid);
+    var userInstagramUid = userInstagramId();
     if (userInstagramUid != "") {
       // Make the Ajax call to instagram (if we haven't already done so)
       if ($('.instagram_contents').children().length == 0) {
@@ -195,7 +188,6 @@ $(function() {
           crossDomain: true,
           success: function(data){
             $('.instagram_search_contents').append("<div class='container'><h3>Instagram results for \"" + searchTerm + "\"</h3></div>");
-            console.log(data);
             displayInstagramPhotos(data, "search");
           }
       });
@@ -210,9 +202,19 @@ $(function() {
     }
   }
 
-  function getInstagramPhotos(url, source) {
-    userInstagramUid = "<%= current_user.instagram_uid %>";
+  function userInstagramId() {
+    var userProvider = "<%= current_user.provider %>";
+    if (userProvider == "instagram") {
+      userInstagramUid = "<%= current_user.uid %>";
+    } else {
+      userInstagramUid = "<%= current_user.instagram_uid %>";
+    }
     console.log(userInstagramUid);
+    return userInstagramUid;
+  }
+
+  function getInstagramPhotos(url, source) {
+    userInstagramUid = userInstagramId();
     userInstagramAccessToken = "<%= current_user.instagram_token %>"
     if ((url == undefined) && (source == undefined)) {
       var url = "https://api.instagram.com/v1/users/"+ userInstagramUid +"/media/recent?access_token="+userInstagramAccessToken;

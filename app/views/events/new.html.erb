@@ -307,6 +307,8 @@ $(function() {
     );
     $('#publish').removeClass("disabled");
     addAlbumPhotos(result[0]);
+    // TODO This is a CSS hack that I am puttin in because I don't have time to find out what is going wrong properly - need to come back and sort this out later.
+    $(this).css("color", "white");
   });
 
   

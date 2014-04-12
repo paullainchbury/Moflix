@@ -844,11 +844,11 @@ $(function() {
     sortOrder();
     moflix.username = "<%= current_user.name %>";
     moflix.userid = "<%= current_user.id %>";
-    if ($('#moflix-title').val() == "")
+    if ($('.moflix-title').val() == "")
     {
       moflix.title = "A moflix by "+ moflix.username;
     } else {
-      moflix.title = $('#moflix-title').val();
+      moflix.title = $('.moflix-title').val();
     }
 
     $.ajax({

@@ -166,6 +166,7 @@ $(function() {
     } else {
       userInstagramUid = "<%= current_user.instagram_uid %>";
     }
+    console.log(userInstagramUid);
     if (userInstagramUid != "") {
       // Make the Ajax call to instagram (if we haven't already done so)
       if ($('.instagram_contents').children().length == 0) {

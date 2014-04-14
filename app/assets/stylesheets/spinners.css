@@ -51,7 +51,7 @@
 
 .youtube-bounce {
   background-image:url("youtube_logo.jpg");
-  background-size: contain;
+  background-size: cover;
 }
 
 .moflix-bounce {

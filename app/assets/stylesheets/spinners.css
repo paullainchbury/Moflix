@@ -49,6 +49,14 @@
   }
 }
 
+.youtube_spinner {
+  background-image:url("youtube_logo.jpg");
+}
+
+.publish_spinner {
+  background-image:url("moflix_spinner.png");
+}
+
 
 
 

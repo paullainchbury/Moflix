@@ -386,7 +386,6 @@ background: black;
         $('.btn-share').click(function(ev) {
           ev.preventDefault();
           var id = "<%= @event.id %>";
-          alert("ok, you wanna share moflix id " + id);
           $.ajax({
             type: "POST",
             url: "/fb_share",

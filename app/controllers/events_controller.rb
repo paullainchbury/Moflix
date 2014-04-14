@@ -146,7 +146,7 @@ class EventsController < ApplicationController
 
   def fb_share
     moflix = Event.find(params['id'])
-    moflix.username = User.find(moflix.events_users.first.id).name
+    # moflix.username = User.find(moflix.events_users.first.id).name
     fb_id = current_user.facebook_details.put_wall_post("Check out this moflix!", {:link => request.referrer})
     respond_to do |format|
       format.json { render json: moflix }

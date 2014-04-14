@@ -84,10 +84,10 @@
         </ol>
     </div>
     <div class="youtube_loading">
-      <div class="spinner">
+      <div class="spinner youtube_spinner">
         <!-- TODO Need to change the fb logo to yt here -->
-        <div class="double-bounce1"></div>
-        <div class="double-bounce2"></div>
+        <div class="double-bounce1 youtube-bounce"></div>
+        <div class="double-bounce2 youtube-bounce"></div>
       </div>
       <div id="youtube_loading_text">Loading YouTube...</div>
     </div>
@@ -96,6 +96,15 @@
       <div id="youtube_results"></div>
     </div>
   </div> <!-- End of music container -->
+
+  <div class="publish_loading">
+    <div class="spinner publish_spinner">
+      <!-- TODO Need to change the fb logo to moflix here -->
+      <div class="double-bounce1 moflix-bounce"></div>
+      <div class="double-bounce2 moflix-bounce"></div>
+    </div>
+    <div id="moflix_loading_text">Making your <span class="moflix">moflix</span>...</div>
+  </div>
 
   <div id ="publish_container">
     <div id="publish_options">
@@ -842,6 +851,8 @@ $(function() {
 
 // Creating the event and posting to rails
   $( "#done_button" ).click(function() {
+    $('#publish_container').fadeOut(0);
+    $('.publish_loading').css("display", "block");
     sortOrder();
     moflix.username = "<%= current_user.name %>";
     moflix.userid = "<%= current_user.id %>";
@@ -863,7 +874,8 @@ $(function() {
              "event":moflix
              },
       success: function(data){
-        alert("Moflix created")
+        $('.publish_spinner').css("display", "none");
+        $('#moflix_loading_text').html("OK, your <span class='moflix'>moflix</span> is done. <a href='" + window.location.origin + "/events/" + data.id + "'>Take a look</a>");
       }
     }); // end of AJAX request
   }) //End click function

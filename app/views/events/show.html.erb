@@ -383,7 +383,22 @@ background: black;
         // Set up share button click handler
         
         $('.btn-share').click(function() {
-          alert("ok, you wanna share");
+          var id = "<%= @event.id %>";
+          alert("ok, you wanna share moflix id " + id);
+          $.ajax({
+            type: "POST",
+            url: "/fb_share",
+            beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            },
+            dataType: "json",
+            data: {
+                   "id":id
+                   },
+            success: function(data){
+              alert("Thanks for sharing the moflix love!");
+            }
+          }); // end of AJAX request
         });
 
     }); // Close page load function

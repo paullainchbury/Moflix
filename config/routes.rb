@@ -18,6 +18,7 @@ Momentz::Application.routes.draw do
   match "dev" => "events#anothershow"
   match "fb_friends" => "users#fb_friends"
   match "fb_friends_albums" => "users#fb_friends_albums"
+  match "fb_share" => "events#fb_share"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

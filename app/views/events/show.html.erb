@@ -428,11 +428,9 @@ background: black;
                         clearInterval(videoVolume);
                     } 
                     player.setVolume(player.getVolume()-volumeDecrement)
-                    // console.log(player.getVolume());
                  },
                  150
             );
-            // console.log(player.getVolume());
 
           }
         }
@@ -471,8 +469,6 @@ background: black;
         var starting_position = $('.final_div').position().top;
         var timer = setInterval(
             function(){ 
-              console.log($('.final_div').position().top);
-                // if (starting_position != $('.final_div').position().top) {
                   if ($('.final_div').position().top > 1) {
                     $('.navbar').animate({top:'0px'}, {queue: false, duration: 1500});
                     fadeBgLogoOut();

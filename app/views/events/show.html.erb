@@ -382,7 +382,8 @@ background: black;
 
         // Set up share button click handler
         
-        $('.btn-share').click(function() {
+        $('.btn-share').click(function(ev) {
+          ev.preventDefault();
           var id = "<%= @event.id %>";
           alert("ok, you wanna share moflix id " + id);
           $.ajax({

@@ -145,9 +145,11 @@ class EventsController < ApplicationController
   end
 
   def fb_share
-    binding.pry
     moflix_id = params['id']
-    current_user.facebook_details.put_wall_post("Check out this moflix!", {:link => request.original_url})
+    fb_id = current_user.facebook_details.put_wall_post("Check out this moflix!", {:link => request.referrer})
+    respond_to do |format|
+      format.json { render json: fb_id }
+    end
   end
 
 end

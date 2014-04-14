@@ -95,6 +95,10 @@ fieldset[disabled] .mf_btn.active {
   font-size: 28px;
 }
 
+.navbar-brand:hover, .navbar-brand:focus {
+  color: white;
+}
+
 .navbar-static-top {
   border-width: 0;
 }

@@ -19,6 +19,16 @@
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
+  <% if request.path_parameters[:controller] == "events" && request.path_parameters[:action] == "show" %>
+    <% event_for_FB = Event.find(request.path_parameters[:id]) %>
+    <meta property="og:title" content="<%= event_for_FB.title %>" />
+    <meta property="og:site_name" content="Moflix"/>
+    <meta property="og:url" content="<%= request.original_url %>" />
+    <meta property="fb:app_id" content="212771185582572" />
+    <meta property="og:image" content="<%= event_for_FB.images.reverse.first.source %>" />
+  <% end %>
+
   
 </head>
 <body>
